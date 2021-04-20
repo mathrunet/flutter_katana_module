@@ -59,4 +59,39 @@ abstract class ModuleAdapter<
 
   /// Return `true` If authentication is enabled.
   bool get enabledAuth;
+
+  /// True if you are signed in.
+  bool get isSignedIn;
+
+  /// You can get the UID after authentication is completed.
+  ///
+  /// Null is returned if authentication is not completed.
+  String get uid;
+
+  /// You can get the Email after authentication is completed.
+  ///
+  /// Null is returned if authentication is not completed.
+  String get email;
+
+  /// You can get the status that user email is verified
+  /// after authentication is completed.
+  bool get isVerified;
+
+  /// You can get the PhoneNumber after authentication is completed.
+  ///
+  /// Null is returned if authentication is not completed.
+  String get phoneNumber;
+
+  /// You can get the PhotoURL after authentication is completed.
+  ///
+  /// Null is returned if authentication is not completed.
+  String get photoURL;
+
+  /// You can get the Display Name after authentication is completed.
+  ///
+  /// Null is returned if authentication is not completed.
+  String get name;
+
+  /// For anonymous logged in users, True.
+  bool get isAnonymously;
 }
