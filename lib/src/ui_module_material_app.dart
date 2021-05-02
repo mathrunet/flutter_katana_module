@@ -145,7 +145,7 @@ class ModuleAdapterScope extends InheritedWidget {
   /// The framework distinguishes these cases by calling this function with the widget that previously occupied this location in the tree as an argument.
   /// The given widget is guaranteed to have the same [runtimeType] as this object.
   @override
-  bool updateShouldNotify(FlavorScope oldWidget) {
+  bool updateShouldNotify(ModuleAdapterScope oldWidget) {
     return true;
   }
 }

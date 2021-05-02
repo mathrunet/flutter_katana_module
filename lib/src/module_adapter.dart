@@ -8,34 +8,32 @@ part of katana_module;
 /// [ModuleAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class ModuleAdapter<
-    TDocument extends DynamicDocumentModel,
-    TCollection extends DynamicCollectionModel<DynamicDocumentModel>,
-    DocumentProvider extends ModelProvider<TDocument>,
-    CollectionProvider extends ModelProvider<TCollection>> {
+abstract class ModuleAdapter {
   const ModuleAdapter();
 
   /// Gets the provider of the [Document].
   ///
   /// In [path], enter the path where you want to retrieve the document.
-  T documentProvider<T extends DocumentProvider>(String path);
+  ModelProvider<T> documentProvider<T extends DynamicDocumentModel>(
+      String path);
 
   /// Performs the process of loading a document.
   ///
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
-  TDocument loadDocument(TDocument document);
+  T loadDocument<T extends DynamicDocumentModel>(T document);
 
   /// Gets the provider of the [Collection].
   ///
   /// In [path], enter the path where you want to retrieve the collection.
-  T collectionProvider<T extends CollectionProvider>(String path);
+  ModelProvider<T> collectionProvider<T extends DynamicCollectionModel>(
+      String path);
 
   /// Performs the process of loading a collection.
   ///
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
-  TCollection loadCollection(TCollection collection);
+  T loadCollection<T extends DynamicCollectionModel>(T collection);
 
   /// Used to restore your login information.
   Future<void> tryRestoreAuth();
@@ -66,7 +64,7 @@ abstract class ModuleAdapter<
   /// You can get the UID after authentication is completed.
   ///
   /// Null is returned if authentication is not completed.
-  String get uid;
+  String get userId;
 
   /// You can get the Email after authentication is completed.
   ///
