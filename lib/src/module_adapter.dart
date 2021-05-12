@@ -35,6 +35,16 @@ abstract class ModuleAdapter {
   /// such as [loadOnce] or [listen].
   T loadCollection<T extends DynamicCollectionModel>(T collection);
 
+  /// Save the data in the document so that
+  /// you can use it after restarting the app.
+  Future<void> saveDocument<T extends DynamicDocumentModel>(T document);
+
+  /// Deletes information associated with a document.
+  Future<void> deleteDocument<T extends DynamicDocumentModel>(T document);
+
+  /// Upload your media.
+  Future<String> uploadMedia(String path);
+
   /// Used to restore your login information.
   Future<void> tryRestoreAuth();
 

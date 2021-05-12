@@ -36,6 +36,8 @@ class UIModuleMaterialApp extends StatelessWidget {
     this.maxTextScaleFactor = 1.2,
     this.moduleConfigs = const [],
     this.moduleAdapter,
+    this.platformAdapter,
+    this.roles = const [],
   }) : super(key: key);
 
   final String flavor;
@@ -70,72 +72,82 @@ class UIModuleMaterialApp extends StatelessWidget {
   final bool debugShowCheckedModeBanner;
   final WidgetTheme widgetTheme;
   final ModuleAdapter? moduleAdapter;
+  final PlatformAdapter? platformAdapter;
+  final List<RoleConfig> roles;
 
   @override
   Widget build(BuildContext context) {
     final moduleConfig = ModuleConfig._merge(moduleConfigs);
-    return ModuleAdapterScope(
-      adapter: moduleAdapter,
-      child: UIMaterialApp(
-        key: key,
-        widgetTheme: moduleConfig?.widgetTheme ?? widgetTheme,
-        flavor: flavor,
-        home: home,
-        navigatorKey: navigatorKey,
-        routes: routes.merge(moduleConfig?.routeSettings),
-        initialRoute: moduleConfig?.initialRoute ?? initialRoute,
-        navigatorObservers: navigatorObservers,
-        title: moduleConfig?.title ?? title,
-        onGenerateTitle: onGenerateTitle,
-        onUnknownRoute: moduleConfig?.unknownSettings ?? onUnknownRoute,
-        onBootRoute: moduleConfig?.bootSettings ?? onBootRoute,
-        color: color,
-        theme: moduleConfig?.themeColor ?? theme,
-        darkTheme: moduleConfig?.themeColor ?? darkTheme,
-        themeMode: themeMode,
-        locale: locale,
-        localizationsDelegates: localizationsDelegates,
-        localeListResolutionCallback: localeListResolutionCallback,
-        localeResolutionCallback: localeResolutionCallback,
-        supportedLocales: supportedLocales,
-        debugShowMaterialGrid: debugShowMaterialGrid,
-        showPerformanceOverlay: showPerformanceOverlay,
-        checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-        checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-        showSemanticsDebugger: showSemanticsDebugger,
-        builder: builder,
-        debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-        minTextScaleFactor: minTextScaleFactor,
-        maxTextScaleFactor: maxTextScaleFactor,
+    return AdapterScope(
+      moduleAdapter: moduleAdapter,
+      platformAdapter: platformAdapter,
+      child: RoleScope(
+        roles: roles,
+        child: UIMaterialApp(
+          key: key,
+          widgetTheme: moduleConfig?.widgetTheme ?? widgetTheme,
+          flavor: flavor,
+          home: home,
+          navigatorKey: navigatorKey,
+          routes: routes.merge(moduleConfig?.routeSettings),
+          initialRoute: moduleConfig?.initialRoute ?? initialRoute,
+          navigatorObservers: navigatorObservers,
+          title: moduleConfig?.title ?? title,
+          onGenerateTitle: onGenerateTitle,
+          onUnknownRoute: moduleConfig?.unknownSettings ?? onUnknownRoute,
+          onBootRoute: moduleConfig?.bootSettings ?? onBootRoute,
+          color: color,
+          theme: moduleConfig?.themeColor ?? theme,
+          darkTheme: moduleConfig?.themeColor ?? darkTheme,
+          themeMode: themeMode,
+          locale: locale,
+          localizationsDelegates: localizationsDelegates,
+          localeListResolutionCallback: localeListResolutionCallback,
+          localeResolutionCallback: localeResolutionCallback,
+          supportedLocales: supportedLocales,
+          debugShowMaterialGrid: debugShowMaterialGrid,
+          showPerformanceOverlay: showPerformanceOverlay,
+          checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+          checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+          showSemanticsDebugger: showSemanticsDebugger,
+          builder: builder,
+          debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+          minTextScaleFactor: minTextScaleFactor,
+          maxTextScaleFactor: maxTextScaleFactor,
+        ),
       ),
     );
   }
 }
 
-/// Widget to get the module adapter.
+/// Widget to get the adapter.
 ///
-/// You can get the widget with [ModuleAdapterScope.of(context)].
-class ModuleAdapterScope extends InheritedWidget {
-  /// Widget to get the module adapter.
+/// You can get the widget with [AdapterScope.of(context)].
+class AdapterScope extends InheritedWidget {
+  /// Widget to get the adapter.
   ///
-  /// You can get the widget with [ModuleAdapterScope.of(context)].
-  const ModuleAdapterScope({
+  /// You can get the widget with [AdapterScope.of(context)].
+  const AdapterScope({
     Key? key,
-    required this.adapter,
+    required this.moduleAdapter,
+    required this.platformAdapter,
     required Widget child,
   }) : super(key: key, child: child);
 
-  /// Get ModuleAdapterScope.
+  /// Get AdapterScope.
   ///
-  /// You can check the current ModuleAdapter setting.
-  static ModuleAdapterScope of(BuildContext context) {
+  /// You can check the current Adapter setting.
+  static AdapterScope of(BuildContext context) {
     return context
-        .getElementForInheritedWidgetOfExactType<ModuleAdapterScope>()!
-        .widget as ModuleAdapterScope;
+        .getElementForInheritedWidgetOfExactType<AdapterScope>()!
+        .widget as AdapterScope;
   }
 
-  /// Flavor.
-  final ModuleAdapter? adapter;
+  /// Module adapter.
+  final ModuleAdapter? moduleAdapter;
+
+  /// Platform adapter.
+  final PlatformAdapter? platformAdapter;
 
   /// Whether the framework should notify widgets that inherit from this widget.
   ///
@@ -145,7 +157,44 @@ class ModuleAdapterScope extends InheritedWidget {
   /// The framework distinguishes these cases by calling this function with the widget that previously occupied this location in the tree as an argument.
   /// The given widget is guaranteed to have the same [runtimeType] as this object.
   @override
-  bool updateShouldNotify(ModuleAdapterScope oldWidget) {
+  bool updateShouldNotify(AdapterScope oldWidget) {
+    return true;
+  }
+}
+
+/// Widget to get the roles.
+///
+/// You can get the widget with [RoleScope.of(context)].
+class RoleScope extends InheritedWidget {
+  /// Widget to get the roles.
+  ///
+  /// You can get the widget with [RoleScope.of(context)].
+  const RoleScope({
+    Key? key,
+    required this.roles,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  /// Get RoleScope.
+  ///
+  /// You can check the current RoleConfig setting.
+  static RoleScope of(BuildContext context) {
+    return context.getElementForInheritedWidgetOfExactType<RoleScope>()!.widget
+        as RoleScope;
+  }
+
+  /// Role config.
+  final List<RoleConfig> roles;
+
+  /// Whether the framework should notify widgets that inherit from this widget.
+  ///
+  /// When widget: widget, sometimes we need to rebuild the widgets that inherit from widget: widget,
+  /// if the data held by widget: widget, then we do not need to rebuild the widgets that inherited the data held by oldWidget.
+  ///
+  /// The framework distinguishes these cases by calling this function with the widget that previously occupied this location in the tree as an argument.
+  /// The given widget is guaranteed to have the same [runtimeType] as this object.
+  @override
+  bool updateShouldNotify(RoleScope oldWidget) {
     return true;
   }
 }

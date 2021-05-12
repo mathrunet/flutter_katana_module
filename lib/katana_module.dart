@@ -23,3 +23,5 @@ part "src/ui_module_material_app.dart";
 part "src/module_config.dart";
 part "src/extensions.dart";
 part "src/module_adapter.dart";
+part "src/platform_adapter.dart";
+part "src/role_config.dart";
