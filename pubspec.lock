@@ -141,7 +141,7 @@ packages:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.14.1"
+    version: "0.14.2"
   hooks_riverpod:
     dependency: "direct main"
     description:
@@ -190,7 +190,7 @@ packages:
       name: katana
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.1+23"
+    version: "0.8.1+29"
   katana_routing:
     dependency: "direct main"
     description:
@@ -218,7 +218,7 @@ packages:
       name: model_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.1+20"
+    version: "0.8.1+21"
   path:
     dependency: transitive
     description:

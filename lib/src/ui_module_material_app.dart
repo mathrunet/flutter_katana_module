@@ -89,7 +89,7 @@ class UIModuleMaterialApp extends StatelessWidget {
           flavor: flavor,
           home: home,
           navigatorKey: navigatorKey,
-          routes: routes.merge(moduleConfig?.routeSettings),
+          routes: moduleConfig?.routeSettings?.merge(routes) ?? routes,
           initialRoute: moduleConfig?.initialRoute ?? initialRoute,
           navigatorObservers: navigatorObservers,
           title: moduleConfig?.title ?? title,
