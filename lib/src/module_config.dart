@@ -17,6 +17,7 @@ abstract class ModuleConfig {
     this.initialRoute,
     this.bootSettings,
     this.unknownSettings,
+    this.permission = const PermissionConfig(),
   });
 
   static ModuleConfig? _merge(List<ModuleConfig> moduleConfigs) {
@@ -80,10 +81,14 @@ abstract class ModuleConfig {
 
   /// Unknown page settings.
   final RouteConfig? unknownSettings;
+
+  /// Module's permission.
+  final PermissionConfig permission;
 }
 
+@immutable
 class _MergedModuleConfig extends ModuleConfig {
-  _MergedModuleConfig({
+  const _MergedModuleConfig({
     String? title,
     WidgetTheme? widgetTheme,
     ThemeColor? themeColor,
@@ -91,6 +96,7 @@ class _MergedModuleConfig extends ModuleConfig {
     String? initialRoute,
     RouteConfig? bootSettings,
     RouteConfig? unknownSettings,
+    PermissionConfig permission = const PermissionConfig(),
   }) : super(
           title: title,
           widgetTheme: widgetTheme,
@@ -99,5 +105,6 @@ class _MergedModuleConfig extends ModuleConfig {
           initialRoute: initialRoute,
           bootSettings: bootSettings,
           unknownSettings: unknownSettings,
+          permission: permission,
         );
 }

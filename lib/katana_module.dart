@@ -25,3 +25,4 @@ part "src/extensions.dart";
 part "src/module_adapter.dart";
 part "src/platform_adapter.dart";
 part "src/role_config.dart";
+part 'src/permission_config.dart';
