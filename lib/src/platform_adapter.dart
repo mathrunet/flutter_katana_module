@@ -26,3 +26,33 @@ enum PlatformMediaType {
   /// Video.
   video,
 }
+
+/// Obtain [PlatformMediaType] from the extension of [path].
+PlatformMediaType getPlatformMediaType(String path) {
+  final uri = Uri.tryParse(path);
+  if (uri == null) {
+    return PlatformMediaType.all;
+  }
+  final ext = uri.path.split(".").lastOrNull;
+  if (ext == null) {
+    return PlatformMediaType.all;
+  }
+  switch (ext) {
+    case "mp4":
+    case "ogv":
+    case "webm":
+    case "avi":
+    case "mov":
+    case "mpeg":
+      return PlatformMediaType.video;
+    case "jpg":
+    case "jpeg":
+    case "png":
+    case "bmp":
+    case "tif":
+    case "tiff":
+    case "gif":
+      return PlatformMediaType.image;
+  }
+  return PlatformMediaType.all;
+}
