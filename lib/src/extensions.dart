@@ -15,6 +15,11 @@ extension ModuleBuildContextExtensions on BuildContext {
   List<RoleConfig> get roles {
     return RoleScope.of(this).roles;
   }
+
+  /// Get the app module config.
+  AppModule? get app {
+    return AppScope.of(this).app;
+  }
 }
 
 extension RoleConfigExtension on RoleConfig {

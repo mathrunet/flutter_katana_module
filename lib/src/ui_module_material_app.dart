@@ -37,6 +37,7 @@ class UIModuleMaterialApp extends StatelessWidget {
     this.moduleConfigs = const [],
     this.moduleAdapter,
     this.platformAdapter,
+    this.appModule,
     this.roles = const [],
   }) : super(key: key);
 
@@ -58,6 +59,7 @@ class UIModuleMaterialApp extends StatelessWidget {
   final ThemeColor? theme;
   final ThemeColor? darkTheme;
   final ThemeMode themeMode;
+  final AppModule? appModule;
   final Locale? locale;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Locale? Function(List<Locale>?, Iterable<Locale>)?
@@ -78,42 +80,45 @@ class UIModuleMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final moduleConfig = ModuleConfig._merge(moduleConfigs);
-    return AdapterScope(
-      moduleAdapter: moduleAdapter,
-      platformAdapter: platformAdapter,
-      child: RoleScope(
-        roles: roles,
-        child: UIMaterialApp(
-          key: key,
-          widgetTheme: moduleConfig?.widgetTheme ?? widgetTheme,
-          flavor: flavor,
-          home: home,
-          navigatorKey: navigatorKey,
-          routes: moduleConfig?.routeSettings?.merge(routes) ?? routes,
-          initialRoute: moduleConfig?.initialRoute ?? initialRoute,
-          navigatorObservers: navigatorObservers,
-          title: moduleConfig?.title ?? title,
-          onGenerateTitle: onGenerateTitle,
-          onUnknownRoute: moduleConfig?.unknownSettings ?? onUnknownRoute,
-          onBootRoute: moduleConfig?.bootSettings ?? onBootRoute,
-          color: color,
-          theme: moduleConfig?.themeColor ?? theme,
-          darkTheme: moduleConfig?.themeColor ?? darkTheme,
-          themeMode: themeMode,
-          locale: locale,
-          localizationsDelegates: localizationsDelegates,
-          localeListResolutionCallback: localeListResolutionCallback,
-          localeResolutionCallback: localeResolutionCallback,
-          supportedLocales: supportedLocales,
-          debugShowMaterialGrid: debugShowMaterialGrid,
-          showPerformanceOverlay: showPerformanceOverlay,
-          checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-          checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-          showSemanticsDebugger: showSemanticsDebugger,
-          builder: builder,
-          debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-          minTextScaleFactor: minTextScaleFactor,
-          maxTextScaleFactor: maxTextScaleFactor,
+    return AppScope(
+      app: appModule,
+      child: AdapterScope(
+        moduleAdapter: moduleAdapter,
+        platformAdapter: platformAdapter,
+        child: RoleScope(
+          roles: roles,
+          child: UIMaterialApp(
+            key: key,
+            widgetTheme: moduleConfig?.widgetTheme ?? widgetTheme,
+            flavor: flavor,
+            home: home,
+            navigatorKey: navigatorKey,
+            routes: moduleConfig?.routeSettings?.merge(routes) ?? routes,
+            initialRoute: moduleConfig?.initialRoute ?? initialRoute,
+            navigatorObservers: navigatorObservers,
+            title: appModule?.title ?? moduleConfig?.title ?? title,
+            onGenerateTitle: onGenerateTitle,
+            onUnknownRoute: moduleConfig?.unknownSettings ?? onUnknownRoute,
+            onBootRoute: moduleConfig?.bootSettings ?? onBootRoute,
+            color: color,
+            theme: moduleConfig?.themeColor ?? theme,
+            darkTheme: moduleConfig?.themeColor ?? darkTheme,
+            themeMode: themeMode,
+            locale: locale,
+            localizationsDelegates: localizationsDelegates,
+            localeListResolutionCallback: localeListResolutionCallback,
+            localeResolutionCallback: localeResolutionCallback,
+            supportedLocales: supportedLocales,
+            debugShowMaterialGrid: debugShowMaterialGrid,
+            showPerformanceOverlay: showPerformanceOverlay,
+            checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+            checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+            showSemanticsDebugger: showSemanticsDebugger,
+            builder: builder,
+            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            minTextScaleFactor: minTextScaleFactor,
+            maxTextScaleFactor: maxTextScaleFactor,
+          ),
         ),
       ),
     );
@@ -195,6 +200,43 @@ class RoleScope extends InheritedWidget {
   /// The given widget is guaranteed to have the same [runtimeType] as this object.
   @override
   bool updateShouldNotify(RoleScope oldWidget) {
+    return true;
+  }
+}
+
+/// Widget to get the app module.
+///
+/// You can get the widget with [AppScope.of(context)].
+class AppScope extends InheritedWidget {
+  /// Widget to get the app module.
+  ///
+  /// You can get the widget with [AppScope.of(context)].
+  const AppScope({
+    Key? key,
+    required this.app,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  /// Get AppScope.
+  ///
+  /// You can check the current App Module setting.
+  static AppScope of(BuildContext context) {
+    return context.getElementForInheritedWidgetOfExactType<AppScope>()!.widget
+        as AppScope;
+  }
+
+  /// App module.
+  final AppModule? app;
+
+  /// Whether the framework should notify widgets that inherit from this widget.
+  ///
+  /// When widget: widget, sometimes we need to rebuild the widgets that inherit from widget: widget,
+  /// if the data held by widget: widget, then we do not need to rebuild the widgets that inherited the data held by oldWidget.
+  ///
+  /// The framework distinguishes these cases by calling this function with the widget that previously occupied this location in the tree as an argument.
+  /// The given widget is guaranteed to have the same [runtimeType] as this object.
+  @override
+  bool updateShouldNotify(AppScope oldWidget) {
     return true;
   }
 }

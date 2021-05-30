@@ -19,6 +19,8 @@ import 'package:model_notifier/model_notifier.dart';
 export 'package:katana_routing/katana_routing.dart';
 export 'package:model_notifier/model_notifier.dart';
 
+part "src/app_module.dart";
+part "src/menu_config.dart";
 part "src/ui_module_material_app.dart";
 part "src/module_config.dart";
 part "src/extensions.dart";
