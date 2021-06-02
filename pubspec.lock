@@ -190,7 +190,7 @@ packages:
       name: katana
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.2"
+    version: "0.8.2+5"
   katana_routing:
     dependency: "direct main"
     description:
@@ -218,7 +218,7 @@ packages:
       name: model_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.1+22"
+    version: "0.8.2+1"
   path:
     dependency: transitive
     description:
@@ -454,7 +454,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   xdg_directories:
     dependency: transitive
     description:

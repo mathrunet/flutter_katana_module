@@ -8,39 +8,44 @@ part of katana_module;
 /// [ModuleAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class ModuleAdapter {
+abstract class ModuleAdapter<TDocument extends DynamicDocumentModel,
+    TCollection extends DynamicCollectionModel> {
   const ModuleAdapter();
 
   /// Gets the provider of the [Document].
   ///
   /// In [path], enter the path where you want to retrieve the document.
-  ModelProvider<T> documentProvider<T extends DynamicDocumentModel>(
-      String path);
+  ModelProvider<TDocument> documentProvider(String path);
 
   /// Performs the process of loading a document.
   ///
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
-  T loadDocument<T extends DynamicDocumentModel>(T document);
+  TDocument loadDocument(TDocument document);
 
   /// Gets the provider of the [Collection].
   ///
   /// In [path], enter the path where you want to retrieve the collection.
-  ModelProvider<T> collectionProvider<T extends DynamicCollectionModel>(
-      String path);
+  ModelProvider<TCollection> collectionProvider(String path);
 
   /// Performs the process of loading a collection.
   ///
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
-  T loadCollection<T extends DynamicCollectionModel>(T collection);
+  TCollection loadCollection(TCollection collection);
+
+  /// Retrieves a document from a [collection].
+  ///
+  /// By specifying [id], you can specify the ID of newly created document.
+  /// If not specified, [uuid] will be used.
+  TDocument createDocument(TCollection collection, [String? id]);
 
   /// Save the data in the document so that
   /// you can use it after restarting the app.
-  Future<void> saveDocument<T extends DynamicDocumentModel>(T document);
+  Future<void> saveDocument(TDocument document);
 
   /// Deletes information associated with a document.
-  Future<void> deleteDocument<T extends DynamicDocumentModel>(T document);
+  Future<void> deleteDocument(TDocument document);
 
   /// Upload your media.
   Future<String> uploadMedia(String path);
