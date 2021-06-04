@@ -1,11 +1,11 @@
 name: katana_module
 description: Package that defines a base class for modularization.
-version: 0.8.2+2
+version: 0.8.2+3
 homepage: https://mathru.net
 repository: https://github.com/mathrunet/flutter_katana_module
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.13.0-0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
