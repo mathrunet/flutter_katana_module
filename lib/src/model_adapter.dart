@@ -5,12 +5,12 @@ part of katana_module;
 /// Specify the Document class in [Document],
 /// the Collection class in [Collection], and the Provider for each.
 ///
-/// [ModuleAdapter] can switch the data
+/// [ModelAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class ModuleAdapter<TDocument extends DynamicDocumentModel,
-    TCollection extends DynamicCollectionModel> {
-  const ModuleAdapter();
+abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
+    TCollection extends DynamicCollectionModel> extends Module {
+  const ModelAdapter();
 
   /// Gets the provider of the [Document].
   ///

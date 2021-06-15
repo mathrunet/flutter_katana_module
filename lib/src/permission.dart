@@ -1,9 +1,9 @@
 part of katana_module;
 
 /// Set the permissions for each module.
-class PermissionConfig {
+class Permission {
   /// Set the permissions for each module.
-  const PermissionConfig({
+  const Permission({
     this.enabled = false,
     this.edit,
     this.watch,
@@ -53,5 +53,28 @@ class PermissionConfig {
       return true;
     }
     return delete.contains(role);
+  }
+
+  /// Convert the menu config from [DynamicMap].
+  static Permission? _fromMap(DynamicMap map) {
+    if (!map.containsKey("enabled")) {
+      return null;
+    }
+    return Permission(
+      enabled: map.get("enabled", false),
+      edit: map.get<List?>("edit", null)?.cast<String>(),
+      delete: map.get<List?>("delete", null)?.cast<String>(),
+      watch: map.get<List?>("watch", null)?.cast<String>(),
+    );
+  }
+
+  /// Convert the permission to [DynamicMap].
+  DynamicMap toMap() {
+    return <String, dynamic>{
+      "enabled": enabled,
+      if (edit != null) "edit": edit,
+      if (delete != null) "delete": delete,
+      if (watch != null) "watch": watch,
+    };
   }
 }

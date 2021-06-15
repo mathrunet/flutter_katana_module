@@ -34,11 +34,8 @@ class UIModuleMaterialApp extends StatelessWidget {
     this.debugShowCheckedModeBanner = true,
     this.minTextScaleFactor = 0.8,
     this.maxTextScaleFactor = 1.2,
-    this.moduleConfigs = const [],
-    this.moduleAdapter,
-    this.platformAdapter,
-    this.appModule,
-    this.roles = const [],
+    this.enableModules = const [],
+    this.availableModules = const [],
   }) : super(key: key);
 
   final String flavor;
@@ -54,12 +51,12 @@ class UIModuleMaterialApp extends StatelessWidget {
   final RouteFactory? onGenerateTitle;
   final RouteConfig? onUnknownRoute;
   final RouteConfig? onBootRoute;
-  final List<ModuleConfig> moduleConfigs;
+  final List<Module> enableModules;
+  final List<Module> availableModules;
   final Color? color;
   final ThemeColor? theme;
   final ThemeColor? darkTheme;
   final ThemeMode themeMode;
-  final AppModule? appModule;
   final Locale? locale;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Locale? Function(List<Locale>?, Iterable<Locale>)?
@@ -73,36 +70,38 @@ class UIModuleMaterialApp extends StatelessWidget {
   final bool showSemanticsDebugger;
   final bool debugShowCheckedModeBanner;
   final WidgetTheme widgetTheme;
-  final ModuleAdapter? moduleAdapter;
-  final PlatformAdapter? platformAdapter;
-  final List<RoleConfig> roles;
 
   @override
   Widget build(BuildContext context) {
-    final moduleConfig = ModuleConfig._merge(moduleConfigs);
+    Module.registerModules([
+      ...enableModules,
+      ...availableModules,
+    ]);
+    final appModule = enableModules.whereType<AppModule>().firstOrNull;
+    final moduleConfig = PageModule.merge(enableModules);
     return AppScope(
       app: appModule,
       child: AdapterScope(
-        moduleAdapter: moduleAdapter,
-        platformAdapter: platformAdapter,
+        modelAdapter: enableModules.whereType<ModelAdapter>().firstOrNull,
+        platformAdapter: enableModules.whereType<PlatformAdapter>().firstOrNull,
         child: RoleScope(
-          roles: roles,
+          roles: appModule?.roles ?? const [],
           child: UIMaterialApp(
             key: key,
-            widgetTheme: moduleConfig?.widgetTheme ?? widgetTheme,
+            widgetTheme: widgetTheme,
             flavor: flavor,
             home: home,
             navigatorKey: navigatorKey,
             routes: moduleConfig?.routeSettings?.merge(routes) ?? routes,
-            initialRoute: moduleConfig?.initialRoute ?? initialRoute,
+            initialRoute: appModule?.initialRoute ?? initialRoute,
             navigatorObservers: navigatorObservers,
             title: appModule?.title ?? moduleConfig?.title ?? title,
             onGenerateTitle: onGenerateTitle,
-            onUnknownRoute: moduleConfig?.unknownSettings ?? onUnknownRoute,
-            onBootRoute: moduleConfig?.bootSettings ?? onBootRoute,
+            onUnknownRoute: onUnknownRoute,
+            onBootRoute: onBootRoute,
             color: color,
-            theme: moduleConfig?.themeColor ?? theme,
-            darkTheme: moduleConfig?.themeColor ?? darkTheme,
+            theme: appModule?.themeColor ?? theme,
+            darkTheme: appModule?.themeColor ?? darkTheme,
             themeMode: themeMode,
             locale: locale,
             localizationsDelegates: localizationsDelegates,
@@ -134,7 +133,7 @@ class AdapterScope extends InheritedWidget {
   /// You can get the widget with [AdapterScope.of(context)].
   const AdapterScope({
     Key? key,
-    required this.moduleAdapter,
+    required this.modelAdapter,
     required this.platformAdapter,
     required Widget child,
   }) : super(key: key, child: child);
@@ -148,8 +147,8 @@ class AdapterScope extends InheritedWidget {
         .widget as AdapterScope;
   }
 
-  /// Module adapter.
-  final ModuleAdapter? moduleAdapter;
+  /// Model adapter.
+  final ModelAdapter? modelAdapter;
 
   /// Platform adapter.
   final PlatformAdapter? platformAdapter;

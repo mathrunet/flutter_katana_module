@@ -2,7 +2,7 @@ part of katana_module;
 
 /// Abstract class for creating adapters for platforms.
 @immutable
-abstract class PlatformAdapter {
+abstract class PlatformAdapter extends Module {
   const PlatformAdapter();
 
   /// Display the media dialog and get the data.

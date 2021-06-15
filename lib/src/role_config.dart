@@ -15,7 +15,7 @@ class RoleConfig {
     this.label,
     this.color,
     this.icon,
-    this.onTap,
+    this.path,
     this.permissions = const [],
   });
 
@@ -31,9 +31,35 @@ class RoleConfig {
   /// Color of roll.
   final Color? color;
 
-  /// The process when you tap the roll.
-  final VoidCallback? onTap;
+  /// The page path to go to when you tap the roll.
+  final String? path;
 
   /// Permissions for the role.
   final List<String> permissions;
+
+  static RoleConfig? _fromMap(DynamicMap map) {
+    if (!map.containsKey("id")) {
+      return null;
+    }
+    return RoleConfig(
+      id: map.get("id", uuid),
+      label: map.get<String?>("name", null),
+      icon: map.getAsMap("icon").toIconData(),
+      color: map.getAsMap("color").toColor(),
+      path: map.get<String?>("path", null),
+      permissions: map.getAsList<String>("permission"),
+    );
+  }
+
+  /// Convert the role config to [DynamicMap].
+  DynamicMap toMap() {
+    return <String, dynamic>{
+      "id": id,
+      if (label.isNotEmpty) "name": label!,
+      if (path.isNotEmpty) "path": path!,
+      if (icon != null) "icon": icon!.toMap(),
+      if (color != null) "color": color!.toMap(),
+      if (permissions.isNotEmpty) "permission": permissions,
+    };
+  }
 }
