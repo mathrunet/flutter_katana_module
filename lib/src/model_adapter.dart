@@ -21,7 +21,15 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   ///
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
-  TDocument loadDocument(TDocument document);
+  ///
+  /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
+  TDocument loadDocument(TDocument document, [bool once = false]);
+
+  /// Performs the process of loading a document.
+  ///
+  /// Usually, you specify a method that can be executed only the first time,
+  /// such as [loadOnce] or [listen].
+  // TDocument listenDocument(TDocument document);
 
   /// Gets the provider of the [Collection].
   ///
@@ -32,7 +40,15 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   ///
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
-  TCollection loadCollection(TCollection collection);
+  ///
+  /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
+  TCollection loadCollection(TCollection collection, [bool once = false]);
+
+  /// Performs the process of loading a collection.
+  ///
+  /// Usually, you specify a method that can be executed only the first time,
+  /// such as [loadOnce] or [listen].
+  // TCollection listenCollection(TCollection collection);
 
   /// Retrieves a document from a [collection].
   ///
