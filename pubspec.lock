@@ -119,7 +119,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -204,7 +204,7 @@ packages:
       name: katana
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.2+14"
+    version: "0.8.2+17"
   katana_module_builder_annotation:
     dependency: "direct main"
     description:
@@ -218,7 +218,7 @@ packages:
       name: katana_routing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.2+9"
+    version: "0.8.2+10"
   matcher:
     dependency: transitive
     description:
@@ -239,7 +239,7 @@ packages:
       name: model_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.2+9"
+    version: "0.8.2+13"
   package_info_plus:
     dependency: transitive
     description:
@@ -281,7 +281,7 @@ packages:
       name: package_info_plus_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   path:
     dependency: transitive
     description:
@@ -330,7 +330,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.0"
+    version: "1.11.1"
   platform:
     dependency: transitive
     description:
