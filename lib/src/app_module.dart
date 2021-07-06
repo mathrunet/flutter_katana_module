@@ -14,7 +14,10 @@ class AppModule extends Module {
     this.termsUrl,
     this.menus = const [],
     this.roles = const [],
-    this.themeColor,
+    this.lightTheme,
+    this.darkTheme,
+    this.themeMode = ThemeMode.system,
+    this.initialPageTransition = PageTransition.fade,
   }) : super();
 
   /// Page title.
@@ -44,8 +47,17 @@ class AppModule extends Module {
   /// App roles.
   final List<RoleConfig> roles;
 
-  /// Theme color.
-  final ThemeColor? themeColor;
+  /// Theme color for light.
+  final ThemeColor? lightTheme;
+
+  /// Theme color for dark.
+  final ThemeColor? darkTheme;
+
+  /// Theme Mode.
+  final ThemeMode themeMode;
+
+  /// Initial page transition.
+  final PageTransition initialPageTransition;
 
   /// Convert the module information from [DynamicMap].
   @override
@@ -67,7 +79,10 @@ class AppModule extends Module {
       roles: map
           .getAsList<DynamicMap>("role")
           .mapAndRemoveEmpty((item) => item.toRoleConfig()),
-      themeColor: map.getAsMap("theme").toThemeColor(),
+      lightTheme: map.getAsMap("lightTheme").toThemeColor(),
+      darkTheme: map.getAsMap("darkTheme").toThemeColor(),
+      themeMode: ThemeMode.values.firstWhere(
+          (e) => e.index == map.get<int>("themeMode", ThemeMode.system.index)),
     );
   }
 
@@ -85,7 +100,9 @@ class AppModule extends Module {
       if (privacyPolicyUrl.isNotEmpty) "privacyUrl": privacyPolicyUrl!,
       if (termsUrl.isNotEmpty) "termsUrl": termsUrl!,
       "role": roles.mapAndRemoveEmpty((item) => item.toMap()),
-      if (themeColor != null) "theme": themeColor!.toMap(),
+      if (lightTheme != null) "lightTheme": lightTheme!.toMap(),
+      if (darkTheme != null) "darkTheme": darkTheme!.toMap(),
+      "themeMode": themeMode.index,
     };
   }
 }
