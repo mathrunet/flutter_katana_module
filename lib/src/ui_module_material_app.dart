@@ -36,8 +36,12 @@ class UIModuleMaterialApp extends StatelessWidget {
     this.maxTextScaleFactor = 1.2,
     this.enableModules = const [],
     this.availableModules = const [],
+    this.designType = DesignType.modern,
+    this.webStyle = true,
   }) : super(key: key);
 
+  final DesignType designType;
+  final bool webStyle;
   final String flavor;
   final double minTextScaleFactor;
   final double maxTextScaleFactor;
@@ -89,6 +93,8 @@ class UIModuleMaterialApp extends StatelessWidget {
           child: UIMaterialApp(
             key: key,
             widgetTheme: widgetTheme,
+            designType: appModule?.designType ?? designType,
+            webStyle: appModule?.webStyle ?? webStyle,
             flavor: flavor,
             home: home,
             navigatorKey: navigatorKey,

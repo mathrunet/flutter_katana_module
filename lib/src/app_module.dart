@@ -18,6 +18,8 @@ class AppModule extends Module {
     this.darkTheme,
     this.themeMode = ThemeMode.system,
     this.initialPageTransition = PageTransition.fade,
+    this.designType = DesignType.modern,
+    this.webStyle = true,
   }) : super();
 
   /// Page title.
@@ -59,6 +61,12 @@ class AppModule extends Module {
   /// Initial page transition.
   final PageTransition initialPageTransition;
 
+  /// App design type.
+  final DesignType designType;
+
+  /// If you want to use the style for web when you are on the web, use `true`.
+  final bool webStyle;
+
   /// Convert the module information from [DynamicMap].
   @override
   AppModule? fromMap(DynamicMap map) {
@@ -83,6 +91,9 @@ class AppModule extends Module {
       darkTheme: map.getAsMap("darkTheme").toThemeColor(),
       themeMode: ThemeMode.values.firstWhere(
           (e) => e.index == map.get<int>("themeMode", ThemeMode.system.index)),
+      designType: DesignType.values.firstWhere((e) =>
+          e.index == map.get<int>("designType", DesignType.modern.index)),
+      webStyle: map.get("webStyle", true),
     );
   }
 
@@ -103,6 +114,8 @@ class AppModule extends Module {
       if (lightTheme != null) "lightTheme": lightTheme!.toMap(),
       if (darkTheme != null) "darkTheme": darkTheme!.toMap(),
       "themeMode": themeMode.index,
+      "designType": DesignType.modern,
+      "webStyle": webStyle,
     };
   }
 }
