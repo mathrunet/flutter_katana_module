@@ -15,7 +15,7 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   /// Gets the provider of the [Document].
   ///
   /// In [path], enter the path where you want to retrieve the document.
-  ModelProvider<TDocument> documentProvider(String path);
+  ChangeNotifierProvider<TDocument> documentProvider(String path);
 
   /// Performs the process of loading a document.
   ///
@@ -34,7 +34,7 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   /// Gets the provider of the [Collection].
   ///
   /// In [path], enter the path where you want to retrieve the collection.
-  ModelProvider<TCollection> collectionProvider(String path);
+  ChangeNotifierProvider<TCollection> collectionProvider(String path);
 
   /// Performs the process of loading a collection.
   ///
