@@ -8,6 +8,8 @@
 /// [YouTube]: https://www.youtube.com/c/mathrunetchannel
 library katana_module;
 
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

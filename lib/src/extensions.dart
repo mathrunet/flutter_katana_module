@@ -65,6 +65,47 @@ extension ModuleColorExtensions on Color? {
   }
 }
 
+extension ModuleGradientExtensions on Gradient? {
+  /// Convert the gradient to [DynamicMap].
+  DynamicMap toMap() {
+    if (this == null) {
+      return <String, dynamic>{};
+    }
+    final gradient = this;
+    if (gradient is LinearGradient) {
+      final begin = gradient.begin.resolve(TextDirection.ltr);
+      final end = gradient.end.resolve(TextDirection.ltr);
+      return <String, dynamic>{
+        "type": "linear",
+        "color": gradient.colors,
+        "begin": begin.toMap(),
+        "end": end.toMap(),
+      };
+    } else if (gradient is RadialGradient) {
+      final center = gradient.center.resolve(TextDirection.ltr);
+      final focal = gradient.focal?.resolve(TextDirection.ltr);
+      return <String, dynamic>{
+        "type": "radial",
+        "color": gradient.colors,
+        "center": center.toMap(),
+        "radius": gradient.radius,
+        if (focal != null) "focal": focal.toMap(),
+        "focalRadius": gradient.focalRadius,
+      };
+    } else if (gradient is SweepGradient) {
+      final center = gradient.center.resolve(TextDirection.ltr);
+      return <String, dynamic>{
+        "type": "sweep",
+        "color": gradient.colors,
+        "center": center.toMap(),
+        "start": gradient.startAngle,
+        "end": gradient.endAngle,
+      };
+    }
+    return <String, dynamic>{};
+  }
+}
+
 extension ModuleTextStyleExtensions on TextStyle? {
   /// Convert the text style to [DynamicMap].
   DynamicMap toMap() {
@@ -143,6 +184,36 @@ extension ModuleDynamicMapExtensions on DynamicMap? {
       fontFamily: get<String?>("family", null),
       fontPackage: get<String?>("package", null),
     );
+  }
+
+  /// Convert the gradient from [DynamicMap].
+  Gradient? toGradient() {
+    if (isEmpty || !containsKey("type")) {
+      return null;
+    }
+    switch (get("type", "")) {
+      case "radial":
+        return RadialGradient(
+          colors: getAsList("color"),
+          center: getAsMap("center").toAlignment() ?? Alignment.topCenter,
+          radius: get("radius", 0.5),
+          focal: getAsMap("focal").toAlignment(),
+          focalRadius: get("focalRadius ", 0.0),
+        );
+      case "sweep":
+        return SweepGradient(
+          colors: getAsList("color"),
+          center: getAsMap("center").toAlignment() ?? Alignment.topCenter,
+          startAngle: get("start", 0.0),
+          endAngle: get("end", pi * 2),
+        );
+      default:
+        return LinearGradient(
+          colors: getAsList("color"),
+          begin: getAsMap("begin").toAlignment() ?? Alignment.topCenter,
+          end: getAsMap("end").toAlignment() ?? Alignment.bottomCenter,
+        );
+    }
   }
 
   /// Convert the color from [DynamicMap].
