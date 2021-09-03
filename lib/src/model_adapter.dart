@@ -70,18 +70,29 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   Future<void> tryRestoreAuth();
 
   /// Guest login.
-  Future<void> signInAnonymously();
+  Future<void> signInAnonymously({
+    DynamicMap? data,
+    String userPath = "user",
+  });
 
   /// Login using your [email] and [password].
-  Future<void> signInEmailAndPassword(
-      {required String email, required String password});
+  Future<void> signInEmailAndPassword({
+    required String email,
+    required String password,
+    DynamicMap? data,
+    String userPath = "user",
+  });
 
   /// Log out.
   Future<void> signOut();
 
   /// Register as a user using your [email] and [password].
-  Future<void> registerInEmailAndPassword(
-      {required String email, required String password});
+  Future<void> registerInEmailAndPassword({
+    required String email,
+    required String password,
+    DynamicMap? data,
+    String userPath = "user",
+  });
 
   /// Email for password reset will be sent to the specified [email].
   Future<void> sendPasswordResetEmail({required String email});
