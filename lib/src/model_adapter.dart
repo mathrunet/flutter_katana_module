@@ -69,6 +69,18 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   /// Used to restore your login information.
   Future<void> tryRestoreAuth();
 
+  /// Skip registration and register [data].
+  ///
+  /// If the return value is `true`, registration is skipped.
+  ///
+  /// Intended for mock use.
+  Future<bool> skipRegistration({
+    DynamicMap? data,
+    String userPath = "user",
+  }) {
+    return Future.value(false);
+  }
+
   /// Guest login.
   Future<void> signInAnonymously({
     DynamicMap? data,
@@ -94,8 +106,65 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
     String userPath = "user",
   });
 
+  /// Link by email link.
+  ///
+  /// You need to do [sendEmailLink] first.
+  ///
+  /// Enter the link acquired by Dynamic Link.
+  Future<void> signInEmailLink({required String link});
+
+  /// Send an email link.
+  Future<void> sendEmailLink({
+    required String email,
+    required String url,
+    required String packageName,
+    int androidMinimumVersion = 1,
+  });
+
+  /// Authenticate by sending a code to your phone number.
+  Future<void> sendSMS({required String phoneNumber});
+
+  /// Authenticate by sending a code to your phone number.
+  Future<void> signInSMS({required String smsCode});
+
+  /// Update your phone number.
+  /// You need to send an SMS with [sendSMS] in advance.
+  Future<void> changePhoneNumber({required String smsCode});
+
+  /// Resend the email for email address verification.
+  Future<void> sendEmailVerification();
+
   /// Email for password reset will be sent to the specified [email].
   Future<void> sendPasswordResetEmail({required String email});
+
+  /// Send you an email to reset your password.
+  Future<void> confirmPasswordReset(
+      {required String code, required String password});
+
+  /// Enter your [password] to re-authenticate.
+  Future<void> reauthInEmailAndPassword({required String password});
+
+  /// Returns `true` if re-authentication is required.
+  bool requiredReauthInEmailAndPassword();
+
+  /// Account delete.
+  Future<void> deleteAccount();
+
+  /// Change your email address.
+  ///
+  /// It is necessary to execute [reauthInEmailAndPassword]
+  /// in advance to re-authenticate.
+  Future<void> changeEmail({
+    required String email,
+  });
+
+  /// Change your password.
+  ///
+  /// It is necessary to execute [reauthInEmailAndPassword]
+  /// in advance to re-authenticate.
+  Future<void> changePassword({
+    required String password,
+  });
 
   /// Return `true` If authentication is enabled.
   bool get enabledAuth;

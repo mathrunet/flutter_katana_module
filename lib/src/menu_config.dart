@@ -9,6 +9,7 @@ class MenuConfig {
     this.icon,
     this.path,
     this.children = const [],
+    this.availableRole = const [],
   });
 
   /// Menu icon.
@@ -26,6 +27,11 @@ class MenuConfig {
   /// Child elements.
   final List<MenuConfig> children;
 
+  /// Available Role IDs.
+  ///
+  /// If empty, all roles are available.
+  final List<String> availableRole;
+
   static MenuConfig? _fromMap(DynamicMap map) {
     if (!map.containsKey("name")) {
       return null;
@@ -38,6 +44,7 @@ class MenuConfig {
       children: map
           .getAsList<DynamicMap>("children")
           .mapAndRemoveEmpty((item) => item.toMenuConfig()),
+      availableRole: map.getAsList<String>("available"),
     );
   }
 
@@ -50,6 +57,7 @@ class MenuConfig {
       if (icon != null) "icon": icon!.toMap(),
       if (children.isNotEmpty)
         "children": children.map((item) => item.toMap()).toList(),
+      if (availableRole.isNotEmpty) "available": availableRole,
     };
   }
 }
