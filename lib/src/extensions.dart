@@ -166,6 +166,14 @@ extension ModuleEdgeInsetsGeometryExtensions on EdgeInsetsGeometry? {
 }
 
 extension ModuleDynamicMapExtensions on DynamicMap? {
+  /// Convert the reroute config from [DynamicMap].
+  RerouteConfig? toRerouteConfig() {
+    if (isEmpty) {
+      return null;
+    }
+    return RerouteConfig._fromMap(this!);
+  }
+
   /// Convert the icon data from [DynamicMap].
   T? toModule<T extends Module>() {
     if (isEmpty) {

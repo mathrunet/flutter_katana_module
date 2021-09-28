@@ -20,6 +20,7 @@ class AppModule extends Module {
     this.initialPageTransition = PageTransition.fade,
     this.designType = DesignType.modern,
     this.webStyle = true,
+    this.rerouteConfig = const LoginRequiredRerouteConfig(),
   }) : super();
 
   /// Page title.
@@ -66,6 +67,22 @@ class AppModule extends Module {
 
   /// If you want to use the style for web when you are on the web, use `true`.
   final bool webStyle;
+
+  /// Reroute path settings to configure pages that require conditions.
+  final RerouteConfig rerouteConfig;
+
+  /// Get the AppModule being used.
+  static AppModule? get registered {
+    if (_registered != null) {
+      return _registered!;
+    }
+    if (Module._registeredModules.isEmpty) {
+      return null;
+    }
+    return Module._registeredModules.whereType<AppModule>().firstOrNull;
+  }
+
+  static AppModule? _registered;
 
   /// Convert the module information from [DynamicMap].
   @override
