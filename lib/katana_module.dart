@@ -28,6 +28,7 @@ part 'src/function_module.dart';
 part 'src/menu_config.dart';
 part 'src/model_adapter.dart';
 part "src/module.dart";
+part "src/boot_config.dart";
 part "src/page_module.dart";
 part 'src/permission.dart';
 part "src/platform_adapter.dart";

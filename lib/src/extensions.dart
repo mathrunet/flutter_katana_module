@@ -291,6 +291,14 @@ extension ModuleDynamicMapExtensions on DynamicMap? {
     return MenuConfig._fromMap(this!);
   }
 
+  /// Convert the boot config from [DynamicMap].
+  BootConfig? toBootConfig() {
+    if (this == null) {
+      return null;
+    }
+    return BootConfig._fromMap(this!);
+  }
+
   /// Convert the permission from [DynamicMap].
   Permission? toPermission() {
     if (this == null) {

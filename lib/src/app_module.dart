@@ -26,6 +26,7 @@ class AppModule extends Module {
     this.iosAdmobUnitId = "ca-app-pub-3940256099942544/2934735716",
     this.webStyle = true,
     this.rerouteConfig = const LoginRequiredRerouteConfig(),
+    this.bootConfig = const BootConfig(),
   }) : super();
 
   /// Page title.
@@ -91,6 +92,9 @@ class AppModule extends Module {
   /// Admob Unit Id for IOS.
   final String iosAdmobUnitId;
 
+  /// Boot screen settings.
+  final BootConfig bootConfig;
+
   /// Get the AppModule being used.
   static AppModule? get registered {
     if (_registered != null) {
@@ -131,6 +135,7 @@ class AppModule extends Module {
       designType: DesignType.values.firstWhere((e) =>
           e.index == map.get<int>("designType", DesignType.modern.index)),
       webStyle: map.get("webStyle", true),
+      bootConfig: map.getAsMap("boot").toBootConfig() ?? const BootConfig(),
     );
   }
 
@@ -153,6 +158,7 @@ class AppModule extends Module {
       "themeMode": themeMode.index,
       "designType": DesignType.modern,
       "webStyle": webStyle,
+      "boot": bootConfig.toMap(),
     };
   }
 }
