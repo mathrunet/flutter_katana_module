@@ -11,6 +11,21 @@ extension ModuleBuildContextExtensions on BuildContext {
     return AdapterScope.of(this).platformAdapter;
   }
 
+  /// Get the ads adapter.
+  AdsAdapter? get ads {
+    return AdapterScope.of(this).adsAdapter;
+  }
+
+  /// Get the purchasing adapter.
+  PurchaseAdapter? get purchase {
+    return AdapterScope.of(this).purchaseAdapter;
+  }
+
+  /// Get the messaging adapter.
+  MessagingAdapter? get messaging {
+    return AdapterScope.of(this).messagingAdapter;
+  }
+
   /// Get the module role.
   List<RoleConfig> get roles {
     return RoleScope.of(this).roles;

@@ -19,11 +19,6 @@ class AppModule extends Module {
     this.themeMode = ThemeMode.system,
     this.initialPageTransition = PageTransition.fade,
     this.designType = DesignType.modern,
-    this.enableAds = false,
-    this.androidAdmobAppId = "",
-    this.androidAdmobUnitId = "ca-app-pub-3940256099942544/6300978111",
-    this.iosAdmobAppId = "",
-    this.iosAdmobUnitId = "ca-app-pub-3940256099942544/2934735716",
     this.webStyle = true,
     this.rerouteConfig = const LoginRequiredRerouteConfig(),
     this.bootConfig = const BootConfig(),
@@ -76,21 +71,6 @@ class AppModule extends Module {
 
   /// Reroute path settings to configure pages that require conditions.
   final RerouteConfig rerouteConfig;
-
-  /// Adsを有効にする場合True.
-  final bool enableAds;
-
-  /// Admob App Id for android.
-  final String androidAdmobAppId;
-
-  /// Admob Unit Id for android.
-  final String androidAdmobUnitId;
-
-  /// Admob App Id for IOS.
-  final String iosAdmobAppId;
-
-  /// Admob Unit Id for IOS.
-  final String iosAdmobUnitId;
 
   /// Boot screen settings.
   final BootConfig bootConfig;

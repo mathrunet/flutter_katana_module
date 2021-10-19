@@ -88,6 +88,10 @@ class UIModuleMaterialApp extends StatelessWidget {
       child: AdapterScope(
         modelAdapter: enableModules.whereType<ModelAdapter>().firstOrNull,
         platformAdapter: enableModules.whereType<PlatformAdapter>().firstOrNull,
+        adsAdapter: enableModules.whereType<AdsAdapter>().firstOrNull,
+        purchaseAdapter: enableModules.whereType<PurchaseAdapter>().firstOrNull,
+        messagingAdapter:
+            enableModules.whereType<MessagingAdapter>().firstOrNull,
         child: RoleScope(
           roles: appModule?.roles ?? const [],
           child: UIMaterialApp(
@@ -141,6 +145,9 @@ class AdapterScope extends InheritedWidget {
     Key? key,
     required this.modelAdapter,
     required this.platformAdapter,
+    required this.adsAdapter,
+    required this.purchaseAdapter,
+    required this.messagingAdapter,
     required Widget child,
   }) : super(key: key, child: child);
 
@@ -158,6 +165,15 @@ class AdapterScope extends InheritedWidget {
 
   /// Platform adapter.
   final PlatformAdapter? platformAdapter;
+
+  /// Ads adapter.
+  final AdsAdapter? adsAdapter;
+
+  /// Purchasing adapter.
+  final PurchaseAdapter? purchaseAdapter;
+
+  /// Messaging adapter.
+  final MessagingAdapter? messagingAdapter;
 
   /// Whether the framework should notify widgets that inherit from this widget.
   ///

@@ -35,3 +35,7 @@ part "src/platform_adapter.dart";
 part 'src/reroute_config.dart';
 part "src/role_config.dart";
 part "src/ui_module_material_app.dart";
+part "src/purchase_product.dart";
+part "src/purchase_adapter.dart";
+part "src/ads_adapter.dart";
+part 'src/messaging_adapter.dart';
