@@ -8,8 +8,11 @@ part of katana_module;
 /// [ModelAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
-    TCollection extends DynamicCollectionModel> extends Module {
+abstract class ModelAdapter<
+        TDocument extends DynamicDocumentModel,
+        TCollection extends DynamicCollectionModel,
+        TSearchableCollection extends DynamicSearchableCollectionModel>
+    extends Module {
   const ModelAdapter();
 
   /// Gets the provider of the [Document].
@@ -36,6 +39,12 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   /// In [path], enter the path where you want to retrieve the collection.
   ChangeNotifierProvider<TCollection> collectionProvider(String path);
 
+  /// Gets the provider of the [Collection] for search.
+  ///
+  /// In [path], enter the path where you want to retrieve the collection.
+  ChangeNotifierProvider<TSearchableCollection> searchableCollectionProvider(
+      String path);
+
   /// Performs the process of loading a collection.
   ///
   /// Usually, you specify a method that can be executed only the first time,
@@ -43,6 +52,33 @@ abstract class ModelAdapter<TDocument extends DynamicDocumentModel,
   ///
   /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
   TCollection loadCollection(TCollection collection, [bool once = false]);
+
+  /// Save the number of elements in [collectionPath] to its parent document with [counterSuffix].
+  ///
+  /// You can add the corresponding element by specifying [linkedCollectionPath].
+  ///
+  /// You can generate a key to store the number of elements in a document by specifying [counterBuilder] or [linkedCounterBuilder].
+  IncrementCounterTransactionBuilder incrementCounter({
+    required String collectionPath,
+    String counterSuffix = "Count",
+    String Function(String path)? counterBuilder,
+    String? linkedCollectionPath,
+    String Function(String linkPath)? linkedCounterBuilder,
+    List<CounterUpdaterInterval> counterIntervals = const [],
+  });
+
+  /// Create a code of length [length] randomly for id.
+  ///
+  /// Characters that are difficult to understand are omitted.
+  ///
+  /// If the data of [key] in [path] contains the generated random value,
+  /// the random value is generated again.
+  Future<String> generateCode({
+    required String path,
+    required String key,
+    int length = 6,
+    String charSet = "23456789abcdefghjkmnpqrstuvwxy",
+  });
 
   /// Performs the process of loading a collection.
   ///

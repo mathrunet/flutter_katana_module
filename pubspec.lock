@@ -204,7 +204,7 @@ packages:
       name: katana_routing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+12"
+    version: "0.8.5+14"
   matcher:
     dependency: transitive
     description:
@@ -225,7 +225,7 @@ packages:
       name: model_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+27"
+    version: "0.8.5+32"
   package_info_plus:
     dependency: transitive
     description:
@@ -330,7 +330,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.3"
+    version: "4.2.4"
   riverpod:
     dependency: "direct main"
     description:
@@ -510,7 +510,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.9"
+    version: "2.2.10"
   xdg_directories:
     dependency: transitive
     description:

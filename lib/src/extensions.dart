@@ -3,37 +3,37 @@ part of katana_module;
 extension ModuleBuildContextExtensions on BuildContext {
   /// Get the model adapter.
   ModelAdapter? get model {
-    return AdapterScope.of(this).modelAdapter;
+    return AdapterScope.of(this)?.modelAdapter;
   }
 
   /// Get the platform adapter.
   PlatformAdapter? get platform {
-    return AdapterScope.of(this).platformAdapter;
+    return AdapterScope.of(this)?.platformAdapter;
   }
 
   /// Get the ads adapter.
   AdsAdapter? get ads {
-    return AdapterScope.of(this).adsAdapter;
+    return AdapterScope.of(this)?.adsAdapter;
   }
 
   /// Get the purchasing adapter.
   PurchaseAdapter? get purchase {
-    return AdapterScope.of(this).purchaseAdapter;
+    return AdapterScope.of(this)?.purchaseAdapter;
   }
 
   /// Get the messaging adapter.
   MessagingAdapter? get messaging {
-    return AdapterScope.of(this).messagingAdapter;
+    return AdapterScope.of(this)?.messagingAdapter;
   }
 
   /// Get the module role.
   List<RoleConfig> get roles {
-    return RoleScope.of(this).roles;
+    return RoleScope.of(this)?.roles ?? [];
   }
 
   /// Get the app module config.
   AppModule? get app {
-    return AppScope.of(this).app;
+    return AppScope.of(this)?.app;
   }
 }
 

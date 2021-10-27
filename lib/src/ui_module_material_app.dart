@@ -154,10 +154,10 @@ class AdapterScope extends InheritedWidget {
   /// Get AdapterScope.
   ///
   /// You can check the current Adapter setting.
-  static AdapterScope of(BuildContext context) {
+  static AdapterScope? of(BuildContext context) {
     return context
-        .getElementForInheritedWidgetOfExactType<AdapterScope>()!
-        .widget as AdapterScope;
+        .getElementForInheritedWidgetOfExactType<AdapterScope>()
+        ?.widget as AdapterScope?;
   }
 
   /// Model adapter.
@@ -204,9 +204,9 @@ class RoleScope extends InheritedWidget {
   /// Get RoleScope.
   ///
   /// You can check the current RoleConfig setting.
-  static RoleScope of(BuildContext context) {
-    return context.getElementForInheritedWidgetOfExactType<RoleScope>()!.widget
-        as RoleScope;
+  static RoleScope? of(BuildContext context) {
+    return context.getElementForInheritedWidgetOfExactType<RoleScope>()?.widget
+        as RoleScope?;
   }
 
   /// Role config.
@@ -241,9 +241,9 @@ class AppScope extends InheritedWidget {
   /// Get AppScope.
   ///
   /// You can check the current App Module setting.
-  static AppScope of(BuildContext context) {
-    return context.getElementForInheritedWidgetOfExactType<AppScope>()!.widget
-        as AppScope;
+  static AppScope? of(BuildContext context) {
+    return context.getElementForInheritedWidgetOfExactType<AppScope>()?.widget
+        as AppScope?;
   }
 
   /// App module.
