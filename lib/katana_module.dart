@@ -39,3 +39,5 @@ part "src/purchase_product.dart";
 part "src/purchase_adapter.dart";
 part "src/ads_adapter.dart";
 part 'src/messaging_adapter.dart';
+part 'src/streaming_adapter.dart';
+part 'src/location_adapter.dart';

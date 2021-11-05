@@ -87,11 +87,14 @@ class UIModuleMaterialApp extends StatelessWidget {
       app: appModule,
       child: AdapterScope(
         modelAdapter: enableModules.whereType<ModelAdapter>().firstOrNull,
-        platformAdapter: enableModules.whereType<PlatformAdapter>().firstOrNull,
-        adsAdapter: enableModules.whereType<AdsAdapter>().firstOrNull,
-        purchaseAdapter: enableModules.whereType<PurchaseAdapter>().firstOrNull,
-        messagingAdapter:
-            enableModules.whereType<MessagingAdapter>().firstOrNull,
+        plugin: _AdapterPlugins(
+          platform: enableModules.whereType<PlatformAdapter>().firstOrNull,
+          ads: enableModules.whereType<AdsAdapter>().firstOrNull,
+          purchase: enableModules.whereType<PurchaseAdapter>().firstOrNull,
+          messaging: enableModules.whereType<MessagingAdapter>().firstOrNull,
+          location: enableModules.whereType<LocationAdapter>().firstOrNull,
+          streaming: enableModules.whereType<StreamingAdapter>().firstOrNull,
+        ),
         child: RoleScope(
           roles: appModule?.roles ?? const [],
           child: UIMaterialApp(
@@ -144,10 +147,7 @@ class AdapterScope extends InheritedWidget {
   const AdapterScope({
     Key? key,
     required this.modelAdapter,
-    required this.platformAdapter,
-    required this.adsAdapter,
-    required this.purchaseAdapter,
-    required this.messagingAdapter,
+    required this.plugin,
     required Widget child,
   }) : super(key: key, child: child);
 
@@ -163,17 +163,8 @@ class AdapterScope extends InheritedWidget {
   /// Model adapter.
   final ModelAdapter? modelAdapter;
 
-  /// Platform adapter.
-  final PlatformAdapter? platformAdapter;
-
-  /// Ads adapter.
-  final AdsAdapter? adsAdapter;
-
-  /// Purchasing adapter.
-  final PurchaseAdapter? purchaseAdapter;
-
-  /// Messaging adapter.
-  final MessagingAdapter? messagingAdapter;
+  /// Adapter plugins.
+  final _AdapterPlugins plugin;
 
   /// Whether the framework should notify widgets that inherit from this widget.
   ///
@@ -186,6 +177,35 @@ class AdapterScope extends InheritedWidget {
   bool updateShouldNotify(AdapterScope oldWidget) {
     return true;
   }
+}
+
+class _AdapterPlugins {
+  const _AdapterPlugins({
+    this.platform,
+    this.ads,
+    this.purchase,
+    this.messaging,
+    this.streaming,
+    this.location,
+  });
+
+  /// Platform adapter.
+  final PlatformAdapter? platform;
+
+  /// Ads adapter.
+  final AdsAdapter? ads;
+
+  /// Purchasing adapter.
+  final PurchaseAdapter? purchase;
+
+  /// Messaging adapter.
+  final MessagingAdapter? messaging;
+
+  /// Streaming  adapter.
+  final StreamingAdapter? streaming;
+
+  /// Location adapter.
+  final LocationAdapter? location;
 }
 
 /// Widget to get the roles.
