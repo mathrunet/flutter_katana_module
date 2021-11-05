@@ -87,8 +87,8 @@ class UIModuleMaterialApp extends StatelessWidget {
       app: appModule,
       child: AdapterScope(
         modelAdapter: enableModules.whereType<ModelAdapter>().firstOrNull,
-        plugin: _AdapterPlugins(
-          platform: enableModules.whereType<PlatformAdapter>().firstOrNull,
+        platformAdapter: enableModules.whereType<PlatformAdapter>().firstOrNull,
+        plugin: AdapterPlugins(
           ads: enableModules.whereType<AdsAdapter>().firstOrNull,
           purchase: enableModules.whereType<PurchaseAdapter>().firstOrNull,
           messaging: enableModules.whereType<MessagingAdapter>().firstOrNull,
@@ -148,6 +148,7 @@ class AdapterScope extends InheritedWidget {
     Key? key,
     required this.modelAdapter,
     required this.plugin,
+    required this.platformAdapter,
     required Widget child,
   }) : super(key: key, child: child);
 
@@ -164,7 +165,10 @@ class AdapterScope extends InheritedWidget {
   final ModelAdapter? modelAdapter;
 
   /// Adapter plugins.
-  final _AdapterPlugins plugin;
+  final AdapterPlugins plugin;
+
+  /// Platform adapter.
+  final PlatformAdapter? platformAdapter;
 
   /// Whether the framework should notify widgets that inherit from this widget.
   ///
@@ -179,18 +183,16 @@ class AdapterScope extends InheritedWidget {
   }
 }
 
-class _AdapterPlugins {
-  const _AdapterPlugins({
-    this.platform,
+/// Adapter for plug-in.
+class AdapterPlugins {
+  /// Adapter for plug-in.
+  const AdapterPlugins({
     this.ads,
     this.purchase,
     this.messaging,
     this.streaming,
     this.location,
   });
-
-  /// Platform adapter.
-  final PlatformAdapter? platform;
 
   /// Ads adapter.
   final AdsAdapter? ads;

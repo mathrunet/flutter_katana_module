@@ -7,8 +7,13 @@ extension ModuleBuildContextExtensions on BuildContext {
   }
 
   /// Get the adapter plugins.
-  _AdapterPlugins? get plugin {
+  AdapterPlugins? get plugin {
     return AdapterScope.of(this)?.plugin;
+  }
+
+  /// Get the platform adapter.
+  PlatformAdapter? get platform {
+    return AdapterScope.of(this)?.platformAdapter;
   }
 
   /// Get the module role.
