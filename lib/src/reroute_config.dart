@@ -67,7 +67,7 @@ class UserDocumentQueryRerouteConfig extends RerouteConfig {
           if (provider == null) {
             return false;
           }
-          final doc = context.read(provider);
+          final doc = read(provider);
           return query.check(doc);
         },
       };
