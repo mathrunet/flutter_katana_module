@@ -23,13 +23,13 @@ abstract class PurchaseAdapter<T extends PurchaseProduct> extends Module {
   /// Consume all purchased items.
   ///
   /// Please use it manually or immediately after user registration.
-  Future<void> consume(String productId);
+  Future<void> consume(T product);
 
   /// Process the purchase.
   ///
-  /// You specify the item ID in [id], the billing process will start.
+  /// You specify the purchase product data in [product], the billing process will start.
   Future<void> purchase(
-    String id, {
+    T product, {
     String? applicationUserName,
     bool sandboxTesting = false,
   });

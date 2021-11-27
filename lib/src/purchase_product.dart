@@ -9,7 +9,7 @@ enum ProductType {
   nonConsumable,
 
   /// Subscription.
-  subscription
+  subscription,
 }
 
 /// Class for storing information for billing purposes.
