@@ -31,6 +31,7 @@ part "src/module.dart";
 part "src/boot_config.dart";
 part "src/page_module.dart";
 part 'src/permission.dart';
+part "src/local_media.dart";
 part "src/platform_adapter.dart";
 part 'src/reroute_config.dart';
 part "src/role_config.dart";

@@ -8,7 +8,7 @@ abstract class PlatformAdapter extends Module {
   /// Display the media dialog and get the data.
   ///
   /// You can limit the media type by specifying [mediaType].
-  Future<dynamic> mediaDialog(
+  Future<LocalMedia?> mediaDialog(
     BuildContext context, {
     required String title,
     PlatformMediaType type = PlatformMediaType.all,
