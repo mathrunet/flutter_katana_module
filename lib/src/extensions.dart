@@ -154,6 +154,34 @@ extension ModuleSizeExtensions on Size? {
   }
 }
 
+extension ModuleRadiusExtensions on Radius? {
+  /// Convert the radius to [DynamicMap].
+  DynamicMap toMap() {
+    if (this == null) {
+      return <String, dynamic>{};
+    }
+    return <String, dynamic>{
+      "x": this!.x,
+      "y": this!.y,
+    };
+  }
+}
+
+extension ModuleBorderRadiusExtensions on BorderRadius? {
+  /// Convert the border radius to [DynamicMap].
+  DynamicMap toMap() {
+    if (this == null) {
+      return <String, dynamic>{};
+    }
+    return <String, dynamic>{
+      "topLeft": this!.topLeft.toMap(),
+      "topRight": this!.topRight.toMap(),
+      "bottomLeft": this!.bottomLeft.toMap(),
+      "bottomRight": this!.bottomRight.toMap(),
+    };
+  }
+}
+
 extension ModuleEdgeInsetsGeometryExtensions on EdgeInsetsGeometry? {
   /// Convert the edge insets to [DynamicMap].
   DynamicMap toMap() {
@@ -269,6 +297,31 @@ extension ModuleDynamicMapExtensions on DynamicMap? {
       return null;
     }
     return Alignment(get("x", 0.0), get("y", 0.0));
+  }
+
+  /// Convert the radius from [DynamicMap].
+  Radius? toRadius() {
+    if (isEmpty || !containsKey("x") || !containsKey("y")) {
+      return null;
+    }
+    return Radius.elliptical(get("x", 0.0), get("y", 0.0));
+  }
+
+  /// Convert the border radius from [DynamicMap].
+  BorderRadius? toBorderRadius() {
+    if (isEmpty ||
+        !containsKey("topLeft") ||
+        !containsKey("topRight") ||
+        !containsKey("bottomLeft") ||
+        !containsKey("bottomRight")) {
+      return null;
+    }
+    return BorderRadius.only(
+      topLeft: getAsMap("topLeft").toRadius() ?? Radius.zero,
+      topRight: getAsMap("topRight").toRadius() ?? Radius.zero,
+      bottomLeft: getAsMap("bottomLeft").toRadius() ?? Radius.zero,
+      bottomRight: getAsMap("bottomRight").toRadius() ?? Radius.zero,
+    );
   }
 
   /// Convert the size from [DynamicMap].

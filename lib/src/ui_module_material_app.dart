@@ -98,6 +98,8 @@ class UIModuleMaterialApp extends StatelessWidget {
           messaging: enableModules.whereType<MessagingAdapter>().firstOrNull,
           location: enableModules.whereType<LocationAdapter>().firstOrNull,
           streaming: enableModules.whereType<StreamingAdapter>().firstOrNull,
+          dynamicLinks:
+              enableModules.whereType<DynamicLinksAdapter>().firstOrNull,
         ),
         child: RoleScope(
           roles: appModule?.roles ?? const [],
@@ -196,6 +198,7 @@ class AdapterPlugins {
     this.messaging,
     this.streaming,
     this.location,
+    this.dynamicLinks,
   });
 
   /// Ads adapter.
@@ -212,6 +215,9 @@ class AdapterPlugins {
 
   /// Location adapter.
   final LocationAdapter? location;
+
+  /// Dynamic links adapter.
+  final DynamicLinksAdapter? dynamicLinks;
 }
 
 /// Widget to get the roles.

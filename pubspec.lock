@@ -125,13 +125,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_hooks:
-    dependency: "direct main"
-    description:
-      name: flutter_hooks
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.18.1"
   flutter_localizations:
     dependency: transitive
     description: flutter
@@ -143,7 +136,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-dev.7"
+    version: "1.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -154,20 +147,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  freezed_annotation:
-    dependency: transitive
-    description:
-      name: freezed_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.14.3"
-  hooks_riverpod:
-    dependency: "direct main"
-    description:
-      name: hooks_riverpod
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0-dev.7"
   http:
     dependency: transitive
     description:
@@ -196,20 +175,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.4.0"
   katana:
     dependency: "direct main"
     description:
       name: katana
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+20"
+    version: "0.9.0+1"
   katana_module_builder_annotation:
     dependency: "direct main"
     description:
@@ -223,7 +195,7 @@ packages:
       name: katana_routing
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+51"
+    version: "0.9.0+1"
   matcher:
     dependency: transitive
     description:
@@ -244,7 +216,7 @@ packages:
       name: model_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.5+50"
+    version: "0.9.0+1"
   package_info_plus:
     dependency: transitive
     description:
@@ -370,7 +342,7 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-dev.7"
+    version: "1.0.3"
   shared_preferences:
     dependency: transitive
     description:

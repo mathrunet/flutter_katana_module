@@ -1,4 +1,4 @@
-// Copyright 2021 mathru. All rights reserved.
+// Copyright 2022 mathru. All rights reserved.
 
 /// Package that defines a base class for modularization.
 ///
@@ -10,10 +10,7 @@ library katana_module;
 
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:katana/katana.dart';
 import 'package:katana_routing/katana_routing.dart';
 import 'package:model_notifier/model_notifier.dart';
 
