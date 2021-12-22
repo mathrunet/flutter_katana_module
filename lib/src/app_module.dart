@@ -2,7 +2,7 @@ part of katana_module;
 
 /// Module for configuring the entire application.
 @immutable
-class AppModule extends Module {
+class AppModule extends Module implements ModuleHook {
   /// Module for configuring the entire application.
   const AppModule({
     required this.title,
@@ -20,8 +20,11 @@ class AppModule extends Module {
     this.initialPageTransition = PageTransition.fade,
     this.designType = DesignType.modern,
     this.webStyle = true,
-    this.rerouteConfig = const LoginRequiredRerouteConfig(),
+    this.rerouteConfigs = const [
+      LoginRequiredRerouteConfig(),
+    ],
     this.bootConfig = const BootConfig(),
+    this.userVariables = const [],
   }) : super();
 
   /// Page title.
@@ -70,10 +73,13 @@ class AppModule extends Module {
   final bool webStyle;
 
   /// Reroute path settings to configure pages that require conditions.
-  final RerouteConfig rerouteConfig;
+  final List<RerouteConfig> rerouteConfigs;
 
   /// Boot screen settings.
   final BootConfig bootConfig;
+
+  /// User's value setting.
+  final List<VariableConfig> userVariables;
 
   /// Get the AppModule being used.
   static AppModule? get registered {
@@ -140,5 +146,36 @@ class AppModule extends Module {
       "webStyle": webStyle,
       "boot": bootConfig.toMap(),
     };
+  }
+
+  /// Run it the first time the app is launched.
+  @override
+  @mustCallSuper
+  Future<void> onInit(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onInit(context)));
+  }
+
+  /// Runs when restoring authentication.
+  @override
+  @mustCallSuper
+  Future<void> onRestoreAuth(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onRestoreAuth(context)));
+  }
+
+  /// Runs after authentication has taken place.
+  ///
+  /// It is also called after registration or login has been completed.
+  @override
+  @mustCallSuper
+  Future<void> onAfterAuth(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onAfterAuth(context)));
+  }
+
+  /// It is executed after the boot process is finished and
+  /// before transitioning to another page.
+  @override
+  @mustCallSuper
+  Future<void> onBeforeFinishBoot(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onBeforeFinishBoot(context)));
   }
 }

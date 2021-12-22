@@ -5,7 +5,8 @@ part of katana_module;
 /// [StreamingAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class StreamingAdapter<TModel extends StreamingModel> extends Module {
+abstract class StreamingAdapter<TModel extends StreamingModel>
+    extends AdapterModule {
   const StreamingAdapter();
 
   /// Initializes the Streaming service.

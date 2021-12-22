@@ -24,7 +24,11 @@ class UIModuleMaterialApp extends StatelessWidget {
     this.localizationsDelegates,
     this.localeListResolutionCallback,
     this.localeResolutionCallback,
-    this.supportedLocales = const <Locale>[Locale('en', 'US')],
+    this.supportedLocales = const <Locale>[
+      Locale("en"),
+      Locale("ja"),
+      Locale("zh"),
+    ],
     this.debugShowMaterialGrid = false,
     this.showPerformanceOverlay = false,
     this.checkerboardRasterCacheImages = false,

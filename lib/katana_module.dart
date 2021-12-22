@@ -33,7 +33,6 @@ part "src/page_module.dart";
 part 'src/permission.dart';
 part "src/local_media.dart";
 part "src/platform_adapter.dart";
-part 'src/reroute_config.dart';
 part "src/role_config.dart";
 part "src/ui_module_material_app.dart";
 part "src/purchase_product.dart";
@@ -43,3 +42,18 @@ part 'src/messaging_adapter.dart';
 part 'src/streaming_adapter.dart';
 part 'src/location_adapter.dart';
 part 'src/commerce_platform_status.dart';
+part 'src/module_hook.dart';
+part 'src/adapter_module.dart';
+part 'src/variable_config.dart';
+
+part 'src/reroute/reroute_config.dart';
+part 'src/reroute/login_required_reroute_config.dart';
+part 'src/reroute/registration_required_reroute_config.dart';
+part 'src/reroute/user_document_query_reroute_config.dart';
+
+part 'src/form/form_config.dart';
+part 'src/form/text_form_config.dart';
+part 'src/form/select_form_config.dart';
+part 'src/form/date_time_form_config.dart';
+part 'src/form/multiple_text_form_config.dart';
+part 'src/form/multiple_select_form_config.dart';

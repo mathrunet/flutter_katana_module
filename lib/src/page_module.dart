@@ -5,7 +5,7 @@ part of katana_module;
 /// You can specify [title], [routeSettings], and [permission],
 /// and you can create a module that can do basic page transitions.
 @immutable
-abstract class PageModule extends Module {
+abstract class PageModule extends Module implements ModuleHook {
   /// Module for pages.
   ///
   /// You can specify [title], [routeSettings], and [permission],
@@ -17,7 +17,7 @@ abstract class PageModule extends Module {
     this.routeSettings,
     this.permission = const Permission(),
     this.verifyAppReroute = false,
-    this.rerouteConfig,
+    this.rerouteConfigs = const [],
   }) : super(
           id: id,
           enabled: enabled,
@@ -39,22 +39,25 @@ abstract class PageModule extends Module {
             ? routeSetting.merge(_convert(
                 config.routeSettings,
                 verifyAppReroute: config.verifyAppReroute,
-                rerouteConfig: config.rerouteConfig,
+                rerouteConfigs: config.rerouteConfigs,
               ))
             : routeSetting,
       ),
+      rerouteConfigs: pageModules.expand((e) {
+        return e.rerouteConfigs;
+      }).distinct(),
     );
   }
 
   static Map<String, RouteConfig>? _convert(
     Map<String, RouteConfig>? routeSettings, {
     bool verifyAppReroute = true,
-    RerouteConfig? rerouteConfig,
+    List<RerouteConfig> rerouteConfigs = const [],
   }) {
     if (routeSettings.isEmpty) {
       return routeSettings;
     }
-    if (!verifyAppReroute && rerouteConfig == null) {
+    if (!verifyAppReroute && rerouteConfigs.isEmpty) {
       return routeSettings;
     }
 
@@ -62,13 +65,17 @@ abstract class PageModule extends Module {
     for (final tmp in routeSettings!.entries) {
       final reroute =
           Map<String, bool Function(BuildContext)>.from(tmp.value.reroute);
-      if (rerouteConfig != null) {
-        reroute.addAll(rerouteConfig.value);
+      if (rerouteConfigs.isNotEmpty) {
+        rerouteConfigs.forEach((e) => reroute.addAll(e.value));
       }
       if (verifyAppReroute) {
-        final config = AppModule.registered?.rerouteConfig ??
-            const LoginRequiredRerouteConfig();
-        reroute.addAll(config.value);
+        if (AppModule.registered != null &&
+            AppModule.registered!.rerouteConfigs.isNotEmpty) {
+          AppModule.registered!.rerouteConfigs
+              .forEach((e) => reroute.addAll(e.value));
+        } else {
+          reroute.addAll(const LoginRequiredRerouteConfig().value);
+        }
       }
       res[tmp.key] = tmp.value.copyWith(reroute: reroute);
     }
@@ -92,7 +99,38 @@ abstract class PageModule extends Module {
   ///
   /// If this setting exists even if [verifyAppReroute] is `false`,
   /// the reroute is verified.
-  final RerouteConfig? rerouteConfig;
+  final List<RerouteConfig> rerouteConfigs;
+
+  /// Run it the first time the app is launched.
+  @override
+  @mustCallSuper
+  Future<void> onInit(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onInit(context)));
+  }
+
+  /// Runs when restoring authentication.
+  @override
+  @mustCallSuper
+  Future<void> onRestoreAuth(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onRestoreAuth(context)));
+  }
+
+  /// Runs after authentication has taken place.
+  ///
+  /// It is also called after registration or login has been completed.
+  @override
+  @mustCallSuper
+  Future<void> onAfterAuth(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onAfterAuth(context)));
+  }
+
+  /// It is executed after the boot process is finished and
+  /// before transitioning to another page.
+  @override
+  @mustCallSuper
+  Future<void> onBeforeFinishBoot(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onBeforeFinishBoot(context)));
+  }
 }
 
 /// Mix-in to give to pages that require a reroute condition.
@@ -107,9 +145,11 @@ class _MergedPageModule extends PageModule {
   const _MergedPageModule({
     String? title,
     Map<String, RouteConfig>? routeSettings,
+    List<RerouteConfig> rerouteConfigs = const [],
   }) : super(
           title: title,
           routeSettings: routeSettings,
+          rerouteConfigs: rerouteConfigs,
         );
 
   @override

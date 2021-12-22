@@ -5,7 +5,7 @@ part of katana_module;
 /// [LocationAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class LocationAdapter extends Module {
+abstract class LocationAdapter extends AdapterModule {
   const LocationAdapter();
 
   /// Check whether the location is currently being acquired.

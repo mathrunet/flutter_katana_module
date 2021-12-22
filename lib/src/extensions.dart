@@ -171,6 +171,14 @@ extension ModuleEdgeInsetsGeometryExtensions on EdgeInsetsGeometry? {
 }
 
 extension ModuleDynamicMapExtensions on DynamicMap? {
+  /// Convert the variable config from [DynamicMap].
+  VariableConfig? toVariableConfig() {
+    if (isEmpty) {
+      return null;
+    }
+    return VariableConfig._fromMap(this!);
+  }
+
   /// Convert the reroute config from [DynamicMap].
   RerouteConfig? toRerouteConfig() {
     if (isEmpty) {

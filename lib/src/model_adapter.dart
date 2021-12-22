@@ -12,7 +12,7 @@ abstract class ModelAdapter<
         TDocument extends DynamicDocumentModel,
         TCollection extends DynamicCollectionModel,
         TSearchableCollection extends DynamicSearchableCollectionModel>
-    extends Module {
+    extends AdapterModule {
   const ModelAdapter();
 
   /// Gets the provider of the [Document].

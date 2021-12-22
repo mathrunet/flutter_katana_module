@@ -5,7 +5,8 @@ part of katana_module;
 /// [PurchaseAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class PurchaseAdapter<T extends PurchaseProduct> extends Module {
+abstract class PurchaseAdapter<T extends PurchaseProduct>
+    extends AdapterModule {
   const PurchaseAdapter();
 
   /// Class for managing billing process.

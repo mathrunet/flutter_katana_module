@@ -13,6 +13,7 @@ abstract class Module {
   });
 
   static final List<Module> _registeredModules = [];
+  static final List<ModuleHook> _registeredHooks = [];
 
   static T? _fromMap<T extends Module>(DynamicMap map) {
     if (map.isEmpty) {
@@ -34,8 +35,15 @@ abstract class Module {
         continue;
       }
       _registeredModules.add(module);
+      if (module is ModuleHook) {
+        _registeredHooks.add(module as ModuleHook);
+      }
     }
   }
+
+  /// Get the registered [ModuleHook].
+  static List<ModuleHook> get registeredHooks =>
+      _registeredHooks.toList(growable: false);
 
   /// ID of the module.
   final String? id;

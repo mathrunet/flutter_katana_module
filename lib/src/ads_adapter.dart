@@ -5,7 +5,7 @@ part of katana_module;
 /// [AdsAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class AdsAdapter extends Module {
+abstract class AdsAdapter extends AdapterModule {
   const AdsAdapter();
 
   /// Display banner ads.
