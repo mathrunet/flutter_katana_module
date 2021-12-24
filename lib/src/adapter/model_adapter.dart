@@ -28,12 +28,6 @@ abstract class ModelAdapter<
   /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
   TDocument loadDocument(TDocument document, [bool once = false]);
 
-  /// Performs the process of loading a document.
-  ///
-  /// Usually, you specify a method that can be executed only the first time,
-  /// such as [loadOnce] or [listen].
-  // TDocument listenDocument(TDocument document);
-
   /// Gets the provider of the [Collection].
   ///
   /// In [path], enter the path where you want to retrieve the collection.
