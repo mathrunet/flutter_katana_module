@@ -81,6 +81,8 @@ class UIModuleMaterialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final enableModules = GroupModule._extractModules(this.enableModules);
+    final availableModules = GroupModule._extractModules(this.availableModules);
     Module.registerModules([
       ...enableModules,
       ...availableModules,
@@ -111,7 +113,7 @@ class UIModuleMaterialApp extends StatelessWidget {
             flavor: flavor,
             home: home,
             navigatorKey: navigatorKey,
-            routes: moduleConfig?.routeSettings?.merge(routes) ?? routes,
+            routes: moduleConfig?.routeSettings.merge(routes) ?? routes,
             initialRoute: appModule?.initialRoute ?? initialRoute,
             navigatorObservers: navigatorObservers,
             title: appModule?.title ?? moduleConfig?.title ?? title,

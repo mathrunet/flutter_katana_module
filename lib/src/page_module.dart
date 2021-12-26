@@ -14,7 +14,7 @@ abstract class PageModule extends Module implements ModuleHook {
     String? id,
     bool enabled = true,
     this.title,
-    this.routeSettings,
+    this.routeSettings = const {},
     this.permission = const Permission(),
     this.verifyAppReroute = false,
     this.rerouteConfigs = const [],
@@ -87,7 +87,7 @@ abstract class PageModule extends Module implements ModuleHook {
 
   /// Route settings.
   @mustCallSuper
-  final Map<String, RouteConfig>? routeSettings;
+  final Map<String, RouteConfig> routeSettings;
 
   /// Module's permission.
   final Permission permission;
@@ -99,6 +99,7 @@ abstract class PageModule extends Module implements ModuleHook {
   ///
   /// If this setting exists even if [verifyAppReroute] is `false`,
   /// the reroute is verified.
+  @mustCallSuper
   final List<RerouteConfig> rerouteConfigs;
 
   /// Run it the first time the app is launched.
@@ -144,7 +145,7 @@ mixin VerifyAppReroutePageModuleMixin on PageModule {
 class _MergedPageModule extends PageModule {
   const _MergedPageModule({
     String? title,
-    Map<String, RouteConfig>? routeSettings,
+    Map<String, RouteConfig> routeSettings = const {},
     List<RerouteConfig> rerouteConfigs = const [],
   }) : super(
           title: title,

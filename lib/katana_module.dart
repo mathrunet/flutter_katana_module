@@ -26,6 +26,7 @@ part 'src/menu_config.dart';
 part "src/module.dart";
 part "src/boot_config.dart";
 part "src/page_module.dart";
+part "src/group_module.dart";
 part 'src/permission.dart';
 part "src/local_media.dart";
 part "src/role_config.dart";
@@ -33,8 +34,10 @@ part "src/ui_module_material_app.dart";
 part "src/purchase_product.dart";
 part 'src/commerce_platform_status.dart';
 part 'src/module_hook.dart';
+part 'src/template_module.dart';
 part 'src/adapter_module.dart';
 part 'src/variable_config.dart';
+part 'src/route_module.dart';
 
 part 'src/reroute/reroute_config.dart';
 part 'src/reroute/login_required_reroute_config.dart';

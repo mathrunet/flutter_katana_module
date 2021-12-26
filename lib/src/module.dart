@@ -21,11 +21,29 @@ abstract class Module {
     }
     for (final module in _registeredModules) {
       final mod = module.fromMap(map);
-      if (mod != null) {
-        return mod as T;
+      if (mod != null && mod is T) {
+        return mod;
       }
     }
     return null;
+  }
+
+  /// Create a module list from the list of [DynamicMap].
+  static List<Module> fromMapList(List<DynamicMap> mapList) {
+    if (mapList.isEmpty) {
+      return const [];
+    }
+    final res = <Module>[];
+    for (final module in _registeredModules) {
+      for (final map in mapList) {
+        final mod = module.fromMap(map);
+        if (mod != null) {
+          res.add(mod);
+          break;
+        }
+      }
+    }
+    return List.unmodifiable(res);
   }
 
   /// Register the [modules] to be used.
