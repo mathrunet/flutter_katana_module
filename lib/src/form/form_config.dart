@@ -20,6 +20,10 @@ abstract class FormConfig {
         return DateTimeFormConfig._fromMap(map);
       case MultipleTextFormConfig._type:
         return MultipleTextFormConfig._fromMap(map);
+      case SliderFormConfig._type:
+        return SliderFormConfig._fromMap(map);
+      case HiddenFormConfig._type:
+        return HiddenFormConfig._fromMap(map);
     }
   }
 

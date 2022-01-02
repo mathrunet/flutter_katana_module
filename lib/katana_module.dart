@@ -50,6 +50,8 @@ part 'src/form/select_form_config.dart';
 part 'src/form/date_time_form_config.dart';
 part 'src/form/multiple_text_form_config.dart';
 part 'src/form/multiple_select_form_config.dart';
+part 'src/form/slider_form_config.dart';
+part 'src/form/hidden_form_config.dart';
 
 part 'src/adapter/ads_adapter.dart';
 part 'src/adapter/dynamic_links_adapter.dart';
