@@ -37,33 +37,4 @@ class DateTimeFormConfig extends FormConfig {
   final String? startSelectingDate;
 
   final String? endSelectingDate;
-
-  static DateTimeFormConfig? _fromMap(DynamicMap map) {
-    return DateTimeFormConfig(
-      backgroundColor: map.getAsMap("backgroundColor").toColor(),
-      color: map.getAsMap("color").toColor(),
-      initialDate: map.get<String?>("initialDate", null),
-      type: DateTimeFormConfigType.values.firstWhereOrNull((item) =>
-              item.index ==
-              map.get("dateTimeType", DateTimeFormConfigType.dateTime.index)) ??
-          DateTimeFormConfigType.dateTime,
-      startSelectingDate: map.get<String?>("startSelectingDate", null),
-      endSelectingDate: map.get<String?>("endSelectingDate", null),
-    );
-  }
-
-  /// Convert the form config to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": _type,
-      "dateTimeType": type.index,
-      "backgroundColor": backgroundColor.toMap(),
-      "color": color.toMap(),
-      if (initialDate.isNotEmpty) "initialDate": initialDate,
-      if (startSelectingDate.isNotEmpty)
-        "startSelectingDate": startSelectingDate,
-      if (endSelectingDate.isNotEmpty) "endSelectingDate": endSelectingDate,
-    };
-  }
 }

@@ -154,15 +154,5 @@ class _MergedPageModule extends PageModule {
         );
 
   @override
-  DynamicMap toMap() {
-    throw UnimplementedError();
-  }
-
-  @override
-  Module? fromMap(DynamicMap map) {
-    throw UnimplementedError();
-  }
-
-  @override
   String get type => throw UnimplementedError();
 }

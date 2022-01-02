@@ -158,9 +158,6 @@ abstract class StreamingModel<T> implements Model<T> {
 @immutable
 abstract class StorageBucketConfig {
   const StorageBucketConfig();
-
-  /// Convert the module information to [DynamicMap].
-  DynamicMap toMap();
 }
 
 /// Channel profile.

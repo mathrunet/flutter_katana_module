@@ -14,7 +14,6 @@ import "package:flutter/material.dart";
 import 'package:katana_routing/katana_routing.dart';
 import 'package:model_notifier/model_notifier.dart';
 
-export 'package:katana_module_builder_annotation/katana_module_builder_annotation.dart';
 export 'package:katana_routing/katana_routing.dart';
 export 'package:model_notifier/model_notifier.dart';
 

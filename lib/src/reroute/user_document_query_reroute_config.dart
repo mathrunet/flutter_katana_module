@@ -8,8 +8,6 @@ class UserDocumentQueryRerouteConfig extends RerouteConfig {
     required this.query,
   });
 
-  static const String _type = "userDocumentQuery";
-
   /// Reroute Path.
   final String routePath;
 
@@ -30,27 +28,6 @@ class UserDocumentQueryRerouteConfig extends RerouteConfig {
           return query.check(doc);
         },
       };
-
-  static UserDocumentQueryRerouteConfig? _fromMap(DynamicMap map) {
-    final query = map.getAsMap("query").toModelQuery();
-    if (query == null) {
-      return null;
-    }
-    return UserDocumentQueryRerouteConfig(
-      query: query,
-      routePath: map.get("path", "/landing"),
-    );
-  }
-
-  /// Convert the reroute config to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": _type,
-      "query": query.toMap(),
-      "path": routePath,
-    };
-  }
 
   /// Runs after authentication has taken place.
   ///

@@ -36,37 +36,6 @@ class MenuConfig {
   /// Menu query.
   final ModelQuery? query;
 
-  static MenuConfig? _fromMap(DynamicMap map) {
-    if (!map.containsKey("name")) {
-      return null;
-    }
-    return MenuConfig(
-      name: map.get("name", ""),
-      text: map.get<String?>("text", null),
-      path: map.get<String?>("path", null),
-      icon: map.getAsMap("icon").toIconData(),
-      query: map.getAsMap("query").toModelQuery(),
-      children: map
-          .getAsList<DynamicMap>("children")
-          .mapAndRemoveEmpty((item) => item.toMenuConfig()),
-      availableRole: map.getAsList<String>("available"),
-    );
-  }
-
-  /// Convert the menu style to [DynamicMap].
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "name": name,
-      if (text.isNotEmpty) "text": text!,
-      if (path.isNotEmpty) "path": path!,
-      if (icon != null) "icon": icon!.toMap(),
-      if (query != null) "query": query!.toMap(),
-      if (children.isNotEmpty)
-        "children": children.map((item) => item.toMap()).toList(),
-      if (availableRole.isNotEmpty) "available": availableRole,
-    };
-  }
-
   /// The equality operator.
   ///
   /// The default behavior for all [Object]s is to return true if and only if this object and [other] are the same object.

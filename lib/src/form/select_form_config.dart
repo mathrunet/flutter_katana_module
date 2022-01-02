@@ -10,8 +10,6 @@ class SelectFormConfig extends FormConfig {
     this.color,
   });
 
-  static const String _type = "select";
-
   final Map<String, String> items;
 
   final String initialKey;
@@ -19,31 +17,4 @@ class SelectFormConfig extends FormConfig {
   final Color? backgroundColor;
 
   final Color? color;
-
-  static SelectFormConfig? _fromMap(DynamicMap map) {
-    if (!map.containsKey("items")) {
-      return null;
-    }
-    final items = map
-        .getAsMap("items")
-        .map((key, value) => MapEntry(key, value.toString()));
-    return SelectFormConfig(
-      backgroundColor: map.getAsMap("backgroundColor").toColor(),
-      color: map.getAsMap("color").toColor(),
-      initialKey: map.get("initialKey", items.keys.firstOrNull ?? ""),
-      items: items,
-    );
-  }
-
-  /// Convert the form config to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": _type,
-      "backgroundColor": backgroundColor.toMap(),
-      "color": color.toMap(),
-      "items": items.cast<String, dynamic>(),
-      "initialKey": initialKey,
-    };
-  }
 }

@@ -64,38 +64,6 @@ class PurchaseProduct {
   /// The price of the item.
   String get productPrice => price.toString();
 
-  /// Convert the purchase product to [DynamicMap].
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "id": id,
-      "type": type.index,
-      "value": value,
-      if (name.isNotEmpty) "name": name,
-      if (text.isNotEmpty) "text": name,
-      if (price.isNotEmpty) "price": price,
-      if (targetPath.isNotEmpty) "targetPath": targetPath,
-    };
-  }
-
-  /// Convert the purchase product from [DynamicMap].
-  PurchaseProduct? fromMap(DynamicMap map) {
-    if (!map.containsKey("id")) {
-      return null;
-    }
-
-    return PurchaseProduct(
-      id: map.get("id", ""),
-      type: ProductType.values.firstWhereOrNull((e) =>
-              e.index == map.get("type", ProductType.consumable.index)) ??
-          ProductType.consumable,
-      value: map.get("value", 0.0),
-      name: map.get<String?>("name", null),
-      text: map.get<String?>("text", null),
-      price: map.get("price", 0.0),
-      targetPath: map.get<String?>("targetPath", null),
-    );
-  }
-
   /// The equality operator.
   ///
   /// The default behavior for all [Object]s is to return true if and only if this object and [other] are the same object.

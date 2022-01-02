@@ -17,21 +17,4 @@ class RouteModule extends PageModule {
           verifyAppReroute: verifyAppReroute,
           rerouteConfigs: rerouteConfigs,
         );
-
-  /// Convert the module information from [DynamicMap].
-  @override
-  RouteModule? fromMap(DynamicMap map) {
-    if (map.get("type", "") != type) {
-      return null;
-    }
-    return const RouteModule({});
-  }
-
-  /// Convert the module information to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return {
-      "type": type,
-    };
-  }
 }

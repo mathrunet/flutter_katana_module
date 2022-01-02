@@ -55,29 +55,6 @@ class Permission {
     return delete.contains(role);
   }
 
-  /// Convert the menu config from [DynamicMap].
-  static Permission? _fromMap(DynamicMap map) {
-    if (!map.containsKey("enabled")) {
-      return null;
-    }
-    return Permission(
-      enabled: map.get("enabled", false),
-      edit: map.get<List?>("edit", null)?.cast<String>(),
-      delete: map.get<List?>("delete", null)?.cast<String>(),
-      watch: map.get<List?>("watch", null)?.cast<String>(),
-    );
-  }
-
-  /// Convert the permission to [DynamicMap].
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "enabled": enabled,
-      if (edit != null) "edit": edit,
-      if (delete != null) "delete": delete,
-      if (watch != null) "watch": watch,
-    };
-  }
-
   /// The equality operator.
   ///
   /// The default behavior for all [Object]s is to return true if and only if this object and [other] are the same object.

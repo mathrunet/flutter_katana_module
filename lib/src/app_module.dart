@@ -94,60 +94,6 @@ class AppModule extends Module implements ModuleHook {
 
   static AppModule? _registered;
 
-  /// Convert the module information from [DynamicMap].
-  @override
-  AppModule? fromMap(DynamicMap map) {
-    if (map.get("type", "") != type || !map.containsKey("name")) {
-      return null;
-    }
-    return AppModule(
-      title: map.get("name", ""),
-      initialRoute: map.get("initialRoute", "/"),
-      logoUrl: map.get<String?>("logoUrl", null),
-      menus: map
-          .getAsList<DynamicMap>("menu")
-          .mapAndRemoveEmpty((item) => item.toMenuConfig()),
-      officialUrl: map.get<String?>("officialUrl", null),
-      supportUrl: map.get<String?>("supportUrl", null),
-      privacyPolicyUrl: map.get<String?>("privacyUrl", null),
-      termsUrl: map.get<String?>("termsUrl", null),
-      roles: map
-          .getAsList<DynamicMap>("role")
-          .mapAndRemoveEmpty((item) => item.toRoleConfig()),
-      lightTheme: map.getAsMap("lightTheme").toThemeColor(),
-      darkTheme: map.getAsMap("darkTheme").toThemeColor(),
-      themeMode: ThemeMode.values.firstWhere(
-          (e) => e.index == map.get<int>("themeMode", ThemeMode.system.index)),
-      designType: DesignType.values.firstWhere((e) =>
-          e.index == map.get<int>("designType", DesignType.modern.index)),
-      webStyle: map.get("webStyle", true),
-      bootConfig: map.getAsMap("boot").toBootConfig() ?? const BootConfig(),
-    );
-  }
-
-  /// Convert the module information to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "name": title,
-      "type": type,
-      "initialRoute": initialRoute,
-      if (logoUrl.isNotEmpty) "logoUrl": logoUrl!,
-      "menu": menus.mapAndRemoveEmpty((item) => item.toMap()),
-      if (officialUrl.isNotEmpty) "officialUrl": officialUrl!,
-      if (supportUrl.isNotEmpty) "supportUrl": supportUrl!,
-      if (privacyPolicyUrl.isNotEmpty) "privacyUrl": privacyPolicyUrl!,
-      if (termsUrl.isNotEmpty) "termsUrl": termsUrl!,
-      "role": roles.mapAndRemoveEmpty((item) => item.toMap()),
-      if (lightTheme != null) "lightTheme": lightTheme!.toMap(),
-      if (darkTheme != null) "darkTheme": darkTheme!.toMap(),
-      "themeMode": themeMode.index,
-      "designType": DesignType.modern,
-      "webStyle": webStyle,
-      "boot": bootConfig.toMap(),
-    };
-  }
-
   /// Run it the first time the app is launched.
   @override
   @mustCallSuper

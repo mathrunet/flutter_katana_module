@@ -13,8 +13,6 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
     this.userPath = "user",
   });
 
-  static const String _type = "registrationRequired";
-
   /// Reroute Path for login required.
   final String loginRequiredRoutePath;
 
@@ -48,31 +46,6 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
           return !doc.containsKey(key);
         },
       };
-
-  static RegistrationRequiredRerouteConfig? _fromMap(DynamicMap map) {
-    final key = map.get("key", "");
-    if (key.isEmpty) {
-      return null;
-    }
-    return RegistrationRequiredRerouteConfig(
-      key: key,
-      userPath: map.get("userPath", "user"),
-      loginRequiredRoutePath: map.get("loginRequired", "/landing"),
-      informationRequiredRoutePath: map.get("informationRequired", "/register"),
-    );
-  }
-
-  /// Convert the reroute config to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": _type,
-      "key": key,
-      "userPath": userPath,
-      "loginRequired": loginRequiredRoutePath,
-      "informationRequired": informationRequiredRoutePath,
-    };
-  }
 
   /// Runs when restoring authentication.
   @override

@@ -14,8 +14,6 @@ class TextFormConfig extends FormConfig {
     this.keyboardType = TextInputType.text,
   });
 
-  static const String _type = "text";
-
   final Color? backgroundColor;
 
   final Color? color;
@@ -31,36 +29,4 @@ class TextFormConfig extends FormConfig {
   final int? maxLength;
 
   final bool obscureText;
-
-  static TextFormConfig? _fromMap(DynamicMap map) {
-    return TextFormConfig(
-      backgroundColor: map.getAsMap("backgroundColor").toColor(),
-      color: map.getAsMap("color").toColor(),
-      keyboardType: TextInputType.values.firstWhereOrNull((element) =>
-              element.index ==
-              map.get("keyboardType", TextInputType.text.index)) ??
-          TextInputType.text,
-      minLines: map.get<int?>("minLines", null),
-      maxLines: map.get<int?>("maxLines", null),
-      minLength: map.get<int?>("minLength", null),
-      maxLength: map.get<int?>("maxLength", null),
-      obscureText: map.get("obscureText", false),
-    );
-  }
-
-  /// Convert the form config to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": _type,
-      "backgroundColor": backgroundColor.toMap(),
-      "color": color.toMap(),
-      "keyboardType": keyboardType.index,
-      if (minLines != null) "minLines": minLines,
-      if (maxLines != null) "maxLines": maxLines,
-      if (minLength != null) "minLength": minLength,
-      if (maxLength != null) "maxLength": maxLength,
-      "obscureText": obscureText,
-    };
-  }
 }

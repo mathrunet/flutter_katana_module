@@ -8,8 +8,6 @@ class LoginRequiredRerouteConfig extends RerouteConfig {
     this.routePath = "/landing",
   });
 
-  static const String _type = "loginRequired";
-
   /// Reroute Path.
   final String routePath;
 
@@ -22,21 +20,6 @@ class LoginRequiredRerouteConfig extends RerouteConfig {
           return !(context.model?.isSignedIn ?? true);
         },
       };
-
-  static LoginRequiredRerouteConfig? _fromMap(DynamicMap map) {
-    return LoginRequiredRerouteConfig(
-      routePath: map.get("path", "/landing"),
-    );
-  }
-
-  /// Convert the reroute config to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": _type,
-      "path": routePath,
-    };
-  }
 
   /// Runs when restoring authentication.
   @override

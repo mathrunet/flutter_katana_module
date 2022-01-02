@@ -31,35 +31,6 @@ class BootConfig {
   /// Indicator and other colors.
   final Color? color;
 
-  static BootConfig? _fromMap(DynamicMap map) {
-    if (!map.containsKey("type")) {
-      return null;
-    }
-    return BootConfig(
-      designType: BootDesignType.values.firstWhereOrNull((item) =>
-              map.get("type", BootDesignType.loading.index) == item.index) ??
-          BootDesignType.loading,
-      logoPath: map.get("logo", ""),
-      logoSize: map.getAsMap("logoSize").toSize(),
-      logoBorderRadius: map.getAsMap("logoBorderRadius").toBorderRadius(),
-      backgroundColor: map.getAsMap("backgroundColor").toColor(),
-      color: map.getAsMap("color").toColor(),
-    );
-  }
-
-  /// Convert the boot config to [DynamicMap].
-  DynamicMap toMap() {
-    return <String, dynamic>{
-      "type": designType.index,
-      if (logoPath.isNotEmpty) "logo": logoPath,
-      if (backgroundColor != null) "backgroundColor": backgroundColor.toMap(),
-      if (color != null) "color": color.toMap(),
-      if (logoSize != null) "logoSize": logoSize.toMap(),
-      if (logoBorderRadius != null)
-        "logoBorderRadius": logoBorderRadius.toMap(),
-    };
-  }
-
   /// The equality operator.
   ///
   /// The default behavior for all [Object]s is to return true if and only if this object and [other] are the same object.

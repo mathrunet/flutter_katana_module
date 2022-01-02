@@ -30,26 +30,4 @@ class ModelQueryConditionModule extends ConditionModule<Object?> {
   bool check(BuildContext context, Object? value) {
     return query.check(value);
   }
-
-  /// Convert the model query condition module information from [DynamicMap].
-  @override
-  ModelQueryConditionModule? fromMap(DynamicMap map) {
-    if (!map.containsKey("query")) {
-      return null;
-    }
-    final query = map.toModelQuery();
-    if (query == null) {
-      return null;
-    }
-
-    return ModelQueryConditionModule(query);
-  }
-
-  /// Convert the model query condition module information to [DynamicMap].
-  @override
-  DynamicMap toMap() {
-    return {
-      "query": query.toMap(),
-    };
-  }
 }

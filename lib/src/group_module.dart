@@ -38,14 +38,6 @@ abstract class GroupModule extends Module implements ModuleHook {
     return res;
   }
 
-  /// Convert the module information from [DynamicMap].
-  @override
-  GroupModule? fromMap(DynamicMap map);
-
-  /// Convert the module information to [DynamicMap].
-  @override
-  DynamicMap toMap();
-
   /// Runs after authentication has taken place.
   ///
   /// It is also called after registration or login has been completed.

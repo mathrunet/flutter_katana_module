@@ -12,23 +12,6 @@ abstract class RerouteConfig implements ModuleHook {
   /// If [value] is `true`, the route will be changed to the path of [key].
   Map<String, bool Function(BuildContext context)> get value;
 
-  static RerouteConfig? _fromMap(DynamicMap map) {
-    if (!map.containsKey("type")) {
-      return null;
-    }
-    switch (map.get("type", "")) {
-      case LoginRequiredRerouteConfig._type:
-        return LoginRequiredRerouteConfig._fromMap(map);
-      case RegistrationRequiredRerouteConfig._type:
-        return RegistrationRequiredRerouteConfig._fromMap(map);
-      case UserDocumentQueryRerouteConfig._type:
-        return UserDocumentQueryRerouteConfig._fromMap(map);
-    }
-  }
-
-  /// Convert the reroute config to [DynamicMap].
-  DynamicMap toMap();
-
   /// Run it the first time the app is launched.
   @override
   @mustCallSuper
