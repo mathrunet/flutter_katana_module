@@ -265,7 +265,7 @@ packages:
       name: model_notifier
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.0+5"
+    version: "0.9.0+6"
   nm:
     dependency: transitive
     description:
