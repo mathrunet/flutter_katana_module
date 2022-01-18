@@ -20,4 +20,9 @@ abstract class ModuleHook {
   /// before transitioning to another page.
   @mustCallSuper
   Future<void> onBeforeFinishBoot(BuildContext context);
+
+  /// It is executed after the boot process is finished and
+  /// after transitioning to another page.
+  @mustCallSuper
+  Future<void> onAfterFinishBoot(BuildContext context);
 }

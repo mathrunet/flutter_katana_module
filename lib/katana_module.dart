@@ -43,6 +43,7 @@ part 'src/reroute/registration_required_reroute_config.dart';
 part 'src/reroute/user_document_query_reroute_config.dart';
 
 part 'src/adapter/ads_adapter.dart';
+part 'src/adapter/sns_sign_in_adapter.dart';
 part 'src/adapter/dynamic_links_adapter.dart';
 part 'src/adapter/location_adapter.dart';
 part "src/adapter/platform_adapter.dart";

@@ -34,4 +34,10 @@ abstract class RerouteConfig implements ModuleHook {
   @override
   @mustCallSuper
   Future<void> onBeforeFinishBoot(BuildContext context) => Future.value();
+
+  /// It is executed after the boot process is finished and
+  /// after transitioning to another page.
+  @override
+  @mustCallSuper
+  Future<void> onAfterFinishBoot(BuildContext context) => Future.value();
 }

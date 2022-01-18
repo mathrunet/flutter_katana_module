@@ -124,4 +124,12 @@ class AppModule extends Module implements ModuleHook {
   Future<void> onBeforeFinishBoot(BuildContext context) async {
     await Future.wait(rerouteConfigs.map((e) => e.onBeforeFinishBoot(context)));
   }
+
+  /// It is executed after the boot process is finished and
+  /// after transitioning to another page.
+  @override
+  @mustCallSuper
+  Future<void> onAfterFinishBoot(BuildContext context) async {
+    await Future.wait(rerouteConfigs.map((e) => e.onAfterFinishBoot(context)));
+  }
 }
