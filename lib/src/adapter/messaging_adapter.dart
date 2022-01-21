@@ -1,7 +1,8 @@
 part of katana_module;
 
 /// Class for storing information for push messaging.
-abstract class MessagingAdapter<T extends MapModel> extends AdapterModule {
+abstract class MessagingAdapter<T extends MessagingValue>
+    extends AdapterModule {
   const MessagingAdapter();
 
   /// Initialization.
@@ -22,6 +23,7 @@ abstract class MessagingAdapter<T extends MapModel> extends AdapterModule {
     required String title,
     required String text,
     required String topic,
+    String? path,
     DynamicMap? data,
   });
 

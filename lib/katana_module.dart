@@ -35,6 +35,7 @@ part 'src/template_module.dart';
 part 'src/adapter_module.dart';
 part 'src/variable_config.dart';
 part 'src/route_module.dart';
+part 'src/messaging_value.dart';
 part 'src/form_config.dart';
 
 part 'src/reroute_config.dart';
