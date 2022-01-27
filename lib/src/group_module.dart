@@ -42,17 +42,27 @@ abstract class GroupModule extends Module implements ModuleHook {
   ///
   /// It is also called after registration or login has been completed.
   @override
+  @mustCallSuper
   Future<void> onAfterAuth(BuildContext context) => Future.value();
 
   /// It is executed after the boot process is finished and before transitioning to another page.
   @override
+  @mustCallSuper
   Future<void> onBeforeFinishBoot(BuildContext context) => Future.value();
 
   /// Run it the first time the app is launched.
   @override
+  @mustCallSuper
   Future<void> onInit(BuildContext context) => Future.value();
 
   /// Runs when restoring authentication.
   @override
+  @mustCallSuper
   Future<void> onRestoreAuth(BuildContext context) => Future.value();
+
+  /// It is executed after the boot process is finished and
+  /// after transitioning to another page.
+  @override
+  @mustCallSuper
+  Future<void> onAfterFinishBoot(BuildContext context) => Future.value();
 }
