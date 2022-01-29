@@ -31,12 +31,14 @@ part "src/ui_module_material_app.dart";
 part "src/purchase_product.dart";
 part 'src/commerce_platform_status.dart';
 part 'src/module_hook.dart';
+part 'src/page_module_widget.dart';
 part 'src/template_module.dart';
 part 'src/adapter_module.dart';
 part 'src/variable_config.dart';
 part 'src/route_module.dart';
 part 'src/messaging_value.dart';
 part 'src/form_config.dart';
+part 'src/module_widget.dart';
 
 part 'src/reroute_config.dart';
 part 'src/reroute/login_required_reroute_config.dart';

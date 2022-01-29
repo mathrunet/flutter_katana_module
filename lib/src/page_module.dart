@@ -35,11 +35,12 @@ abstract class PageModule extends Module implements ModuleHook {
           ?.title,
       routeSettings: pageModules.fold<Map<String, RouteConfig>>(
         {},
-        (routeSetting, config) => config.enabled
+        (routeSetting, module) => module.enabled
             ? routeSetting.merge(_convert(
-                config.routeSettings,
-                verifyAppReroute: config.verifyAppReroute,
-                rerouteConfigs: config.rerouteConfigs,
+                module,
+                module.routeSettings,
+                verifyAppReroute: module.verifyAppReroute,
+                rerouteConfigs: module.rerouteConfigs,
               ))
             : routeSetting,
       ),
@@ -50,6 +51,7 @@ abstract class PageModule extends Module implements ModuleHook {
   }
 
   static Map<String, RouteConfig>? _convert(
+    PageModule module,
     Map<String, RouteConfig>? routeSettings, {
     bool verifyAppReroute = true,
     List<RerouteConfig> rerouteConfigs = const [],
@@ -57,12 +59,23 @@ abstract class PageModule extends Module implements ModuleHook {
     if (routeSettings.isEmpty) {
       return routeSettings;
     }
+    final routes = routeSettings!.map<String, RouteConfig>((key, value) {
+      return MapEntry(
+        key,
+        RouteConfig(
+          (context) => PageModuleScope(
+            child: value.builder.call(context),
+            module: module,
+          ),
+        ),
+      );
+    });
     if (!verifyAppReroute && rerouteConfigs.isEmpty) {
-      return routeSettings;
+      return routes;
     }
 
     final res = <String, RouteConfig>{};
-    for (final tmp in routeSettings!.entries) {
+    for (final tmp in routes.entries) {
       final reroute =
           Map<String, bool Function(BuildContext)>.from(tmp.value.reroute);
       if (rerouteConfigs.isNotEmpty) {
