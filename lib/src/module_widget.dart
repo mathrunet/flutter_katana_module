@@ -87,7 +87,7 @@ abstract class ModuleWidget<T extends PageModule> extends StatefulWidget {
   /// [State] objects.
   @override
   @protected
-  State<StatefulWidget> createState() => ScopedWidgetState();
+  State<StatefulWidget> createState() => ModuleWidgetState<T>();
 }
 
 class ModuleWidgetState<T extends PageModule> extends State<ModuleWidget<T>> {
