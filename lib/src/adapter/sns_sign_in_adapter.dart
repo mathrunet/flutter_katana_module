@@ -10,4 +10,7 @@ abstract class SNSSignInAdapter extends AdapterModule {
 
   /// Sign in with sns account.
   Future<void> signIn();
+
+  /// Sign out with sns account.
+  Future<void> signOut();
 }

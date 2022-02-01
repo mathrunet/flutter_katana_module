@@ -9,6 +9,7 @@
 library katana_module;
 
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:katana_routing/katana_routing.dart';
 import 'package:model_notifier/model_notifier.dart';
 
@@ -39,6 +40,7 @@ part 'src/route_module.dart';
 part 'src/messaging_value.dart';
 part 'src/form_config.dart';
 part 'src/module_widget.dart';
+part 'src/text_input_formatter_config.dart';
 
 part 'src/reroute_config.dart';
 part 'src/reroute/login_required_reroute_config.dart';

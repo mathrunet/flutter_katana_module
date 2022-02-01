@@ -233,4 +233,7 @@ abstract class ModelAdapter<
 
   /// For anonymous logged in users, True.
   bool get isAnonymously;
+
+  /// Returns the ID of the currently active provider.
+  List<String> get activeProviders;
 }
