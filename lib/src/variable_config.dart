@@ -2,11 +2,12 @@ part of katana_module;
 
 /// You can set up values and forms to be registered to Firestore etc.
 @immutable
-class VariableConfig {
+class VariableConfig<T> {
   /// You can set up values and forms to be registered to Firestore etc.
   const VariableConfig({
     required this.id,
     required this.label,
+    required this.value,
     this.icon,
     this.required = false,
     this.show = true,
@@ -15,6 +16,9 @@ class VariableConfig {
 
   /// ID of variable.
   final String id;
+
+  /// Default value.
+  final T value;
 
   /// Label of variable.
   final String label;
@@ -29,19 +33,21 @@ class VariableConfig {
   final bool show;
 
   /// Data for the form.
-  final FormConfig? form;
+  final FormConfig<T>? form;
 
   /// Create a new VariableConfig by passing a value.
-  VariableConfig copyWith({
+  VariableConfig<T> copyWith({
     String? id,
     String? label,
+    T? value,
     IconData? icon,
     bool? required,
     bool? show,
-    FormConfig? form,
+    FormConfig<T>? form,
   }) {
     return VariableConfig(
       id: id ?? this.id,
+      value: value ?? this.value,
       label: label ?? this.label,
       icon: icon ?? this.icon,
       required: required ?? this.required,
@@ -96,6 +102,7 @@ class VariableConfig {
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode =>
       id.hashCode ^
+      value.hashCode ^
       label.hashCode ^
       required.hashCode ^
       icon.hashCode ^
