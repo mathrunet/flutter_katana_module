@@ -51,6 +51,7 @@ part 'src/adapter/ads_adapter.dart';
 part 'src/adapter/sns_sign_in_adapter.dart';
 part 'src/adapter/dynamic_links_adapter.dart';
 part 'src/adapter/location_adapter.dart';
+part 'src/adapter/analytics_adapter.dart';
 part "src/adapter/platform_adapter.dart";
 part "src/adapter/purchase_adapter.dart";
 part 'src/adapter/model_adapter.dart';

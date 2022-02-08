@@ -89,12 +89,14 @@ class UIModuleMaterialApp extends StatelessWidget {
     ]);
     final appModule = enableModules.whereType<AppModule>().firstOrNull;
     final moduleConfig = PageModule.merge(enableModules);
+    final analytics = enableModules.whereType<AnalyticsAdapter>().firstOrNull;
     return AppScope(
       app: appModule,
       child: AdapterScope(
         modelAdapter: enableModules.whereType<ModelAdapter>().firstOrNull,
         platformAdapter: enableModules.whereType<PlatformAdapter>().firstOrNull,
         plugin: AdapterPlugins(
+          analytics: analytics,
           ads: enableModules.whereType<AdsAdapter>().firstOrNull,
           purchase: enableModules.whereType<PurchaseAdapter>().firstOrNull,
           messaging: enableModules.whereType<MessagingAdapter>().firstOrNull,
@@ -116,7 +118,10 @@ class UIModuleMaterialApp extends StatelessWidget {
             navigatorKey: navigatorKey,
             routes: moduleConfig?.routeSettings.merge(routes) ?? routes,
             initialRoute: appModule?.initialRoute ?? initialRoute,
-            navigatorObservers: navigatorObservers,
+            navigatorObservers: [
+              if (analytics?.observer != null) analytics!.observer!,
+              ...navigatorObservers,
+            ],
             title: appModule?.title ?? moduleConfig?.title ?? title,
             onGenerateTitle: onGenerateTitle,
             onUnknownRoute: onUnknownRoute,
@@ -201,6 +206,7 @@ class AdapterPlugins {
     this.messaging,
     this.streaming,
     this.location,
+    this.analytics,
     this.dynamicLinks,
     this.snsSignIns = const [],
   });
@@ -210,6 +216,9 @@ class AdapterPlugins {
 
   /// Ads adapter.
   final AdsAdapter? ads;
+
+  /// Analytics adapter.
+  final AnalyticsAdapter? analytics;
 
   /// Purchasing adapter.
   final PurchaseAdapter? purchase;
