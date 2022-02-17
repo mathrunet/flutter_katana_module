@@ -15,6 +15,12 @@ abstract class ModelAdapter<
     extends AdapterModule {
   const ModelAdapter();
 
+  /// Path prefix.
+  String get prefix;
+
+  /// Path suffix.
+  String get suffix;
+
   /// Gets the provider of the [Document].
   ///
   /// In [path], enter the path where you want to retrieve the document.
@@ -47,18 +53,26 @@ abstract class ModelAdapter<
   /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
   TCollection loadCollection(TCollection collection, [bool once = false]);
 
-  /// Save the number of elements in [collectionPath] to its parent document with [counterSuffix].
+  /// Outputs the builder to be written by the transaction.
+  ///
+  /// Basically, it writes and deletes data for [collectionPath].
   ///
   /// You can add the corresponding element by specifying [linkedCollectionPath].
   ///
+  /// If [enableCounter] is set to `true`,
+  /// the number of elements will be counted and recorded in the document of the level above each collection path.
+  ///
   /// You can generate a key to store the number of elements in a document by specifying [counterBuilder] or [linkedCounterBuilder].
-  IncrementCounterTransactionBuilder incrementCounter({
+  DatabaseTransactionBuilder transaction({
     required String collectionPath,
+    bool enableCounter = true,
     String counterSuffix = "Count",
     String Function(String path)? counterBuilder,
     String? linkedCollectionPath,
     String Function(String linkPath)? linkedCounterBuilder,
     List<CounterUpdaterInterval> counterIntervals = const [],
+    DynamicMap? additionalData,
+    DynamicMap? linkedAdditionalData,
   });
 
   /// Create a code of length [length] randomly for id.

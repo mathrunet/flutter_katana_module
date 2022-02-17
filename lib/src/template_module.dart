@@ -31,7 +31,7 @@ abstract class TemplateModule extends GroupModule {
   List<Module> get plugins;
 
   /// Set other widgets, if any.
-  Map<String, RouteConfig> get routes;
+  Map<String, Widget> get routes;
 
   /// Settings to reroute the page.
   List<RerouteConfig> get reroutes;
@@ -46,8 +46,9 @@ abstract class TemplateModule extends GroupModule {
         platform,
         ...plugins,
         ...pages,
-        RouteModule(
-          routes,
-        ),
+        if (routes.isNotEmpty)
+          RouteModule(
+            routes,
+          ),
       ];
 }

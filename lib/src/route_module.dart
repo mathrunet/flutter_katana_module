@@ -9,12 +9,26 @@ class RouteModule extends PageModule {
   ///
   /// It is possible to handle pages outside the module by putting your own page widgets etc. on the routing information.
   const RouteModule(
-    Map<String, RouteConfig> routeSettings, {
+    Map<String, Widget> routeSettings, {
+    bool enabled = true,
     bool verifyAppReroute = false,
     List<RerouteConfig> rerouteConfigs = const [],
-  }) : super(
-          routeSettings: routeSettings,
+  })  : _routeSettings = routeSettings,
+        super(
+          enabled: enabled,
           verifyAppReroute: verifyAppReroute,
           rerouteConfigs: rerouteConfigs,
         );
+
+  final Map<String, Widget> _routeSettings;
+
+  @override
+  Map<String, RouteConfig> get routeSettings {
+    if (!enabled) {
+      return const {};
+    }
+    return _routeSettings.map<String, RouteConfig>((key, value) {
+      return MapEntry(key, RouteConfig((_) => value));
+    });
+  }
 }
