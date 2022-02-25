@@ -104,7 +104,8 @@ class UIModuleMaterialApp extends StatelessWidget {
           streaming: enableModules.whereType<StreamingAdapter>().firstOrNull,
           dynamicLinks:
               enableModules.whereType<DynamicLinksAdapter>().firstOrNull,
-          snsSignIns: enableModules.whereType<SNSSignInAdapter>().toList(),
+          signIns: enableModules.whereType<SignInAdapter>().toList(),
+          functions: enableModules.whereType<FunctionAdapter>().toList(),
         ),
         child: RoleScope(
           roles: appModule?.roles ?? const [],
@@ -208,11 +209,15 @@ class AdapterPlugins {
     this.location,
     this.analytics,
     this.dynamicLinks,
-    this.snsSignIns = const [],
+    this.signIns = const [],
+    this.functions = const [],
   });
 
-  /// The SNS SignIn adapters.
-  final List<SNSSignInAdapter> snsSignIns;
+  /// Function adapters.
+  final List<FunctionAdapter> functions;
+
+  /// The SignIn adapters.
+  final List<SignInAdapter> signIns;
 
   /// Ads adapter.
   final AdsAdapter? ads;
@@ -235,9 +240,9 @@ class AdapterPlugins {
   /// Dynamic links adapter.
   final DynamicLinksAdapter? dynamicLinks;
 
-  /// The SNS SignIn adapter corresponding to [providerId].
-  SNSSignInAdapter? snsSignIn(String providerId) {
-    return snsSignIns.firstWhereOrNull((item) => item.provider == providerId);
+  /// The SignIn adapter corresponding to [providerId].
+  SignInAdapter? signIn(String providerId) {
+    return signIns.firstWhereOrNull((item) => item.provider == providerId);
   }
 }
 

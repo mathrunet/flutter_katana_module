@@ -19,7 +19,7 @@ export 'package:model_notifier/model_notifier.dart';
 part "src/app_module.dart";
 part 'src/condition_module.dart';
 part "src/extensions.dart";
-part 'src/function_module.dart';
+part 'src/adapter/function_adapter.dart';
 part 'src/menu_config.dart';
 part "src/module.dart";
 part "src/boot_config.dart";
@@ -40,6 +40,8 @@ part 'src/route_module.dart';
 part 'src/messaging_value.dart';
 part 'src/form_config.dart';
 part 'src/module_widget.dart';
+part 'src/module_value_widget.dart';
+part 'src/value_widget.dart';
 part 'src/text_input_formatter_config.dart';
 
 part 'src/reroute_config.dart';
@@ -48,7 +50,7 @@ part 'src/reroute/registration_required_reroute_config.dart';
 part 'src/reroute/user_document_query_reroute_config.dart';
 
 part 'src/adapter/ads_adapter.dart';
-part 'src/adapter/sns_sign_in_adapter.dart';
+part 'src/adapter/sign_in_adapter.dart';
 part 'src/adapter/dynamic_links_adapter.dart';
 part 'src/adapter/location_adapter.dart';
 part 'src/adapter/analytics_adapter.dart';

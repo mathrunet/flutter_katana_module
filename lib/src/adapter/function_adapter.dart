@@ -4,9 +4,9 @@ part of katana_module;
 ///
 /// Basically, it cannot be serialized.
 @immutable
-abstract class FunctionModule extends Module {
+abstract class FunctionAdapter extends AdapterModule {
   /// Module that can define callbacks, etc.
   ///
   /// Basically, it cannot be serialized.
-  const FunctionModule();
+  const FunctionAdapter();
 }
