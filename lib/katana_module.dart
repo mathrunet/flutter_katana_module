@@ -35,10 +35,8 @@ part 'src/module_hook.dart';
 part 'src/page_module_widget.dart';
 part 'src/template_module.dart';
 part 'src/adapter_module.dart';
-part 'src/variable_config.dart';
 part 'src/route_module.dart';
 part 'src/messaging_value.dart';
-part 'src/form_config.dart';
 part 'src/module_widget.dart';
 part 'src/module_value_widget.dart';
 part 'src/value_widget.dart';
@@ -59,3 +57,14 @@ part "src/adapter/purchase_adapter.dart";
 part 'src/adapter/model_adapter.dart';
 part 'src/adapter/messaging_adapter.dart';
 part 'src/adapter/streaming_adapter.dart';
+
+part 'src/tags/module_tag.dart';
+part 'src/tags/extensions.dart';
+part 'src/tags/context_module_tag.dart';
+part 'src/tags/user_module_tag.dart';
+part 'src/tags/document_module_tag.dart';
+part 'src/tags/collection_module_tag.dart';
+
+part 'src/variable/extensions.dart';
+part 'src/variable/variable_config.dart';
+part 'src/variable/form_config.dart';

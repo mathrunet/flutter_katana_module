@@ -36,6 +36,12 @@ abstract class TemplateModule extends GroupModule {
   /// Settings to reroute the page.
   List<RerouteConfig> get reroutes;
 
+  /// Module tags list.
+  List<ModuleTag> get moduleTags;
+
+  /// Form Config Builder List.
+  List<FormConfigBuilder> get formConfigBuilders;
+
   /// List of modules that are grouped.
   @override
   @protected
