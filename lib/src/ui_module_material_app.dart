@@ -48,7 +48,6 @@ class UIModuleMaterialApp extends StatelessWidget {
       _DocumentModuleTag(),
       _CollectionModuleTag(),
     ],
-    this.formConfigBuilders = const [],
   }) : super(key: key);
 
   final DesignType designType;
@@ -86,7 +85,6 @@ class UIModuleMaterialApp extends StatelessWidget {
   final bool showSemanticsDebugger;
   final bool debugShowCheckedModeBanner;
   final WidgetTheme widgetTheme;
-  final List<FormConfigBuilder> formConfigBuilders;
 
   @override
   Widget build(BuildContext context) {
@@ -124,84 +122,47 @@ class UIModuleMaterialApp extends StatelessWidget {
               if (template != null) ...template.moduleTags,
               ...moduleTags,
             ],
-            child: _FormConfigBuilderScope(
-              builders: [
-                if (template != null) ...template.formConfigBuilders,
-                ...formConfigBuilders,
+            child: UIMaterialApp(
+              key: key,
+              widgetTheme: widgetTheme,
+              designType: appModule?.designType ?? designType,
+              webStyle: appModule?.webStyle ?? webStyle,
+              flavor: flavor,
+              home: home,
+              navigatorKey: navigatorKey,
+              routes: moduleConfig?.routeSettings.merge(routes) ?? routes,
+              initialRoute: appModule?.initialRoute ?? initialRoute,
+              navigatorObservers: [
+                if (analytics?.observer != null) analytics!.observer!,
+                ...navigatorObservers,
               ],
-              child: UIMaterialApp(
-                key: key,
-                widgetTheme: widgetTheme,
-                designType: appModule?.designType ?? designType,
-                webStyle: appModule?.webStyle ?? webStyle,
-                flavor: flavor,
-                home: home,
-                navigatorKey: navigatorKey,
-                routes: moduleConfig?.routeSettings.merge(routes) ?? routes,
-                initialRoute: appModule?.initialRoute ?? initialRoute,
-                navigatorObservers: [
-                  if (analytics?.observer != null) analytics!.observer!,
-                  ...navigatorObservers,
-                ],
-                title: appModule?.title ?? moduleConfig?.title ?? title,
-                onGenerateTitle: onGenerateTitle,
-                onUnknownRoute: onUnknownRoute,
-                onBootRoute: onBootRoute,
-                color: color,
-                theme: appModule?.lightTheme ?? theme,
-                darkTheme: appModule?.darkTheme ?? darkTheme,
-                themeMode: appModule?.themeMode ?? themeMode,
-                locale: locale,
-                localizationsDelegates: localizationsDelegates,
-                localeListResolutionCallback: localeListResolutionCallback,
-                localeResolutionCallback: localeResolutionCallback,
-                supportedLocales: supportedLocales,
-                debugShowMaterialGrid: debugShowMaterialGrid,
-                showPerformanceOverlay: showPerformanceOverlay,
-                checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-                checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-                showSemanticsDebugger: showSemanticsDebugger,
-                builder: builder,
-                debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-                minTextScaleFactor: minTextScaleFactor,
-                maxTextScaleFactor: maxTextScaleFactor,
-              ),
+              title: appModule?.title ?? moduleConfig?.title ?? title,
+              onGenerateTitle: onGenerateTitle,
+              onUnknownRoute: onUnknownRoute,
+              onBootRoute: onBootRoute,
+              color: color,
+              theme: appModule?.lightTheme ?? theme,
+              darkTheme: appModule?.darkTheme ?? darkTheme,
+              themeMode: appModule?.themeMode ?? themeMode,
+              locale: locale,
+              localizationsDelegates: localizationsDelegates,
+              localeListResolutionCallback: localeListResolutionCallback,
+              localeResolutionCallback: localeResolutionCallback,
+              supportedLocales: supportedLocales,
+              debugShowMaterialGrid: debugShowMaterialGrid,
+              showPerformanceOverlay: showPerformanceOverlay,
+              checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+              checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+              showSemanticsDebugger: showSemanticsDebugger,
+              builder: builder,
+              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+              minTextScaleFactor: minTextScaleFactor,
+              maxTextScaleFactor: maxTextScaleFactor,
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-class _FormConfigBuilderScope extends InheritedWidget {
-  const _FormConfigBuilderScope({
-    Key? key,
-    this.builders = const [],
-    required Widget child,
-  }) : super(key: key, child: child);
-
-  final List<FormConfigBuilder> builders;
-
-  static List<FormConfigBuilder> of(BuildContext context) {
-    return (context
-                .getElementForInheritedWidgetOfExactType<
-                    _FormConfigBuilderScope>()
-                ?.widget as _FormConfigBuilderScope?)
-            ?.builders ??
-        [];
-  }
-
-  /// Whether the framework should notify widgets that inherit from this widget.
-  ///
-  /// When widget: widget, sometimes we need to rebuild the widgets that inherit from widget: widget,
-  /// if the data held by widget: widget, then we do not need to rebuild the widgets that inherited the data held by oldWidget.
-  ///
-  /// The framework distinguishes these cases by calling this function with the widget that previously occupied this location in the tree as an argument.
-  /// The given widget is guaranteed to have the same [runtimeType] as this object.
-  @override
-  bool updateShouldNotify(_FormConfigBuilderScope oldWidget) {
-    return true;
   }
 }
 

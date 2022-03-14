@@ -39,9 +39,6 @@ abstract class TemplateModule extends GroupModule {
   /// Module tags list.
   List<ModuleTag> get moduleTags;
 
-  /// Form Config Builder List.
-  List<FormConfigBuilder> get formConfigBuilders;
-
   /// List of modules that are grouped.
   @override
   @protected

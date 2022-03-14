@@ -15,25 +15,16 @@ extension VariableConfigBuildExtensions on VariableConfig {
     if (onlyRequired && !this.required) {
       return const [];
     }
-    if (!show) {
+    if (!show || view == null) {
       return const [];
     }
-    final variables = _FormConfigBuilderScope.of(context);
-
-    for (final variable in variables) {
-      if (form == null || !variable.check(form)) {
-        continue;
-      }
-      return variable._view(
-        config: this,
-        form: form!,
-        context: context,
-        ref: ref,
-        data: data,
-        onlyRequired: onlyRequired,
-      );
-    }
-    return const [];
+    return view!._build(
+      context: context,
+      ref: ref,
+      config: this,
+      data: data,
+      onlyRequired: onlyRequired,
+    );
   }
 
   /// Build the widget for the form.
@@ -50,22 +41,16 @@ extension VariableConfigBuildExtensions on VariableConfig {
     if (onlyRequired && !this.required) {
       return const [];
     }
-    final variables = _FormConfigBuilderScope.of(context);
-
-    for (final variable in variables) {
-      if (form == null || !variable.check(form)) {
-        continue;
-      }
-      return variable._form(
-        config: this,
-        form: form,
-        context: context,
-        ref: ref,
-        data: data,
-        onlyRequired: onlyRequired,
-      );
+    if (form == null) {
+      return const [];
     }
-    return const [];
+    return form!._build(
+      context: context,
+      ref: ref,
+      config: this,
+      data: data,
+      onlyRequired: onlyRequired,
+    );
   }
 
   dynamic _setValue({
@@ -73,20 +58,15 @@ extension VariableConfigBuildExtensions on VariableConfig {
     required WidgetRef ref,
     bool updated = true,
   }) {
-    final variables = _FormConfigBuilderScope.of(context);
-
-    for (final variable in variables) {
-      if (form == null || !variable.check(form)) {
-        continue;
-      }
-      return variable._value(
-        config: this,
-        context: context,
-        ref: ref,
-        updated: updated,
-      );
+    if (form == null) {
+      return null;
     }
-    return null;
+    return form!._value(
+      context: context,
+      ref: ref,
+      config: this,
+      updated: updated,
+    );
   }
 
   /// Set [target] to the data entered in the VariableConfig form.

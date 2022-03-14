@@ -12,6 +12,7 @@ class VariableConfig<T> {
     this.required = false,
     this.show = true,
     this.form,
+    this.view,
   });
 
   /// ID of variable.
@@ -33,7 +34,10 @@ class VariableConfig<T> {
   final bool show;
 
   /// Data for the form.
-  final FormConfig<T>? form;
+  final VariableFormConfig<T>? form;
+
+  /// Data for the view.
+  final VariableViewConfig<T>? view;
 
   /// Create a new VariableConfig by passing a value.
   VariableConfig<T> copyWith({
@@ -43,7 +47,8 @@ class VariableConfig<T> {
     IconData? icon,
     bool? required,
     bool? show,
-    FormConfig<T>? form,
+    VariableFormConfig<T>? form,
+    VariableViewConfig<T>? view,
   }) {
     return VariableConfig(
       id: id ?? this.id,
@@ -53,6 +58,7 @@ class VariableConfig<T> {
       required: required ?? this.required,
       show: show ?? this.show,
       form: form ?? this.form,
+      view: view ?? this.view,
     );
   }
 
@@ -106,5 +112,6 @@ class VariableConfig<T> {
       label.hashCode ^
       required.hashCode ^
       icon.hashCode ^
-      form.hashCode;
+      form.hashCode ^
+      view.hashCode;
 }

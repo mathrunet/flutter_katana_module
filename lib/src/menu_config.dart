@@ -9,6 +9,7 @@ class MenuConfig {
     this.icon,
     this.path,
     this.query,
+    this.color,
     this.children = const [],
     this.availableRole = const [],
   });
@@ -35,6 +36,9 @@ class MenuConfig {
 
   /// Menu query.
   final ModelQuery? query;
+
+  /// Menu color.
+  final Color? color;
 
   /// The equality operator.
   ///
@@ -87,5 +91,6 @@ class MenuConfig {
       path.hashCode ^
       children.hashCode ^
       availableRole.hashCode ^
-      query.hashCode;
+      query.hashCode ^
+      color.hashCode;
 }

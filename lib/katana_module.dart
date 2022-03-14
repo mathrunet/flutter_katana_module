@@ -67,4 +67,5 @@ part 'src/tags/collection_module_tag.dart';
 
 part 'src/variable/extensions.dart';
 part 'src/variable/variable_config.dart';
-part 'src/variable/form_config.dart';
+part 'src/variable/variable_form_config.dart';
+part 'src/variable/variable_view_config.dart';
