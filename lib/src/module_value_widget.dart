@@ -240,11 +240,10 @@ class ModuleValueProvider<TModule extends PageModule, TValue>
 
   static TValue _of<TValue>(BuildContext context) {
     final scoped =
-        context.getElementForInheritedWidgetOfExactType<ModuleValueProvider>();
+        context.dependOnInheritedWidgetOfExactType<ModuleValueProvider>();
     assert(scoped != null,
         "[ModuleValueNotifier<TValue>] was not found. Please specify the widget of [ModuleValueNotifier<TValue>] as the parent.");
-    final pageModuleScope = scoped!.widget as ModuleValueProvider;
-    return pageModuleScope.value as TValue;
+    return scoped?.value as TValue;
   }
 
   /// Whether the framework should notify widgets that inherit from this widget.

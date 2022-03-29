@@ -263,16 +263,15 @@ class PageModuleScope<T extends PageModule> extends InheritedWidget {
 
   static T _of<T extends PageModule>(BuildContext context) {
     final scoped =
-        context.getElementForInheritedWidgetOfExactType<PageModuleScope>();
+        context.dependOnInheritedWidgetOfExactType<PageModuleScope>();
     assert(scoped != null,
         "[PageModuleScope<T>] was not found. Please specify the widget of [PageModuleScope<T>] as the parent.");
-    final pageModuleScope = scoped!.widget as PageModuleScope;
-    return pageModuleScope.module as T;
+    return scoped!.module as T;
   }
 
   @override
   // ignore: avoid_renaming_method_parameters
   bool updateShouldNotify(PageModuleScope old) {
-    return true;
+    return module != old.module;
   }
 }

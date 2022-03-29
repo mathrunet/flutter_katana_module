@@ -12,7 +12,7 @@ part of katana_module;
 ///   }
 /// }
 /// ```
-abstract class ModuleWidget<T extends PageModule> extends StatefulWidget {
+abstract class ModuleWidget<TModule extends PageModule> extends StatefulWidget {
   /// You can limit the rebuild range by tucking it inside a widget.
   ///
   /// Basically, it is used in the same way as [ConsumerWidget].
@@ -66,7 +66,7 @@ abstract class ModuleWidget<T extends PageModule> extends StatefulWidget {
   ///
   ///  * [StatelessWidget], which contains the discussion on performance considerations.
   @protected
-  Widget build(BuildContext context, WidgetRef ref, T module);
+  Widget build(BuildContext context, WidgetRef ref, TModule module);
 
   /// Creates the mutable state for this widget at a given location in the tree.
   ///
@@ -87,10 +87,11 @@ abstract class ModuleWidget<T extends PageModule> extends StatefulWidget {
   /// [State] objects.
   @override
   @protected
-  State<StatefulWidget> createState() => ModuleWidgetState<T>();
+  State<StatefulWidget> createState() => ModuleWidgetState<TModule>();
 }
 
-class ModuleWidgetState<T extends PageModule> extends State<ModuleWidget<T>> {
+class ModuleWidgetState<TModule extends PageModule>
+    extends State<ModuleWidget<TModule>> {
   /// Describes the part of the user interface represented by this widget.
   ///
   /// The framework calls this method in a number of different situations. For
@@ -196,7 +197,7 @@ class ModuleWidgetState<T extends PageModule> extends State<ModuleWidget<T>> {
   ///  * [StatefulWidget], which contains the discussion on performance considerations.
   @override
   Widget build(BuildContext context) {
-    final module = PageModuleScope._of<T>(context);
+    final module = PageModuleScope._of<TModule>(context);
     return Scoped(
       builder: (context, ref) => widget.build.call(
         context,

@@ -232,12 +232,11 @@ class ValueProvider<TValue> extends InheritedWidget {
   final TValue value;
 
   static TValue _of<TValue>(BuildContext context) {
-    final scoped = context
-        .getElementForInheritedWidgetOfExactType<ValueProvider<TValue>>();
+    final scoped =
+        context.dependOnInheritedWidgetOfExactType<ValueProvider<TValue>>();
     assert(scoped != null,
         "[ValueNotifier<TValue>] was not found. Please specify the widget of [ValueNotifier<TValue>] as the parent.");
-    final pageModuleScope = scoped!.widget as ValueProvider;
-    return pageModuleScope.value as TValue;
+    return scoped?.value as TValue;
   }
 
   /// Whether the framework should notify widgets that inherit from this widget.
@@ -254,7 +253,7 @@ class ValueProvider<TValue> extends InheritedWidget {
   /// object.
   @override
   @protected
-  bool updateShouldNotify(InheritedWidget oldWidget) {
+  bool updateShouldNotify(ValueProvider<TValue> oldWidget) {
     return true;
   }
 }

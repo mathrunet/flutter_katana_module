@@ -58,21 +58,9 @@ abstract class ModelAdapter<
   /// Basically, it writes and deletes data for [collectionPath].
   ///
   /// You can add the corresponding element by specifying [linkedCollectionPath].
-  ///
-  /// If [enableCounter] is set to `true`,
-  /// the number of elements will be counted and recorded in the document of the level above each collection path.
-  ///
-  /// You can generate a key to store the number of elements in a document by specifying [counterBuilder] or [linkedCounterBuilder].
   DatabaseTransactionBuilder transaction({
     required String collectionPath,
-    bool enableCounter = true,
-    String counterSuffix = "Count",
-    String Function(String path)? counterBuilder,
     String? linkedCollectionPath,
-    String Function(String linkPath)? linkedCounterBuilder,
-    List<CounterUpdaterInterval> counterIntervals = const [],
-    DynamicMap? additionalData,
-    DynamicMap? linkedAdditionalData,
   });
 
   /// Create a code of length [length] randomly for id.
