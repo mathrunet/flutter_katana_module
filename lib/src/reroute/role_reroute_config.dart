@@ -1,58 +1,75 @@
 part of katana_module;
 
-/// Set the permissions for each module.
-class Permission {
-  /// Set the permissions for each module.
-  const Permission({
-    this.enabled = false,
-    this.edit,
-    this.watch,
-    this.delete,
+/// Reroute to the path of [value] according to the [key]
+/// in [reroutePath] corresponding to the [roleKey] value in the [userPath] document.
+@immutable
+class RoleRerouteConfig extends RerouteConfig {
+  /// Reroute to the path of [value] according to the [key]
+  /// in [reroutePath] corresponding to the [roleKey] value in the [userPath] document.
+  const RoleRerouteConfig(
+    this.reroutePath, {
+    this.roleKey = "role",
+    this.userPath = "user",
   });
 
-  /// If you want to enable privilege management, use `true`.
-  final bool enabled;
+  /// Specify the path according to the ID of the role.
+  final Map<String, String> reroutePath;
 
-  /// Editing privileges.
+  /// User collection path.
+  final String userPath;
+
+  /// A key to check.
+  final String roleKey;
+
+  /// Reroute settings that are tied to.
   ///
-  /// If `null`, everyone has permissions; if the list is empty, everyone has no permissions.
-  /// Only roles with an ID in the list will be granted permissions.
-  final List<String>? edit;
+  /// If [value] is `true`, the route will be changed to the path of [key].
+  @override
+  Map<String, bool Function(BuildContext context)> get value => reroutePath.map(
+        (key, value) => MapEntry(
+          "/$value",
+          (context) {
+            final userId = context.model?.userId;
+            if (userId.isEmpty) {
+              return false;
+            }
+            final provider =
+                context.model?.documentProvider("$userPath/$userId");
+            if (provider == null) {
+              return false;
+            }
+            final doc = read(provider);
+            return doc.get(roleKey, "") == key;
+          },
+        ),
+      );
 
-  /// Viewing privileges.
-  ///
-  /// If `null`, everyone has permissions; if the list is empty, everyone has no permissions.
-  /// Only roles with an ID in the list will be granted permissions.
-  final List<String>? watch;
-
-  /// Deletion Authority.
-  ///
-  /// If `null`, everyone has permissions; if the list is empty, everyone has no permissions.
-  /// Only roles with an ID in the list will be granted permissions.
-  final List<String>? delete;
-
-  /// If [role] has edit permissions, `true`.
-  bool canEdit(String role) {
-    if (edit == null) {
-      return true;
-    }
-    return edit.contains(role);
+  /// Runs when restoring authentication.
+  @override
+  @mustCallSuper
+  Future<void> onRestoreAuth(BuildContext context) async {
+    await context.model?.tryRestoreAuth();
+    return super.onRestoreAuth(context);
   }
 
-  /// If [role] has watch permissions, `true`.
-  bool canWatch(String role) {
-    if (watch == null) {
-      return true;
+  /// Runs after authentication has taken place.
+  ///
+  /// It is also called after registration or login has been completed.
+  @override
+  @mustCallSuper
+  Future<void> onAfterAuth(BuildContext context) async {
+    final userId = context.model?.userId;
+    if (userId.isEmpty) {
+      return;
     }
-    return watch.contains(role);
-  }
-
-  /// If [role] has delete permissions, `true`.
-  bool canDelete(String role) {
-    if (delete == null) {
-      return true;
+    final provider = context.model?.documentProvider("$userPath/$userId");
+    if (provider == null) {
+      return;
     }
-    return delete.contains(role);
+    final doc = read(provider);
+    context.model?.loadDocument(doc);
+    await doc.loading;
+    return super.onAfterAuth(context);
   }
 
   /// The equality operator.
@@ -100,5 +117,5 @@ class Permission {
   @override
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode =>
-      enabled.hashCode ^ edit.hashCode ^ watch.hashCode ^ delete.hashCode;
+      reroutePath.hashCode ^ roleKey.hashCode ^ userPath.hashCode;
 }

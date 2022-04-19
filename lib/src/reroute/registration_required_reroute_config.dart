@@ -11,6 +11,7 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
     this.informationRequiredRoutePath = "/register",
     required this.key,
     this.userPath = "user",
+    this.informationRequiredReroutePath = const {},
   });
 
   /// Reroute Path for login required.
@@ -25,6 +26,9 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
   /// A key to check.
   final String key;
 
+  /// Specify the path according to the ID of the role.
+  final Map<String, String> informationRequiredReroutePath;
+
   /// Reroute settings that are tied to.
   ///
   /// If [value] is `true`, the route will be changed to the path of [key].
@@ -33,6 +37,24 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
         loginRequiredRoutePath: (context) {
           return !(context.model?.isSignedIn ?? true);
         },
+        ...informationRequiredReroutePath.map(
+          (key, value) => MapEntry(
+            "/$value",
+            (context) {
+              final userId = context.model?.userId;
+              if (userId.isEmpty) {
+                return false;
+              }
+              final provider =
+                  context.model?.documentProvider("$userPath/$userId");
+              if (provider == null) {
+                return false;
+              }
+              final doc = read(provider);
+              return doc.get(this.key, "") == key;
+            },
+          ),
+        ),
         informationRequiredRoutePath: (context) {
           final userId = context.model?.userId;
           if (userId.isEmpty) {

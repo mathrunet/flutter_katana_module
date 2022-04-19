@@ -16,31 +16,23 @@ extension ModuleBuildContextExtensions on BuildContext {
     return AdapterScope.of(this)?.platformAdapter;
   }
 
-  /// Get the module role.
-  List<RoleConfig> get roles {
-    return RoleScope.of(this)?.roles ?? [];
-  }
-
   /// Get the app module config.
   AppModule? get app {
     return AppScope.of(this)?.app;
   }
 }
 
-extension RoleConfigExtensions on RoleConfig {
-  /// Searches for permissions to be included.
-  bool containsPermission(String permission) {
-    return permissions.contains(permission);
+extension WidgetRefNavigationExtensions on WidgetRef {
+  /// Get the Navigator related to context.
+  _WidgetRefNavigatorContainer get navigator {
+    final context = this as BuildContext;
+    return _WidgetRefNavigatorContainer(context.navigator, this);
   }
-}
 
-extension NullableRoleConfigExtensions on RoleConfig? {
-  /// Searches for permissions to be included.
-  bool containsPermission(String permission) {
-    if (this == null) {
-      return false;
-    }
-    return this!.permissions.contains(permission);
+  /// Get the Root navigator related to context.
+  _WidgetRefNavigatorContainer get rootNavigator {
+    final context = this as BuildContext;
+    return _WidgetRefNavigatorContainer(context.rootNavigator, this);
   }
 }
 

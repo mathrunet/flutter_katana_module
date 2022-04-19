@@ -115,50 +115,47 @@ class UIModuleMaterialApp extends StatelessWidget {
           signIns: enableModules.whereType<SignInAdapter>().toList(),
           functions: enableModules.whereType<FunctionAdapter>().toList(),
         ),
-        child: RoleScope(
-          roles: appModule?.roles ?? const [],
-          child: _ModuleTagScope(
-            tags: [
-              if (template != null) ...template.moduleTags,
-              ...moduleTags,
+        child: _ModuleTagScope(
+          tags: [
+            if (template != null) ...template.moduleTags,
+            ...moduleTags,
+          ],
+          child: UIMaterialApp(
+            key: key,
+            widgetTheme: widgetTheme,
+            designType: appModule?.designType ?? designType,
+            webStyle: appModule?.webStyle ?? webStyle,
+            flavor: flavor,
+            home: home,
+            navigatorKey: navigatorKey,
+            routes: moduleConfig?.routeSettings.merge(routes) ?? routes,
+            initialRoute: appModule?.initialRoute ?? initialRoute,
+            navigatorObservers: [
+              if (analytics?.observer != null) analytics!.observer!,
+              ...navigatorObservers,
             ],
-            child: UIMaterialApp(
-              key: key,
-              widgetTheme: widgetTheme,
-              designType: appModule?.designType ?? designType,
-              webStyle: appModule?.webStyle ?? webStyle,
-              flavor: flavor,
-              home: home,
-              navigatorKey: navigatorKey,
-              routes: moduleConfig?.routeSettings.merge(routes) ?? routes,
-              initialRoute: appModule?.initialRoute ?? initialRoute,
-              navigatorObservers: [
-                if (analytics?.observer != null) analytics!.observer!,
-                ...navigatorObservers,
-              ],
-              title: appModule?.title ?? moduleConfig?.title ?? title,
-              onGenerateTitle: onGenerateTitle,
-              onUnknownRoute: onUnknownRoute,
-              onBootRoute: onBootRoute,
-              color: color,
-              theme: appModule?.lightTheme ?? theme,
-              darkTheme: appModule?.darkTheme ?? darkTheme,
-              themeMode: appModule?.themeMode ?? themeMode,
-              locale: locale,
-              localizationsDelegates: localizationsDelegates,
-              localeListResolutionCallback: localeListResolutionCallback,
-              localeResolutionCallback: localeResolutionCallback,
-              supportedLocales: supportedLocales,
-              debugShowMaterialGrid: debugShowMaterialGrid,
-              showPerformanceOverlay: showPerformanceOverlay,
-              checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-              checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-              showSemanticsDebugger: showSemanticsDebugger,
-              builder: builder,
-              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-              minTextScaleFactor: minTextScaleFactor,
-              maxTextScaleFactor: maxTextScaleFactor,
-            ),
+            title: appModule?.title ?? moduleConfig?.title ?? title,
+            onGenerateTitle: onGenerateTitle,
+            onUnknownRoute: onUnknownRoute,
+            onBootRoute: onBootRoute,
+            color: color,
+            theme: appModule?.lightTheme ?? theme,
+            darkTheme: appModule?.darkTheme ?? darkTheme,
+            themeMode: appModule?.themeMode ?? themeMode,
+            locale: locale,
+            localizationsDelegates: localizationsDelegates,
+            localeListResolutionCallback: localeListResolutionCallback,
+            localeResolutionCallback: localeResolutionCallback,
+            supportedLocales: supportedLocales,
+            debugShowMaterialGrid: debugShowMaterialGrid,
+            showPerformanceOverlay: showPerformanceOverlay,
+            checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+            checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+            showSemanticsDebugger: showSemanticsDebugger,
+            builder: builder,
+            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            minTextScaleFactor: minTextScaleFactor,
+            maxTextScaleFactor: maxTextScaleFactor,
           ),
         ),
       ),
@@ -287,43 +284,6 @@ class AdapterPlugins {
   /// The SignIn adapter corresponding to [providerId].
   SignInAdapter? signIn(String providerId) {
     return signIns.firstWhereOrNull((item) => item.provider == providerId);
-  }
-}
-
-/// Widget to get the roles.
-///
-/// You can get the widget with [RoleScope.of(context)].
-class RoleScope extends InheritedWidget {
-  /// Widget to get the roles.
-  ///
-  /// You can get the widget with [RoleScope.of(context)].
-  const RoleScope({
-    Key? key,
-    required this.roles,
-    required Widget child,
-  }) : super(key: key, child: child);
-
-  /// Get RoleScope.
-  ///
-  /// You can check the current RoleConfig setting.
-  static RoleScope? of(BuildContext context) {
-    return context.getElementForInheritedWidgetOfExactType<RoleScope>()?.widget
-        as RoleScope?;
-  }
-
-  /// Role config.
-  final List<RoleConfig> roles;
-
-  /// Whether the framework should notify widgets that inherit from this widget.
-  ///
-  /// When widget: widget, sometimes we need to rebuild the widgets that inherit from widget: widget,
-  /// if the data held by widget: widget, then we do not need to rebuild the widgets that inherited the data held by oldWidget.
-  ///
-  /// The framework distinguishes these cases by calling this function with the widget that previously occupied this location in the tree as an argument.
-  /// The given widget is guaranteed to have the same [runtimeType] as this object.
-  @override
-  bool updateShouldNotify(RoleScope oldWidget) {
-    return true;
   }
 }
 

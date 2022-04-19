@@ -8,14 +8,16 @@ part of katana_module;
 abstract class PageModule extends Module implements ModuleHook {
   /// Module for pages.
   ///
-  /// You can specify [title], [routeSettings], and [permission],
+  /// You can specify [title] and [routeSettings],
   /// and you can create a module that can do basic page transitions.
   const PageModule({
     String? id,
     bool enabled = true,
     this.title,
+    this.routePath = "",
+    this.queryPath = "",
+    this.query,
     this.routeSettings = const {},
-    this.permission = const Permission(),
     this.verifyAppReroute = false,
     this.rerouteConfigs = const [],
   }) : super(
@@ -98,12 +100,18 @@ abstract class PageModule extends Module implements ModuleHook {
   /// Page title.
   final String? title;
 
+  /// Page route path.
+  final String routePath;
+
+  /// Page query path.
+  final String queryPath;
+
+  /// Page query.
+  final ModelQuery? query;
+
   /// Route settings.
   @mustCallSuper
   final Map<String, RouteConfig> routeSettings;
-
-  /// Module's permission.
-  final Permission permission;
 
   /// If you want to validate the reroute setting of your application, use `true`.
   final bool verifyAppReroute;

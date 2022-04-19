@@ -8,7 +8,10 @@
 /// [YouTube]: https://www.youtube.com/c/mathrunetchannel
 library katana_module;
 
+import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
+import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:katana_routing/katana_routing.dart';
 import 'package:model_notifier/model_notifier.dart';
@@ -25,17 +28,17 @@ part "src/module.dart";
 part "src/boot_config.dart";
 part "src/page_module.dart";
 part "src/group_module.dart";
-part 'src/permission.dart';
 part "src/local_media.dart";
-part "src/role_config.dart";
 part "src/ui_module_material_app.dart";
 part "src/purchase_product.dart";
 part 'src/commerce_platform_status.dart';
 part 'src/module_hook.dart';
 part 'src/page_module_widget.dart';
 part 'src/template_module.dart';
+part 'src/navigator.dart';
 part 'src/adapter_module.dart';
 part 'src/route_module.dart';
+part 'src/reroute_module.dart';
 part 'src/messaging_value.dart';
 part 'src/module_widget.dart';
 part 'src/module_value_widget.dart';
@@ -45,6 +48,7 @@ part 'src/text_input_formatter_config.dart';
 part 'src/reroute_config.dart';
 part 'src/reroute/login_required_reroute_config.dart';
 part 'src/reroute/registration_required_reroute_config.dart';
+part 'src/reroute/role_reroute_config.dart';
 part 'src/reroute/user_document_query_reroute_config.dart';
 
 part 'src/adapter/ads_adapter.dart';

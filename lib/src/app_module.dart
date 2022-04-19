@@ -13,7 +13,6 @@ class AppModule extends Module implements ModuleHook {
     this.privacyPolicyUrl,
     this.termsUrl,
     this.menus = const [],
-    this.roles = const [],
     this.lightTheme,
     this.darkTheme,
     this.themeMode = ThemeMode.system,
@@ -50,9 +49,6 @@ class AppModule extends Module implements ModuleHook {
 
   /// URL of Terms of Use.
   final String? termsUrl;
-
-  /// App roles.
-  final List<RoleConfig> roles;
 
   /// Theme color for light.
   final ThemeColor? lightTheme;
