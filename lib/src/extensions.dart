@@ -22,20 +22,6 @@ extension ModuleBuildContextExtensions on BuildContext {
   }
 }
 
-extension WidgetRefNavigationExtensions on WidgetRef {
-  /// Get the Navigator related to context.
-  _WidgetRefNavigatorContainer get navigator {
-    final context = this as BuildContext;
-    return _WidgetRefNavigatorContainer(context.navigator, this);
-  }
-
-  /// Get the Root navigator related to context.
-  _WidgetRefNavigatorContainer get rootNavigator {
-    final context = this as BuildContext;
-    return _WidgetRefNavigatorContainer(context.rootNavigator, this);
-  }
-}
-
 extension SignInAdapterListExtensions on List<SignInAdapter>? {
   Future<void> signOut(BuildContext context) async {
     if (this == null) {

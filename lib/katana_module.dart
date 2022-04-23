@@ -35,7 +35,6 @@ part 'src/commerce_platform_status.dart';
 part 'src/module_hook.dart';
 part 'src/page_module_widget.dart';
 part 'src/template_module.dart';
-part 'src/navigator.dart';
 part 'src/adapter_module.dart';
 part 'src/route_module.dart';
 part 'src/reroute_module.dart';
