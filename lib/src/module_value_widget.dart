@@ -205,7 +205,7 @@ class ModuleValueWidgetState<TModule extends PageModule, TValue>
   @override
   Widget build(BuildContext context) {
     final module = PageModuleScope._of<TModule>(context);
-    final value = ModuleValueProvider._of<TValue>(context);
+    final value = ModuleValueProvider._of<TModule, TValue>(context);
     return Scoped(
       builder: (context, ref) => widget.build.call(
         context,
@@ -238,9 +238,9 @@ class ModuleValueProvider<TModule extends PageModule, TValue>
   /// The value to pass to [child].
   final TValue value;
 
-  static TValue _of<TValue>(BuildContext context) {
-    final scoped =
-        context.dependOnInheritedWidgetOfExactType<ModuleValueProvider>();
+  static TValue _of<TModule extends PageModule, TValue>(BuildContext context) {
+    final scoped = context.dependOnInheritedWidgetOfExactType<
+        ModuleValueProvider<TModule, TValue>>();
     assert(scoped != null,
         "[ModuleValueNotifier<TValue>] was not found. Please specify the widget of [ModuleValueNotifier<TValue>] as the parent.");
     return scoped?.value as TValue;
