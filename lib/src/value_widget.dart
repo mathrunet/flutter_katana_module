@@ -233,7 +233,8 @@ class ValueProvider<TValue> extends InheritedWidget {
 
   static TValue _of<TValue>(BuildContext context) {
     final scoped =
-        context.dependOnInheritedWidgetOfExactType<ValueProvider<TValue>>();
+        context.dependOnInheritedWidgetOfExactType<ValueProvider<TValue>>() ??
+            context.dependOnInheritedWidgetOfExactType<ValueProvider>();
     assert(scoped != null,
         "[ValueNotifier<TValue>] was not found. Please specify the widget of [ValueNotifier<TValue>] as the parent.");
     return scoped?.value as TValue;
