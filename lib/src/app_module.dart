@@ -15,6 +15,7 @@ class AppModule extends Module implements ModuleHook {
     this.menus = const [],
     this.lightTheme,
     this.darkTheme,
+    this.widgetTheme,
     this.themeMode = ThemeMode.system,
     this.initialPageTransition = PageTransition.fade,
     this.designType = DesignType.modern,
@@ -24,6 +25,7 @@ class AppModule extends Module implements ModuleHook {
     ],
     this.bootConfig = const BootConfig(),
     this.userVariables = const [],
+    this.unknownPage,
   }) : super();
 
   /// Page title.
@@ -59,6 +61,9 @@ class AppModule extends Module implements ModuleHook {
   /// Theme Mode.
   final ThemeMode themeMode;
 
+  /// Widget theme.
+  final WidgetTheme? widgetTheme;
+
   /// Initial page transition.
   final PageTransition initialPageTransition;
 
@@ -76,6 +81,9 @@ class AppModule extends Module implements ModuleHook {
 
   /// User's value setting.
   final List<VariableConfig> userVariables;
+
+  /// 404 page.
+  final Widget? unknownPage;
 
   /// Get the AppModule being used.
   static AppModule? get registered {

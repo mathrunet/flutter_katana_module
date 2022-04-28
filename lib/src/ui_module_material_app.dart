@@ -122,7 +122,7 @@ class UIModuleMaterialApp extends StatelessWidget {
           ],
           child: UIMaterialApp(
             key: key,
-            widgetTheme: widgetTheme,
+            widgetTheme: appModule?.widgetTheme ?? widgetTheme,
             designType: appModule?.designType ?? designType,
             webStyle: appModule?.webStyle ?? webStyle,
             flavor: flavor,
@@ -136,8 +136,12 @@ class UIModuleMaterialApp extends StatelessWidget {
             ],
             title: appModule?.title ?? moduleConfig?.title ?? title,
             onGenerateTitle: onGenerateTitle,
-            onUnknownRoute: onUnknownRoute,
-            onBootRoute: onBootRoute,
+            onUnknownRoute: appModule?.unknownPage != null
+                ? RouteConfig((_) => appModule!.unknownPage!)
+                : onUnknownRoute,
+            onBootRoute: appModule?.bootConfig.bootPage != null
+                ? RouteConfig((_) => appModule!.bootConfig.bootPage!)
+                : onBootRoute,
             color: color,
             theme: appModule?.lightTheme ?? theme,
             darkTheme: appModule?.darkTheme ?? darkTheme,

@@ -11,7 +11,11 @@ class BootConfig {
     this.logoSize,
     this.logoBorderRadius,
     this.color,
+    this.bootPage,
   });
+
+  /// Boot page.
+  final Widget? bootPage;
 
   /// Design type for boot.
   final BootDesignType designType;
