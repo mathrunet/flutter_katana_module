@@ -88,6 +88,9 @@ abstract class ModelAdapter<
   /// If not specified, [uuid] will be used.
   TDocument createDocument(TCollection collection, [String? id]);
 
+  /// Retrieves a document from a [path].
+  TDocument createDocumentFromPath(String path);
+
   /// Save the data in the document so that
   /// you can use it after restarting the app.
   Future<void> saveDocument(TDocument document);
