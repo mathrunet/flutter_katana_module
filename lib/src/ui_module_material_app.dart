@@ -112,6 +112,8 @@ class UIModuleMaterialApp extends StatelessWidget {
           streaming: enableModules.whereType<StreamingAdapter>().firstOrNull,
           dynamicLinks:
               enableModules.whereType<DynamicLinksAdapter>().firstOrNull,
+          marketPlace:
+              enableModules.whereType<MarketPlaceAdapter>().firstOrNull,
           signIns: enableModules.whereType<SignInAdapter>().toList(),
           functions: enableModules.whereType<FunctionAdapter>().toList(),
         ),
@@ -254,6 +256,7 @@ class AdapterPlugins {
     this.location,
     this.analytics,
     this.dynamicLinks,
+    this.marketPlace,
     this.signIns = const [],
     this.functions = const [],
   });
@@ -284,6 +287,9 @@ class AdapterPlugins {
 
   /// Dynamic links adapter.
   final DynamicLinksAdapter? dynamicLinks;
+
+  /// Market place adapter.
+  final MarketPlaceAdapter? marketPlace;
 
   /// The SignIn adapter corresponding to [providerId].
   SignInAdapter? signIn(String providerId) {

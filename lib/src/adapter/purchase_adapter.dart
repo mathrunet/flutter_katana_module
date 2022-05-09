@@ -5,7 +5,7 @@ part of katana_module;
 /// [PurchaseAdapter] can switch the data
 /// when the module is used by passing it to [UIMaterialApp].
 @immutable
-abstract class PurchaseAdapter<T extends PurchaseProduct>
+abstract class PurchaseAdapter<TProduct extends PurchaseProduct>
     extends AdapterModule {
   const PurchaseAdapter();
 
@@ -24,23 +24,21 @@ abstract class PurchaseAdapter<T extends PurchaseProduct>
   /// Consume all purchased items.
   ///
   /// Please use it manually or immediately after user registration.
-  Future<void> consume(T product);
+  Future<void> consume(TProduct product);
 
   /// Process the purchase.
   ///
   /// You specify the purchase product data in [product], the billing process will start.
-  Future<void> purchase(
-    T product, {
-    String? applicationUserName,
-    bool sandboxTesting = false,
-  });
+  Future<void> purchase(TProduct product);
 
-  /// Get the [PurchaseProduct] list.
-  List<T> getProducts();
+  /// Get the [TProduct] list.
+  List<TProduct> getRegisteredProducts();
 
-  /// Find the [PurchaseProduct] from [ProductId].
-  T? getProduct(String productId);
-
-  /// Find the [PurchaseProduct] from [ProductId].
-  T? findById(String productId);
+  /// Run it the first time the app is launched.
+  @override
+  @mustCallSuper
+  Future<void> onInit(BuildContext context) async {
+    await super.onInit(context);
+    await initialize();
+  }
 }

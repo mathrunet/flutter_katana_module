@@ -1,36 +1,21 @@
 part of katana_module;
 
-/// Product type.
-enum ProductType {
-  /// Consumable.
-  consumable,
-
-  /// Non-Consumable.
-  nonConsumable,
-
-  /// Subscription.
-  subscription,
-}
-
-/// Class for storing information for billing purposes.
+/// Class for storing information for market place's billing purposes.
 @immutable
-class PurchaseProduct {
-  /// Class for storing information for billing purposes.
-  const PurchaseProduct({
+class MarketPlaceProduct {
+  /// Class for storing information for market place's billing purposes.
+  const MarketPlaceProduct({
     required this.id,
-    this.type = ProductType.consumable,
     this.value = 0.0,
     this.target,
     this.name,
     this.text,
     this.price = 0.0,
+    this.locale,
   });
 
   /// Basement id.
   final String id;
-
-  /// Product type.
-  final ProductType type;
 
   /// Product value.
   final double value;
@@ -47,22 +32,8 @@ class PurchaseProduct {
   /// Product price.
   final double price;
 
-  /// Check out if non-consumption items and subscriptions are valid.
-  ///
-  /// If true, billing is enabled.
-  bool get enabled => true;
-
-  /// Product Id.
-  String get productId => id;
-
-  /// The name of the item.
-  String get productName => name ?? id;
-
-  /// Item description.
-  String get productText => text ?? "";
-
-  /// The price of the item.
-  String get productPrice => price.toString();
+  /// Local string.
+  final String? locale;
 
   /// The equality operator.
   ///
@@ -110,10 +81,10 @@ class PurchaseProduct {
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode =>
       id.hashCode ^
-      type.hashCode ^
+      price.hashCode ^
       value.hashCode ^
       target.hashCode ^
       name.hashCode ^
       text.hashCode ^
-      price.hashCode;
+      locale.hashCode;
 }

@@ -8,10 +8,7 @@
 /// [YouTube]: https://www.youtube.com/c/mathrunetchannel
 library katana_module;
 
-import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
-import 'package:flutter/rendering.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:katana_routing/katana_routing.dart';
 import 'package:model_notifier/model_notifier.dart';
@@ -30,9 +27,10 @@ part "src/page_module.dart";
 part "src/group_module.dart";
 part "src/local_media.dart";
 part "src/ui_module_material_app.dart";
-part "src/purchase_product.dart";
-part 'src/commerce_platform_status.dart';
+part 'src/market_place_status.dart';
 part 'src/module_hook.dart';
+part 'src/purchase_product.dart';
+part 'src/market_place_product.dart';
 part 'src/page_module_widget.dart';
 part 'src/template_module.dart';
 part 'src/adapter_module.dart';
@@ -60,6 +58,7 @@ part "src/adapter/purchase_adapter.dart";
 part 'src/adapter/model_adapter.dart';
 part 'src/adapter/messaging_adapter.dart';
 part 'src/adapter/streaming_adapter.dart';
+part 'src/adapter/market_place_adapter.dart';
 
 part 'src/tags/module_tag.dart';
 part 'src/tags/extensions.dart';
