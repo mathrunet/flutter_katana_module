@@ -95,6 +95,9 @@ abstract class MarketPlacePurchaseAdapter<TProduct extends MarketPlaceProduct,
   /// Reload the purchase data.
   Future<void> reload();
 
+  /// Check this [amount] to see if payment is possible.
+  Future<void> authorization(double amount);
+
   /// Purchase the [product].
   ///
   /// Basically, after making a purchase, you must confirm the purchase by clicking [confirm].
