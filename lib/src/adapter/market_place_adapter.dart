@@ -41,8 +41,11 @@ abstract class MarketPlaceAccountAdapter<
     TAccountDocument extends DynamicDocumentModel> {
   const MarketPlaceAccountAdapter();
 
-  /// Retrieve account documentation as it is monitored.
-  ChangeNotifierProvider<ValueModel<TAccountDocument?>> get provider;
+  /// Retrieve the model provider.
+  ChangeNotifierProvider<ValueModel<TAccountDocument?>> get modelProvider;
+
+  /// Get the provider of the document that [userId] possesses.
+  ChangeNotifierProvider<TAccountDocument> documentProvider(String userId);
 
   /// Reload the account data.
   Future<void> reload();
@@ -67,8 +70,13 @@ abstract class MarketPlacePaymentMethodAdapter<
     TPaymentMethodCollection extends DynamicCollectionModel> {
   const MarketPlacePaymentMethodAdapter();
 
-  /// Retrieve while monitoring the PaymentMethod collection.
-  ChangeNotifierProvider<ValueModel<TPaymentMethodCollection?>> get provider;
+  /// Retrieve the model provider.
+  ChangeNotifierProvider<ValueModel<TPaymentMethodCollection?>>
+      get modelProvider;
+
+  /// Get the provider of the document that [userId] possesses.
+  ChangeNotifierProvider<TPaymentMethodCollection> collectionProvider(
+      String userId);
 
   /// Reload the payment method data.
   Future<void> reload();
@@ -93,8 +101,11 @@ abstract class MarketPlacePurchaseAdapter<TProduct extends MarketPlaceProduct,
     TPurchaseCollection extends DynamicCollectionModel> {
   const MarketPlacePurchaseAdapter();
 
-  /// Retrieve while monitoring the Purchase collection.
-  ChangeNotifierProvider<ValueModel<TPurchaseCollection?>> get provider;
+  /// Retrieve the model provider.
+  ChangeNotifierProvider<ValueModel<TPurchaseCollection?>> get modelProvider;
+
+  /// Get the provider of the document that [userId] possesses.
+  ChangeNotifierProvider<TPurchaseCollection> collectionProvider(String userId);
 
   /// Reload the purchase data.
   Future<void> reload();
