@@ -54,10 +54,12 @@ abstract class MarketPlaceAccountAdapter<
   bool get registered;
 
   /// Seller account registration.
-  Future<MarketPlaceStatus> registrationSeller();
+  ///
+  /// The [accountId] will be returned.
+  Future<String> registerSeller();
 
   /// View the dashboard for sellers & buyers.
-  Future<void> showDashboard();
+  Future<void> dashboard();
 }
 
 @immutable
@@ -75,7 +77,9 @@ abstract class MarketPlacePaymentMethodAdapter<
   bool get exists;
 
   /// Set up your payment method.
-  Future<MarketPlaceStatus> create();
+  ///
+  /// The [paymentId] or [customerId] will be returned.
+  Future<String> create();
 
   /// Set the default payment method to the one with [paymentMethodId].
   Future<void> setDefault(String paymentMethodId);

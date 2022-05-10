@@ -27,7 +27,6 @@ part "src/page_module.dart";
 part "src/group_module.dart";
 part "src/local_media.dart";
 part "src/ui_module_material_app.dart";
-part 'src/market_place_status.dart';
 part 'src/module_hook.dart';
 part 'src/purchase_product.dart';
 part 'src/market_place_product.dart';
