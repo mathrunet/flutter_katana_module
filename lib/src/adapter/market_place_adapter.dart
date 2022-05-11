@@ -42,7 +42,7 @@ abstract class MarketPlaceAccountAdapter<
   const MarketPlaceAccountAdapter();
 
   /// Retrieve the model provider.
-  ChangeNotifierProvider<ValueModel<TAccountDocument?>> get modelProvider;
+  ChangeNotifierProvider get modelProvider;
 
   /// Get the provider of the document that [userId] possesses.
   ChangeNotifierProvider<TAccountDocument> documentProvider(String userId);
@@ -58,8 +58,8 @@ abstract class MarketPlaceAccountAdapter<
 
   /// Seller account registration.
   ///
-  /// The [accountId] will be returned.
-  Future<String> registerSeller();
+  /// The account document will be returned.
+  Future<DynamicDocumentModel> registerSeller();
 
   /// View the dashboard for sellers & buyers.
   Future<void> dashboard();
@@ -67,12 +67,12 @@ abstract class MarketPlaceAccountAdapter<
 
 @immutable
 abstract class MarketPlacePaymentMethodAdapter<
+    TPaymentMethodDocument extends DynamicDocumentModel,
     TPaymentMethodCollection extends DynamicCollectionModel> {
   const MarketPlacePaymentMethodAdapter();
 
   /// Retrieve the model provider.
-  ChangeNotifierProvider<ValueModel<TPaymentMethodCollection?>>
-      get modelProvider;
+  ChangeNotifierProvider get modelProvider;
 
   /// Get the provider of the document that [userId] possesses.
   ChangeNotifierProvider<TPaymentMethodCollection> collectionProvider(
@@ -84,10 +84,10 @@ abstract class MarketPlacePaymentMethodAdapter<
   /// True if at least one payment method exists.
   bool get exists;
 
-  /// Set up your payment method.
+  /// Set up your payment method with [paymentMethodId].
   ///
-  /// The [paymentId] or [customerId] will be returned.
-  Future<String> create();
+  /// The created PaymentMethod will be returned.
+  Future<TPaymentMethodDocument> create();
 
   /// Set the default payment method to the one with [paymentMethodId].
   Future<void> setDefault(String paymentMethodId);
@@ -97,12 +97,14 @@ abstract class MarketPlacePaymentMethodAdapter<
 }
 
 @immutable
-abstract class MarketPlacePurchaseAdapter<TProduct extends MarketPlaceProduct,
+abstract class MarketPlacePurchaseAdapter<
+    TProduct extends MarketPlaceProduct,
+    TPurchaseDocument extends DynamicDocumentModel,
     TPurchaseCollection extends DynamicCollectionModel> {
   const MarketPlacePurchaseAdapter();
 
   /// Retrieve the model provider.
-  ChangeNotifierProvider<ValueModel<TPurchaseCollection?>> get modelProvider;
+  ChangeNotifierProvider get modelProvider;
 
   /// Get the provider of the document that [userId] possesses.
   ChangeNotifierProvider<TPurchaseCollection> collectionProvider(String userId);
@@ -119,25 +121,33 @@ abstract class MarketPlacePurchaseAdapter<TProduct extends MarketPlaceProduct,
   ///
   /// The billing is then executed by executing [capture].
   ///
-  /// [orderId] will be returned.
-  Future<String> purchase(TProduct product);
+  /// The created purchase will be returned.
+  Future<TPurchaseDocument> purchase(TProduct product);
 
   /// Update the information of the purchase in [orderId].
   Future<void> refresh(String orderId);
 
   /// Finalize the purchase related to [orderId].
   ///
+  /// If [online] is true, authentication is performed online.
+  ///
   /// It is necessary that [purchase] is executed beforehand.
-  Future<void> confirm(String orderId);
+  Future<void> confirm(
+    String orderId, {
+    bool online = true,
+  });
 
   /// Issue invoices for purchases associated with [orderId].
   ///
   /// The amount to be captured can be changed in [price].
   ///
+  /// If [online] is true, authentication is performed online.
+  ///
   /// It is necessary that [purchase] and [confirm] is executed beforehand.
   Future<void> capture(
     String orderId, {
     double? price,
+    bool online = true,
   });
 
   /// Cancels the purchase for [orderId].

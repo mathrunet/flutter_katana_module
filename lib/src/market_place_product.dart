@@ -7,6 +7,7 @@ class MarketPlaceProduct {
   const MarketPlaceProduct({
     required this.id,
     this.value = 0.0,
+    this.source,
     this.target,
     this.name,
     this.text,
@@ -19,6 +20,9 @@ class MarketPlaceProduct {
 
   /// Product value.
   final double value;
+
+  ///  Source path / UID.
+  final String? source;
 
   /// Target path / UID.
   final String? target;
