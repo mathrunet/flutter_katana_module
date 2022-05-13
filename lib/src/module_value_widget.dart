@@ -28,6 +28,15 @@ abstract class ModuleValueWidget<TModule extends PageModule, TValue>
   /// ```
   const ModuleValueWidget({Key? key}) : super(key: key);
 
+  /// Converts from a ValueWidget passed in [child] to a ModuleValueWidget.
+  ///
+  /// Modules are not used for this purpose.
+  static _ValueWidgetContainer<TModule, TValue>
+      fromValueWidget<TModule extends PageModule, TValue>(
+          ValueWidget<TValue> child) {
+    return _ValueWidgetContainer<TModule, TValue>(child);
+  }
+
   /// Describes the part of the user interface represented by this widget.
   ///
   /// The framework calls this method when this widget is inserted into the tree
@@ -263,5 +272,16 @@ class ModuleValueProvider<TModule extends PageModule, TValue>
   @protected
   bool updateShouldNotify(InheritedWidget oldWidget) {
     return true;
+  }
+}
+
+class _ValueWidgetContainer<TModule extends PageModule, TValue>
+    extends ModuleValueWidget<TModule, TValue> {
+  const _ValueWidgetContainer(this.child);
+  final ValueWidget<TValue> child;
+  @override
+  Widget build(
+      BuildContext context, WidgetRef ref, TModule module, TValue value) {
+    return ValueProvider(value: value, child: child);
   }
 }
