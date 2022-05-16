@@ -50,7 +50,7 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
               if (provider == null) {
                 return false;
               }
-              final doc = read(provider);
+              final doc = readProvider(provider);
               return doc.get(this.key, "") == key;
             },
           ),
@@ -64,7 +64,7 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
           if (provider == null) {
             return false;
           }
-          final doc = read(provider);
+          final doc = readProvider(provider);
           return !doc.containsKey(key);
         },
       };
@@ -91,7 +91,7 @@ class RegistrationRequiredRerouteConfig extends RerouteConfig {
     if (provider == null) {
       return;
     }
-    final doc = read(provider);
+    final doc = readProvider(provider);
     context.model?.loadDocument(doc);
     await doc.loading;
     return super.onAfterAuth(context);

@@ -24,7 +24,7 @@ class UserDocumentQueryRerouteConfig extends RerouteConfig {
           if (provider == null) {
             return false;
           }
-          final doc = read(provider);
+          final doc = readProvider(provider);
           return query.check(doc);
         },
       };
@@ -39,7 +39,7 @@ class UserDocumentQueryRerouteConfig extends RerouteConfig {
     if (provider == null) {
       return;
     }
-    final doc = read(provider);
+    final doc = readProvider(provider);
     context.model?.loadDocument(doc);
     await doc.loading;
     return super.onAfterAuth(context);
