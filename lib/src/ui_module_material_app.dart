@@ -97,9 +97,10 @@ class UIModuleMaterialApp extends StatelessWidget {
     final appModule = enableModules.whereType<AppModule>().firstOrNull;
     final moduleConfig = PageModule.merge(enableModules);
     final analytics = enableModules.whereType<AnalyticsAdapter>().firstOrNull;
-    final template = enableModules.whereType<TemplateModule>().firstOrNull;
+    final template = this.enableModules.whereType<TemplateModule>().firstOrNull;
     return AppScope(
       app: appModule,
+      template: template,
       child: AdapterScope(
         modelAdapter: enableModules.whereType<ModelAdapter>().firstOrNull,
         platformAdapter: enableModules.whereType<PlatformAdapter>().firstOrNull,
@@ -307,6 +308,7 @@ class AppScope extends InheritedWidget {
   const AppScope({
     Key? key,
     required this.app,
+    this.template,
     required Widget child,
   }) : super(key: key, child: child);
 
@@ -320,6 +322,8 @@ class AppScope extends InheritedWidget {
 
   /// App module.
   final AppModule? app;
+
+  final TemplateModule? template;
 
   /// Whether the framework should notify widgets that inherit from this widget.
   ///

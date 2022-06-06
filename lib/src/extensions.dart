@@ -20,6 +20,11 @@ extension ModuleBuildContextExtensions on BuildContext {
   AppModule? get app {
     return AppScope.of(this)?.app;
   }
+
+  /// Get the template module config.
+  T? template<T extends TemplateModule>() {
+    return AppScope.of(this)?.template as T?;
+  }
 }
 
 extension SignInAdapterListExtensions on List<SignInAdapter>? {
@@ -122,8 +127,10 @@ extension WidgetRefModelExtensions on WidgetRef {
   /// After acquisition, monitor changes.
   ///
   /// Setting `[once]' to `true' will retrieve data only once.
-  DynamicCollectionModel watchCollectionModel(String path,
-      [bool once = false]) {
+  DynamicCollectionModel watchCollectionModel(
+    String path, [
+    bool once = false,
+  ]) {
     final context = this as BuildContext;
 
     return context.model!.loadCollection(

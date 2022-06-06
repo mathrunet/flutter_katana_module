@@ -33,7 +33,8 @@ abstract class ModuleValueWidget<TModule extends PageModule, TValue>
   /// Modules are not used for this purpose.
   static _ValueWidgetContainer<TModule, TValue>
       fromValueWidget<TModule extends PageModule, TValue>(
-          ValueWidget<TValue> child) {
+    ValueWidget<TValue> child,
+  ) {
     return _ValueWidgetContainer<TModule, TValue>(child);
   }
 
@@ -251,8 +252,10 @@ class ModuleValueProvider<TModule extends PageModule, TValue>
     final scoped = context.dependOnInheritedWidgetOfExactType<
             ModuleValueProvider<TModule, TValue>>() ??
         context.dependOnInheritedWidgetOfExactType<ModuleValueProvider>();
-    assert(scoped != null,
-        "[ModuleValueNotifier<TValue>] was not found. Please specify the widget of [ModuleValueNotifier<TValue>] as the parent.");
+    assert(
+      scoped != null,
+      "[ModuleValueNotifier<TValue>] was not found. Please specify the widget of [ModuleValueNotifier<TValue>] as the parent.",
+    );
     return scoped?.value as TValue;
   }
 
@@ -281,7 +284,11 @@ class _ValueWidgetContainer<TModule extends PageModule, TValue>
   final ValueWidget<TValue> child;
   @override
   Widget build(
-      BuildContext context, WidgetRef ref, TModule module, TValue value) {
+    BuildContext context,
+    WidgetRef ref,
+    TModule module,
+    TValue value,
+  ) {
     return ValueProvider(value: value, child: child);
   }
 }

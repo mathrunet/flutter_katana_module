@@ -18,8 +18,10 @@ class _UserModuleTag extends ModuleTag {
         return context.model?.userId ?? "";
       default:
         final doc = context.model!.loadDocument(
-          ref.watch(context.model!
-              .documentProvider("${Const.user}/${context.model?.userId}")),
+          ref.watch(
+            context.model!
+                .documentProvider("${Const.user}/${context.model?.userId}"),
+          ),
         );
         return doc.get<dynamic>(param.last, "").toString();
     }

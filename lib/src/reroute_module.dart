@@ -23,6 +23,8 @@ class RerouteModule extends PageModule {
         );
 
   /// Root path to be monitored.
+  @override
+  // ignore: overridden_fields
   final String routePath;
 
   @override

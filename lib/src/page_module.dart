@@ -38,12 +38,14 @@ abstract class PageModule extends Module implements ModuleHook {
       routeSettings: pageModules.fold<Map<String, RouteConfig>>(
         {},
         (routeSetting, module) => module.enabled
-            ? routeSetting.merge(_convert(
-                module,
-                module.routeSettings,
-                verifyAppReroute: module.verifyAppReroute,
-                rerouteConfigs: module.rerouteConfigs,
-              ))
+            ? routeSetting.merge(
+                _convert(
+                  module,
+                  module.routeSettings,
+                  verifyAppReroute: module.verifyAppReroute,
+                  rerouteConfigs: module.rerouteConfigs,
+                ),
+              )
             : routeSetting,
       ),
       rerouteConfigs: pageModules.expand((e) {

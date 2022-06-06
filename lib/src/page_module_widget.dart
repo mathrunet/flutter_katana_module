@@ -265,8 +265,10 @@ class PageModuleScope<T extends PageModule> extends InheritedWidget {
     final scoped =
         context.dependOnInheritedWidgetOfExactType<PageModuleScope<T>>() ??
             context.dependOnInheritedWidgetOfExactType<PageModuleScope>();
-    assert(scoped != null,
-        "[PageModuleScope<T>] was not found. Please specify the widget of [PageModuleScope<T>] as the parent.");
+    assert(
+      scoped != null,
+      "[PageModuleScope<T>] was not found. Please specify the widget of [PageModuleScope<T>] as the parent.",
+    );
     return scoped!.module as T;
   }
 

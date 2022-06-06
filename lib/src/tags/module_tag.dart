@@ -12,5 +12,9 @@ abstract class ModuleTag {
   ///
   /// It is used internally.
   String parse(
-      String id, List<String> param, BuildContext context, WidgetRef ref);
+    String id,
+    List<String> param,
+    BuildContext context,
+    WidgetRef ref,
+  );
 }

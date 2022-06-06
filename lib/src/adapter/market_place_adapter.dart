@@ -76,7 +76,8 @@ abstract class MarketPlacePaymentMethodAdapter<
 
   /// Get the provider of the document that [userId] possesses.
   ChangeNotifierProvider<TPaymentMethodCollection> collectionProvider(
-      String userId);
+    String userId,
+  );
 
   /// Reload the payment method data.
   Future<void> reload();

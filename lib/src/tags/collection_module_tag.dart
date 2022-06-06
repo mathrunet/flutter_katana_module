@@ -20,7 +20,8 @@ class _CollectionModuleTag extends ModuleTag {
     );
     return col
         .mapAndRemoveEmpty(
-            (item) => item.get<dynamic>(param.last, "").toString())
+          (item) => item.get<dynamic>(param.last, "").toString(),
+        )
         .join(",");
   }
 }

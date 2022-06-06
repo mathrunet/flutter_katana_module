@@ -43,7 +43,8 @@ abstract class ModelAdapter<
   ///
   /// In [path], enter the path where you want to retrieve the collection.
   ChangeNotifierProvider<TSearchableCollection> searchableCollectionProvider(
-      String path);
+    String path,
+  );
 
   /// Performs the process of loading a collection.
   ///
@@ -173,8 +174,10 @@ abstract class ModelAdapter<
   Future<void> sendPasswordResetEmail({required String email});
 
   /// Send you an email to reset your password.
-  Future<void> confirmPasswordReset(
-      {required String code, required String password});
+  Future<void> confirmPasswordReset({
+    required String code,
+    required String password,
+  });
 
   /// Enter your [password] to re-authenticate.
   Future<void> reauthInEmailAndPassword({required String password});
