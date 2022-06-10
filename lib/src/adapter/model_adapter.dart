@@ -244,4 +244,10 @@ abstract class ModelAdapter<
 
   /// Returns the ID of the currently active provider.
   List<String> get activeProviders;
+
+  /// Export the currently used data to [fileName].
+  Future<void> exportDatabase(String fileName);
+
+  /// Import the data stored in [fileName] into the database you are currently using.
+  Future<void> importDatabase(String fileName);
 }
