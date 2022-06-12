@@ -27,9 +27,40 @@ abstract class MessagingAdapter<T extends MessagingValue>
     DynamicMap? data,
   });
 
+  /// Schedule a message to a specific topic.
+  Future<void> schedule({
+    required String title,
+    required String text,
+    required String topic,
+    required DateTime dateTime,
+    String? path,
+    DynamicMap? data,
+    MessagingScheduleRepeatType repeatType = MessagingScheduleRepeatType.none,
+  });
+
+  /// Cancel a scheduled message.
+  Future<void> cancelSchedule(
+    String topic,
+  );
+
+  /// Cancel all scheduled message.
+  Future<void> cancelAllSchedule();
+
   /// Subscribe to a new topic.
   void subscribe(String topic);
 
   /// The topic you want to unsubscribe.
   void unsubscribe(String topic);
+}
+
+/// A repetitive type of messaging schedule.
+enum MessagingScheduleRepeatType {
+  /// Not to be repeated.
+  none,
+
+  /// Weekly.
+  weekly,
+
+  /// Monthly.
+  monthly,
 }
