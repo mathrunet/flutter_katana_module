@@ -32,7 +32,7 @@ extension SignInAdapterListExtensions on List<SignInAdapter>? {
     if (this == null) {
       return;
     }
-    final providerIds = context.model?.activeProviders ?? const [];
+    final providerIds = context.model?.activeSignInProviders ?? const [];
     if (providerIds.isEmpty) {
       await context.model?.signOut();
       return;

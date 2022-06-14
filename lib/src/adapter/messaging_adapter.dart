@@ -18,6 +18,9 @@ abstract class MessagingAdapter<T extends MessagingValue>
   /// Releases a message that is already listening.
   void unlisten(void Function(T messaging) callback);
 
+  /// Remove all listening.
+  void unlistenAll();
+
   /// Send a message to a specific topic.
   Future<void> send({
     required String title,
@@ -51,6 +54,9 @@ abstract class MessagingAdapter<T extends MessagingValue>
 
   /// The topic you want to unsubscribe.
   void unsubscribe(String topic);
+
+  /// Current value.
+  MessagingValue? get currentValue;
 }
 
 /// A repetitive type of messaging schedule.

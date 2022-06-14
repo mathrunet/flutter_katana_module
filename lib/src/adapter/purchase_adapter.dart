@@ -14,7 +14,7 @@ abstract class PurchaseAdapter<TProduct extends PurchaseProduct>
   /// Initialize by first executing [initialize()].
   ///
   /// Then purchasing item by executing [purchase()].
-  Future<void> initialize();
+  Future<void> initialize(BuildContext context);
 
   /// Restore purchase.
   ///
@@ -39,6 +39,6 @@ abstract class PurchaseAdapter<TProduct extends PurchaseProduct>
   @mustCallSuper
   Future<void> onInit(BuildContext context) async {
     await super.onInit(context);
-    await initialize();
+    await initialize(context);
   }
 }

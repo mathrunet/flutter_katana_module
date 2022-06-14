@@ -242,8 +242,8 @@ abstract class ModelAdapter<
   /// For anonymous logged in users, True.
   bool get isAnonymously;
 
-  /// Returns the ID of the currently active provider.
-  List<String> get activeProviders;
+  /// Returns the ID of the currently active sign-in provider.
+  List<String> get activeSignInProviders;
 
   /// Export the currently used data to [fileName].
   Future<void> exportDatabase(String fileName);
