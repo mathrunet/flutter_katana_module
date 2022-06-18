@@ -53,10 +53,10 @@ class AppModule extends Module implements ModuleHook {
   final String? termsUrl;
 
   /// Theme color for light.
-  final ThemeColor? lightTheme;
+  final AppTheme? lightTheme;
 
   /// Theme color for dark.
-  final ThemeColor? darkTheme;
+  final AppTheme? darkTheme;
 
   /// Theme Mode.
   final ThemeMode themeMode;

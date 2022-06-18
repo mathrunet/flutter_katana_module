@@ -69,8 +69,8 @@ class UIModuleMaterialApp extends StatelessWidget {
   final List<Module> enableModules;
   final List<Module> availableModules;
   final Color? color;
-  final ThemeColor? theme;
-  final ThemeColor? darkTheme;
+  final AppTheme? theme;
+  final AppTheme? darkTheme;
   final ThemeMode themeMode;
   final Locale? locale;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
