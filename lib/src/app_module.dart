@@ -16,10 +16,14 @@ class AppModule extends Module implements ModuleHook {
     this.lightTheme,
     this.darkTheme,
     this.widgetTheme,
+    this.imageTheme,
     this.themeMode = ThemeMode.system,
     this.initialPageTransition = PageTransition.fade,
     this.designType = DesignType.modern,
     this.webStyle = true,
+    this.localizationFile = "assets/Localization.csv",
+    this.debugShowCheckedModeBanner = true,
+    this.splashScreenMinimumDuration = const Duration(seconds: 1),
     this.rerouteConfigs = const [
       LoginRequiredRerouteConfig(),
     ],
@@ -64,6 +68,9 @@ class AppModule extends Module implements ModuleHook {
   /// Widget theme.
   final WidgetTheme? widgetTheme;
 
+  /// Image theme.
+  final ImageTheme? imageTheme;
+
   /// Initial page transition.
   final PageTransition initialPageTransition;
 
@@ -84,6 +91,15 @@ class AppModule extends Module implements ModuleHook {
 
   /// 404 page.
   final Widget? unknownPage;
+
+  /// True when displaying the banner in debug mode.
+  final bool debugShowCheckedModeBanner;
+
+  /// Localization file.
+  final String localizationFile;
+
+  /// Minimum splash screen time
+  final Duration splashScreenMinimumDuration;
 
   /// Get the AppModule being used.
   static AppModule? get registered {

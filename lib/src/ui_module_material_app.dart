@@ -6,6 +6,7 @@ class UIModuleMaterialApp extends StatelessWidget {
   const UIModuleMaterialApp({
     Key? key,
     this.widgetTheme = const WidgetTheme(),
+    this.imageTheme = const ImageTheme(),
     this.flavor = "",
     this.home,
     this.navigatorKey,
@@ -85,6 +86,7 @@ class UIModuleMaterialApp extends StatelessWidget {
   final bool showSemanticsDebugger;
   final bool debugShowCheckedModeBanner;
   final WidgetTheme widgetTheme;
+  final ImageTheme imageTheme;
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +128,7 @@ class UIModuleMaterialApp extends StatelessWidget {
           child: UIMaterialApp(
             key: key,
             widgetTheme: appModule?.widgetTheme ?? widgetTheme,
+            imageTheme: appModule?.imageTheme ?? imageTheme,
             designType: appModule?.designType ?? designType,
             webStyle: appModule?.webStyle ?? webStyle,
             flavor: flavor,
@@ -160,7 +163,8 @@ class UIModuleMaterialApp extends StatelessWidget {
             checkerboardOffscreenLayers: checkerboardOffscreenLayers,
             showSemanticsDebugger: showSemanticsDebugger,
             builder: builder,
-            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            debugShowCheckedModeBanner: appModule?.debugShowCheckedModeBanner ??
+                debugShowCheckedModeBanner,
             minTextScaleFactor: minTextScaleFactor,
             maxTextScaleFactor: maxTextScaleFactor,
           ),
