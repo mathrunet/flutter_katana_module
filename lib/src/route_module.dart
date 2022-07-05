@@ -11,7 +11,7 @@ class RouteModule extends PageModule {
   const RouteModule(
     Map<String, Widget> routeSettings, {
     bool enabled = true,
-    bool verifyAppReroute = false,
+    bool verifyAppReroute = true,
     List<RerouteConfig> rerouteConfigs = const [],
   })  : _routeSettings = routeSettings,
         super(
