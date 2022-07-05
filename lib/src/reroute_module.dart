@@ -23,17 +23,10 @@ class RerouteModule extends PageModule {
         );
 
   /// Root path to be monitored.
-  @override
-  // ignore: overridden_fields
   final String routePath;
 
   @override
-  Map<String, RouteConfig> get routeSettings {
-    if (!enabled) {
-      return const {};
-    }
-    return {
-      "/$routePath": RouteConfig((_) => const SizedBox()),
-    };
-  }
+  List<PageConfig> get pages => [
+        PageConfig(routePath, const SizedBox()),
+      ];
 }

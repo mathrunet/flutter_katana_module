@@ -156,14 +156,16 @@ extension VariableConfigListExtensions on Iterable<VariableConfig>? {
     }
     return this!
         .where((e) => !onlyRequired || e.required)
-        .toMap<String, dynamic>(
-          key: (val) => val.id,
-          value: (val) => val._buildValue(
-            context,
-            ref,
-            updated: false,
-          ),
-        );
+        .toMap<String, dynamic>((e) {
+      return MapEntry(
+        e.id,
+        e._setValue(
+          context: context,
+          ref: ref,
+          updated: false,
+        ),
+      );
+    });
   }
 
   /// Set [target] to the data entered in the VariableConfig form.

@@ -14,10 +14,8 @@ abstract class PageModule extends Module implements ModuleHook {
     String? id,
     bool enabled = true,
     this.title,
-    this.routePath = "",
     this.queryPath = "",
     this.query,
-    this.routeSettings = const {},
     this.verifyAppReroute = false,
     this.rerouteConfigs = const [],
   }) : super(
@@ -26,12 +24,12 @@ abstract class PageModule extends Module implements ModuleHook {
         );
 
   /// Merge all [modules] into a single page module configuration.
-  static PageModule? merge(List<Module> modules) {
+  static MergedPageModule? merge(List<Module> modules) {
     if (modules.isEmpty) {
       return null;
     }
     final pageModules = modules.whereType<PageModule>();
-    return _MergedPageModule(
+    return MergedPageModule(
       title: pageModules
           .firstWhereOrNull((config) => config.enabled && config.title != null)
           ?.title,
@@ -102,18 +100,28 @@ abstract class PageModule extends Module implements ModuleHook {
   /// Page title.
   final String? title;
 
-  /// Page route path.
-  final String routePath;
-
   /// Page query path.
   final String queryPath;
 
   /// Page query.
   final ModelQuery? query;
 
+  /// Set the list of pages.
+  List<PageConfig> get pages;
+
   /// Route settings.
   @mustCallSuper
-  final Map<String, RouteConfig> routeSettings;
+  Map<String, RouteConfig> get routeSettings {
+    if (!enabled) {
+      return const {};
+    }
+    return pages.toMap(
+      (e) => MapEntry(
+        e.path,
+        RouteConfig((_) => e.widget ?? const SizedBox()),
+      ),
+    );
+  }
 
   /// If you want to validate the reroute setting of your application, use `true`.
   final bool verifyAppReroute;
@@ -172,18 +180,26 @@ mixin VerifyAppReroutePageModuleMixin on PageModule {
   bool get verifyAppReroute => true;
 }
 
+/// The page module into which the information is merged.
 @immutable
-class _MergedPageModule extends PageModule {
-  const _MergedPageModule({
+class MergedPageModule extends PageModule {
+  const MergedPageModule({
     String? title,
-    Map<String, RouteConfig> routeSettings = const {},
+    this.routeSettings = const {},
     List<RerouteConfig> rerouteConfigs = const [],
   }) : super(
           title: title,
-          routeSettings: routeSettings,
           rerouteConfigs: rerouteConfigs,
         );
 
+  /// Route settings.
+  @override
+  @mustCallSuper
+  final Map<String, RouteConfig> routeSettings;
+
   @override
   String get type => throw UnimplementedError();
+
+  @override
+  List<PageConfig> get pages => const [];
 }

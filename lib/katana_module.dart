@@ -24,6 +24,7 @@ part 'src/adapter/function_adapter.dart';
 part 'src/adapter/location_adapter.dart';
 part 'src/adapter/market_place_adapter.dart';
 part 'src/adapter/messaging_adapter.dart';
+part 'src/page_config.dart';
 part 'src/adapter/model_adapter.dart';
 part "src/adapter/platform_adapter.dart";
 part "src/adapter/purchase_adapter.dart";
