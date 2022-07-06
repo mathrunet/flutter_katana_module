@@ -23,7 +23,7 @@ class RouteModule extends PageModule {
   final Map<String, Widget> route;
 
   @override
-  List<PageConfig> get pages => route.toList((key, value) {
+  List<PageConfig<Widget>> get pages => route.toList((key, value) {
         return PageConfig(key, value);
       }).toList();
 }

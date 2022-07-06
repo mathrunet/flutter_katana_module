@@ -26,7 +26,7 @@ class RerouteModule extends PageModule {
   final String routePath;
 
   @override
-  List<PageConfig> get pages => [
+  List<PageConfig<Widget>> get pages => [
         PageConfig(routePath, const SizedBox()),
       ];
 }

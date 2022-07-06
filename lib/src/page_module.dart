@@ -107,7 +107,7 @@ abstract class PageModule extends Module implements ModuleHook {
   final ModelQuery? query;
 
   /// Set the list of pages.
-  List<PageConfig> get pages;
+  List<PageConfig<Widget>> get pages;
 
   /// Prefix of the root path.
   String get routePathPrefix => "";
@@ -219,5 +219,5 @@ class MergedPageModule extends PageModule {
   String get type => throw UnimplementedError();
 
   @override
-  List<PageConfig> get pages => const [];
+  List<PageConfig<Widget>> get pages => const [];
 }
