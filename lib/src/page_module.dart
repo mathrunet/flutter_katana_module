@@ -109,18 +109,36 @@ abstract class PageModule extends Module implements ModuleHook {
   /// Set the list of pages.
   List<PageConfig> get pages;
 
+  /// Prefix of the root path.
+  String get routePathPrefix => "";
+
   /// Route settings.
   @mustCallSuper
   Map<String, RouteConfig> get routeSettings {
     if (!enabled) {
       return const {};
     }
-    return pages.toMap(
-      (e) => MapEntry(
-        e.path,
-        RouteConfig((_) => e.widget ?? const SizedBox()),
-      ),
-    );
+    var prefix = routePathPrefix;
+    if (prefix.isNotEmpty && !prefix.startsWith("/")) {
+      prefix = "/$prefix".trimStringRight("/");
+    }
+    return pages.toMap((e) {
+      var path = e.path;
+      if (!path.startsWith("/")) {
+        path = "/$path";
+      }
+      path = "$prefix$path";
+      if (path != "/") {
+        path = path.trimStringRight("/");
+      }
+      if (path.isEmpty || e.widget == null) {
+        return null;
+      }
+      return MapEntry(
+        path,
+        RouteConfig((_) => e.widget!),
+      );
+    });
   }
 
   /// If you want to validate the reroute setting of your application, use `true`.
