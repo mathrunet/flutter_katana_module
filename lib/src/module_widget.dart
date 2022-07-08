@@ -198,12 +198,23 @@ class ModuleWidgetState<TModule extends PageModule>
   @override
   Widget build(BuildContext context) {
     final module = PageModuleScope._of<TModule>(context);
-    return Scoped(
-      builder: (context, ref) => widget.build.call(
-        context,
-        ref,
-        module,
+    return NavigatorPathBuilder(
+      builder: (path, context) => _navigatorPathBuild(path, context),
+      child: Scoped(
+        builder: (context, ref) => widget.build.call(
+          context,
+          ref,
+          module,
+        ),
       ),
     );
+  }
+}
+
+String _navigatorPathBuild(String path, BuildContext context) {
+  if (context is WidgetRef) {
+    return (context as WidgetRef).applyModuleTag(path);
+  } else {
+    return path;
   }
 }

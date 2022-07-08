@@ -216,12 +216,15 @@ class ModuleValueWidgetState<TModule extends PageModule, TValue>
   Widget build(BuildContext context) {
     final module = PageModuleScope._of<TModule>(context);
     final value = ModuleValueProvider._of<TModule, TValue>(context);
-    return Scoped(
-      builder: (context, ref) => widget.build.call(
-        context,
-        ref,
-        module,
-        value,
+    return NavigatorPathBuilder(
+      builder: (path, context) => _navigatorPathBuild(path, context),
+      child: Scoped(
+        builder: (context, ref) => widget.build.call(
+          context,
+          ref,
+          module,
+          value,
+        ),
       ),
     );
   }

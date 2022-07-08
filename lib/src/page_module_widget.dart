@@ -229,22 +229,25 @@ class PageModuleState<T extends PageModule>
     final module = PageModuleScope._of<T>(context);
     return PageScoped(
       state: this,
-      child: GestureDetector(
-        onTap: () => context.unfocus(),
-        // ignore: invalid_use_of_protected_member
-        child: widget.applySafeArea
-            ? SafeArea(
-                child: Scoped(
+      child: NavigatorPathBuilder(
+        builder: (path, context) => _navigatorPathBuild(path, context),
+        child: GestureDetector(
+          onTap: () => context.unfocus(),
+          // ignore: invalid_use_of_protected_member
+          child: widget.applySafeArea
+              ? SafeArea(
+                  child: Scoped(
+                    builder: (context, ref) {
+                      return widget.build.call(context, ref, module);
+                    },
+                  ),
+                )
+              : Scoped(
                   builder: (context, ref) {
                     return widget.build.call(context, ref, module);
                   },
                 ),
-              )
-            : Scoped(
-                builder: (context, ref) {
-                  return widget.build.call(context, ref, module);
-                },
-              ),
+        ),
       ),
     );
   }

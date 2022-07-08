@@ -16,6 +16,7 @@ abstract class PageModule extends Module implements ModuleHook {
     this.title,
     this.queryPath = "",
     this.query,
+    this.routePathPrefix = "",
     this.verifyAppReroute = false,
     this.rerouteConfigs = const [],
   }) : super(
@@ -110,27 +111,46 @@ abstract class PageModule extends Module implements ModuleHook {
   List<PageConfig<Widget>> get pages;
 
   /// Prefix of the root path.
-  String get routePathPrefix => "";
+  final String routePathPrefix;
 
-  /// Route settings.
+  String get _normalizedRoutePath {
+    var prefix = routePathPrefix;
+    if (prefix.isNotEmpty) {
+      if (!prefix.startsWith("/")) {
+        prefix = "/$prefix".trimStringRight("/");
+      } else if (prefix != "/") {
+        prefix = prefix.trimStringRight("/");
+      }
+    }
+    return prefix;
+  }
+
+  static String _mergeRoutePath(String prefix, String path) {
+    if (path.isNotEmpty) {
+      if (!path.startsWith("/")) {
+        path = "/$path";
+      } else if (prefix != "/") {
+        path = path.trimStringRight("/");
+      }
+    }
+    path = "$prefix$path";
+    if (path == "/") {
+      return path;
+    } else {
+      return path.trimStringRight("/");
+    }
+    return "$prefix$path";
+  }
+
+  /// Build route settings.
   @mustCallSuper
   Map<String, RouteConfig> get routeSettings {
     if (!enabled) {
       return const {};
     }
-    var prefix = routePathPrefix;
-    if (prefix.isNotEmpty && !prefix.startsWith("/")) {
-      prefix = "/$prefix".trimStringRight("/");
-    }
+    final prefix = _normalizedRoutePath;
     return pages.toMap((e) {
-      var path = e.path;
-      if (!path.startsWith("/")) {
-        path = "/$path";
-      }
-      path = "$prefix$path";
-      if (path != "/") {
-        path = path.trimStringRight("/");
-      }
+      final path = _mergeRoutePath(prefix, e.path);
       if (path.isEmpty || e.widget == null) {
         return null;
       }

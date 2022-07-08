@@ -1,11 +1,20 @@
 part of katana_module;
 
+/// Page config for external modules.
+///
+/// Used to generate links.
+@immutable
+class ExternalPageConfig<TWidget extends Widget> extends PageConfig<TWidget> {
+  const ExternalPageConfig(String path) : super(path, null, true);
+}
+
 /// Config class for describing the page configuration of a module.
 @immutable
 class PageConfig<TWidget extends Widget> {
   const PageConfig(
     this.path, [
     this.widget,
+    this.external = false,
   ]);
   static final RegExp _keyRegex = RegExp(r"\{([^\}]+)\}");
 
@@ -14,6 +23,9 @@ class PageConfig<TWidget extends Widget> {
 
   /// Page widget.
   final TWidget? widget;
+
+  /// True for external pages.
+  final bool external;
 
   /// Convert PageConfig data for RouteSettings.
   Map<String, RouteConfig> toRouteSetting() {
@@ -36,20 +48,14 @@ class PageConfig<TWidget extends Widget> {
   /// In this case, `replacedPath` will contain `/detail/12345678`.
   ///
   /// Additional strings can be given at the beginning of the path by specifying [prefix].
-  String apply([
+  String apply(
+    PageModule module, [
     Map<String, String> replace = const {},
-    String prefix = "",
   ]) {
-    if (prefix.isNotEmpty) {
-      if (!prefix.startsWith("/")) {
-        prefix = "/$prefix";
-      }
-      if (!path.startsWith("/")) {
-        prefix = "$prefix/";
-      }
-    }
-
-    return "$prefix$path".replaceAllMapped(_keyRegex, (match) {
+    return PageModule._mergeRoutePath(
+      external ? "" : module._normalizedRoutePath,
+      path,
+    ).replaceAllMapped(_keyRegex, (match) {
       final tag = match.group(1);
       if (tag.isNotEmpty && replace.containsKey(tag)) {
         return replace.get(tag!, "");
@@ -70,11 +76,11 @@ class PageConfig<TWidget extends Widget> {
   /// In this case, `replacedPath` will contain `/detail/12345678`.
   ///
   /// Additional strings can be given at the beginning of the path by specifying [prefix].
-  PageConfig applyWith([
+  PageConfig applyWith(
+    PageModule module, [
     Map<String, String> replace = const {},
-    String prefix = "",
   ]) {
-    return PageConfig(apply(replace, prefix), widget);
+    return PageConfig(apply(module, replace), widget);
   }
 
   /// Retrieve all query keys (keys enclosed in {}).
