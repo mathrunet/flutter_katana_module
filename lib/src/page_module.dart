@@ -139,7 +139,6 @@ abstract class PageModule extends Module implements ModuleHook {
     } else {
       return path.trimStringRight("/");
     }
-    return "$prefix$path";
   }
 
   /// Build route settings.
