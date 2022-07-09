@@ -10,7 +10,7 @@ abstract class StreamingAdapter<TModel extends StreamingModel>
   const StreamingAdapter();
 
   /// Initializes the Streaming service.
-  Future<void> initialize();
+  Future<void> initialize(BuildContext context);
 
   /// Get the model provider.
   ChangeNotifierProvider<TModel> modelProvider(String path);

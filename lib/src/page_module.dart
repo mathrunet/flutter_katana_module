@@ -129,7 +129,7 @@ abstract class PageModule extends Module implements ModuleHook {
     if (path.isNotEmpty) {
       if (!path.startsWith("/")) {
         path = "/$path";
-      } else if (prefix != "/") {
+      } else if (path != "/") {
         path = path.trimStringRight("/");
       }
     }
