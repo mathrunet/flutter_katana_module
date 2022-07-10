@@ -58,7 +58,7 @@ extension WidgetRefModelExtensions on WidgetRef {
   DynamicDocumentModel readDocumentModel(
     String path, {
     bool listen = true,
-    bool disposable = false,
+    bool disposable = true,
   }) {
     final context = this as BuildContext;
 
@@ -81,7 +81,7 @@ extension WidgetRefModelExtensions on WidgetRef {
   DynamicCollectionModel readCollectionModel(
     String path, {
     bool listen = true,
-    bool disposable = false,
+    bool disposable = true,
   }) {
     final context = this as BuildContext;
 
@@ -112,7 +112,7 @@ extension WidgetRefModelExtensions on WidgetRef {
   /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   DynamicDocumentModel readUserDocumentModel({
     bool listen = true,
-    bool disposable = false,
+    bool disposable = true,
     String userPath = Const.user,
   }) {
     final context = this as BuildContext;
@@ -136,7 +136,7 @@ extension WidgetRefModelExtensions on WidgetRef {
   DynamicDocumentModel watchDocumentModel(
     String path, {
     bool listen = true,
-    bool disposable = false,
+    bool disposable = true,
   }) {
     final context = this as BuildContext;
 
@@ -161,7 +161,7 @@ extension WidgetRefModelExtensions on WidgetRef {
   DynamicCollectionModel watchCollectionModel(
     String path, {
     bool listen = true,
-    bool disposable = false,
+    bool disposable = true,
   }) {
     final context = this as BuildContext;
 
@@ -198,7 +198,7 @@ extension WidgetRefModelExtensions on WidgetRef {
   /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   DynamicDocumentModel watchUserDocumentModel({
     bool listen = true,
-    bool disposable = false,
+    bool disposable = true,
     String userPath = Const.user,
   }) {
     final context = this as BuildContext;

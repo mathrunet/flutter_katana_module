@@ -28,7 +28,7 @@ abstract class ModelAdapter<
   /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   ProviderBase<TDocument> documentProvider(
     String path, {
-    bool disposable = false,
+    bool disposable = true,
   });
 
   /// Performs the process of loading a document.
@@ -49,7 +49,7 @@ abstract class ModelAdapter<
   /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   ProviderBase<TCollection> collectionProvider(
     String path, {
-    bool disposable = false,
+    bool disposable = true,
   });
 
   /// Gets the provider of the [Collection] for search.
