@@ -24,7 +24,12 @@ abstract class ModelAdapter<
   /// Gets the provider of the [Document].
   ///
   /// In [path], enter the path where you want to retrieve the document.
-  ChangeNotifierProvider<TDocument> documentProvider(String path);
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  ProviderBase<TDocument> documentProvider(
+    String path, {
+    bool disposable = false,
+  });
 
   /// Performs the process of loading a document.
   ///
@@ -32,23 +37,25 @@ abstract class ModelAdapter<
   /// such as [loadOnce] or [listen].
   ///
   /// If you set [listen] to `false`, [loadOnce] is used even if the model can use [listen].
-  ///
-  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   TDocument loadDocument(
     TDocument document, {
     bool listen = true,
-    bool disposable = false,
   });
 
   /// Gets the provider of the [Collection].
   ///
   /// In [path], enter the path where you want to retrieve the collection.
-  ChangeNotifierProvider<TCollection> collectionProvider(String path);
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  ProviderBase<TCollection> collectionProvider(
+    String path, {
+    bool disposable = false,
+  });
 
   /// Gets the provider of the [Collection] for search.
   ///
   /// In [path], enter the path where you want to retrieve the collection.
-  ChangeNotifierProvider<TSearchableCollection> searchableCollectionProvider(
+  ProviderBase<TSearchableCollection> searchableCollectionProvider(
     String path,
   );
 
@@ -58,12 +65,9 @@ abstract class ModelAdapter<
   /// such as [loadOnce] or [listen].
   ///
   /// If you set [listen] to `false`, [loadOnce] is used even if the model can use [listen].
-  ///
-  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   TCollection loadCollection(
     TCollection collection, {
     bool listen = true,
-    bool disposable = false,
   });
 
   /// Outputs the builder to be written by the transaction.
@@ -71,7 +75,7 @@ abstract class ModelAdapter<
   /// Basically, it writes and deletes data for [collectionPath].
   ///
   /// You can add the corresponding element by specifying [linkedCollectionPath].
-  DatabaseTransactionBuilder collectionTransaction({
+  CollectionTransactionBuilder collectionTransaction({
     required String collectionPath,
     String? linkedCollectionPath,
   });
@@ -79,7 +83,7 @@ abstract class ModelAdapter<
   /// Outputs the builder to be written by the transaction.
   ///
   /// Basically, it writes and deletes data for [documentPath].
-  DatabaseTransactionBuilder documentTransaction(String documentPath);
+  DocumentTransactionBuilder documentTransaction(String documentPath);
 
   /// Create a code of length [length] randomly for id.
   ///

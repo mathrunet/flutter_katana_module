@@ -64,10 +64,12 @@ extension WidgetRefModelExtensions on WidgetRef {
 
     return context.model!.loadDocument(
       read(
-        context.model!.documentProvider(applyModuleTag(path)),
+        context.model!.documentProvider(
+          applyModuleTag(path),
+          disposable: disposable,
+        ),
       ),
       listen: listen,
-      disposable: disposable,
     );
   }
 
@@ -85,10 +87,12 @@ extension WidgetRefModelExtensions on WidgetRef {
 
     return context.model!.loadCollection(
       read(
-        context.model!.collectionProvider(applyModuleTag(path)),
+        context.model!.collectionProvider(
+          applyModuleTag(path),
+          disposable: disposable,
+        ),
       ),
       listen: listen,
-      disposable: disposable,
     );
   }
 
@@ -117,10 +121,10 @@ extension WidgetRefModelExtensions on WidgetRef {
       read(
         context.model!.documentProvider(
           applyModuleTag("$userPath/${context.model?.userId}"),
+          disposable: disposable,
         ),
       ),
       listen: listen,
-      disposable: disposable,
     );
   }
 
@@ -140,10 +144,10 @@ extension WidgetRefModelExtensions on WidgetRef {
       watch(
         context.model!.documentProvider(
           applyModuleTag(path),
+          disposable: disposable,
         ),
       ),
       listen: listen,
-      disposable: disposable,
     );
   }
 
@@ -165,10 +169,10 @@ extension WidgetRefModelExtensions on WidgetRef {
       watch(
         context.model!.collectionProvider(
           applyModuleTag(path),
+          disposable: disposable,
         ),
       ),
       listen: listen,
-      disposable: disposable,
     );
   }
 
@@ -203,10 +207,10 @@ extension WidgetRefModelExtensions on WidgetRef {
       watch(
         context.model!.documentProvider(
           applyModuleTag("$userPath/${context.model?.userId}"),
+          disposable: disposable,
         ),
       ),
       listen: listen,
-      disposable: disposable,
     );
   }
 }
