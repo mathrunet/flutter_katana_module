@@ -52,35 +52,47 @@ extension SignInAdapterListExtensions on List<SignInAdapter>? {
 extension WidgetRefModelExtensions on WidgetRef {
   /// Get the document model of [path] from the resource registered with Adapter.
   ///
-  /// Setting `[once]' to `true' will retrieve data only once.
-  DynamicDocumentModel readDocumentModel(String path, [bool once = false]) {
+  /// Setting `[listen]' to `false' will retrieve data only once.
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  DynamicDocumentModel readDocumentModel(
+    String path, {
+    bool listen = true,
+    bool disposable = false,
+  }) {
     final context = this as BuildContext;
 
     return context.model!.loadDocument(
       read(
         context.model!.documentProvider(applyModuleTag(path)),
       ),
-      once,
+      listen: listen,
+      disposable: disposable,
     );
   }
 
   /// Get the collection model of [path] from the resource registered with Adapter.
   ///
-  /// Setting `[once]' to `true' will retrieve data only once.
-  DynamicCollectionModel readCollectionModel(String path, [bool once = false]) {
+  /// Setting `[listen]' to `false' will retrieve data only once.
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  DynamicCollectionModel readCollectionModel(
+    String path, {
+    bool listen = true,
+    bool disposable = false,
+  }) {
     final context = this as BuildContext;
 
     return context.model!.loadCollection(
       read(
         context.model!.collectionProvider(applyModuleTag(path)),
       ),
-      once,
+      listen: listen,
+      disposable: disposable,
     );
   }
 
   /// Get the searchable collection model of [path] from the resource registered with Adapter.
-  ///
-  /// Setting `[once]' to `true' will retrieve data only once.
   DynamicSearchableCollectionModel readSearchableCollectionModel(String path) {
     final context = this as BuildContext;
 
@@ -91,8 +103,14 @@ extension WidgetRefModelExtensions on WidgetRef {
 
   /// Get the user document model of [path] from the resource registered with Adapter.
   ///
-  /// Setting `[once]' to `true' will retrieve data only once.
-  DynamicDocumentModel readUserDocumentModel([String userPath = Const.user]) {
+  /// Setting `[listen]' to `false' will retrieve data only once.
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  DynamicDocumentModel readUserDocumentModel({
+    bool listen = true,
+    bool disposable = false,
+    String userPath = Const.user,
+  }) {
     final context = this as BuildContext;
 
     return context.model!.loadDocument(
@@ -101,6 +119,8 @@ extension WidgetRefModelExtensions on WidgetRef {
           applyModuleTag("$userPath/${context.model?.userId}"),
         ),
       ),
+      listen: listen,
+      disposable: disposable,
     );
   }
 
@@ -109,7 +129,11 @@ extension WidgetRefModelExtensions on WidgetRef {
   /// After acquisition, monitor changes.
   ///
   /// Setting `[once]' to `true' will retrieve data only once.
-  DynamicDocumentModel watchDocumentModel(String path, [bool once = false]) {
+  DynamicDocumentModel watchDocumentModel(
+    String path, {
+    bool listen = true,
+    bool disposable = false,
+  }) {
     final context = this as BuildContext;
 
     return context.model!.loadDocument(
@@ -118,7 +142,8 @@ extension WidgetRefModelExtensions on WidgetRef {
           applyModuleTag(path),
         ),
       ),
-      once,
+      listen: listen,
+      disposable: disposable,
     );
   }
 
@@ -126,11 +151,14 @@ extension WidgetRefModelExtensions on WidgetRef {
   ///
   /// After acquisition, monitor changes.
   ///
-  /// Setting `[once]' to `true' will retrieve data only once.
+  /// Setting `[listen]' to `false' will retrieve data only once.
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
   DynamicCollectionModel watchCollectionModel(
-    String path, [
-    bool once = false,
-  ]) {
+    String path, {
+    bool listen = true,
+    bool disposable = false,
+  }) {
     final context = this as BuildContext;
 
     return context.model!.loadCollection(
@@ -139,15 +167,14 @@ extension WidgetRefModelExtensions on WidgetRef {
           applyModuleTag(path),
         ),
       ),
-      once,
+      listen: listen,
+      disposable: disposable,
     );
   }
 
   /// Get the searchable collection model of [path] from the resource registered with Adapter.
   ///
   /// After acquisition, monitor changes.
-  ///
-  /// Setting `[once]' to `true' will retrieve data only once.
   DynamicSearchableCollectionModel watchSearchableCollectionModel(String path) {
     final context = this as BuildContext;
 
@@ -162,8 +189,14 @@ extension WidgetRefModelExtensions on WidgetRef {
   ///
   /// After acquisition, monitor changes.
   ///
-  /// Setting `[once]' to `true' will retrieve data only once.
-  DynamicDocumentModel watchUserDocumentModel([String userPath = Const.user]) {
+  /// Setting `[listen]' to `false' will retrieve data only once.
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  DynamicDocumentModel watchUserDocumentModel({
+    bool listen = true,
+    bool disposable = false,
+    String userPath = Const.user,
+  }) {
     final context = this as BuildContext;
 
     return context.model!.loadDocument(
@@ -172,6 +205,8 @@ extension WidgetRefModelExtensions on WidgetRef {
           applyModuleTag("$userPath/${context.model?.userId}"),
         ),
       ),
+      listen: listen,
+      disposable: disposable,
     );
   }
 }

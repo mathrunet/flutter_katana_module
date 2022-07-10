@@ -31,8 +31,14 @@ abstract class ModelAdapter<
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
   ///
-  /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
-  TDocument loadDocument(TDocument document, [bool once = false]);
+  /// If you set [listen] to `false`, [loadOnce] is used even if the model can use [listen].
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  TDocument loadDocument(
+    TDocument document, {
+    bool listen = true,
+    bool disposable = false,
+  });
 
   /// Gets the provider of the [Collection].
   ///
@@ -51,18 +57,29 @@ abstract class ModelAdapter<
   /// Usually, you specify a method that can be executed only the first time,
   /// such as [loadOnce] or [listen].
   ///
-  /// If you set [once] to `true`, [loadOnce] is used even if the model can use [listen].
-  TCollection loadCollection(TCollection collection, [bool once = false]);
+  /// If you set [listen] to `false`, [loadOnce] is used even if the model can use [listen].
+  ///
+  /// If [disposable] is `true`, the widget is automatically disposed when it is destroyed.
+  TCollection loadCollection(
+    TCollection collection, {
+    bool listen = true,
+    bool disposable = false,
+  });
 
   /// Outputs the builder to be written by the transaction.
   ///
   /// Basically, it writes and deletes data for [collectionPath].
   ///
   /// You can add the corresponding element by specifying [linkedCollectionPath].
-  DatabaseTransactionBuilder transaction({
+  DatabaseTransactionBuilder collectionTransaction({
     required String collectionPath,
     String? linkedCollectionPath,
   });
+
+  /// Outputs the builder to be written by the transaction.
+  ///
+  /// Basically, it writes and deletes data for [documentPath].
+  DatabaseTransactionBuilder documentTransaction(String documentPath);
 
   /// Create a code of length [length] randomly for id.
   ///
