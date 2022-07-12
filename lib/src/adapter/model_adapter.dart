@@ -73,15 +73,15 @@ abstract class ModelAdapter<
   /// Reload the given [document].
   ///
   /// There is no effect with respect to the document being listened to.
-  TDocument reloadDocument(TDocument document);
+  Future<TDocument> reloadDocument(TDocument document);
 
   /// Reload the given [collection].
   ///
   /// There is no effect with respect to the collection being listened to.
-  TCollection reloadCollection(TCollection collection);
+  Future<TCollection> reloadCollection(TCollection collection);
 
   /// Loads data for the next cursor further in the [collection] that has been read.
-  TCollection loadNextCollection(TCollection collection);
+  Future<TCollection> loadNextCollection(TCollection collection);
 
   /// Outputs the builder to be written by the transaction.
   ///
