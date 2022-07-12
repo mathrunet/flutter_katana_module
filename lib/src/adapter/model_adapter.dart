@@ -70,6 +70,19 @@ abstract class ModelAdapter<
     bool listen = true,
   });
 
+  /// Reload the given [document].
+  ///
+  /// There is no effect with respect to the document being listened to.
+  TDocument reloadDocument(TDocument document);
+
+  /// Reload the given [collection].
+  ///
+  /// There is no effect with respect to the collection being listened to.
+  TCollection reloadCollection(TCollection collection);
+
+  /// Loads data for the next cursor further in the [collection] that has been read.
+  TCollection loadNextCollection(TCollection collection);
+
   /// Outputs the builder to be written by the transaction.
   ///
   /// Basically, it writes and deletes data for [collectionPath].
