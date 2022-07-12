@@ -13,7 +13,13 @@ abstract class StreamingAdapter<TModel extends StreamingModel>
   Future<void> initialize(BuildContext context);
 
   /// Get the model provider.
-  ChangeNotifierProvider<TModel> modelProvider(String path);
+  ProviderBase<TModel> modelProvider(String path);
+
+  /// True for streaming recording by default.
+  bool get enableRecordingByDefault;
+
+  /// True for screen capture by default.
+  bool get enableScreenCaptureByDefault;
 }
 
 /// Model for Streaming.
