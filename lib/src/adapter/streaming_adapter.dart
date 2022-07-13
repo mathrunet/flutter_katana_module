@@ -20,6 +20,10 @@ abstract class StreamingAdapter<TModel extends StreamingModel>
 
   /// True for screen capture by default.
   bool get enableScreenCaptureByDefault;
+
+  /// Checks permissions. If `false`, it cannot be used.
+  Future<bool> checkPermission(
+      {bool enableVideo = true, bool enableAudio = true});
 }
 
 /// Model for Streaming.
