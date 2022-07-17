@@ -21,6 +21,12 @@ abstract class StreamingAdapter<TModel extends StreamingModel>
   /// True for screen capture by default.
   bool get enableScreenCaptureByDefault;
 
+  /// URL for screen captures.
+  String screenCaptureURL(String path);
+
+  /// URL for screen captures.
+  String recordURL(String path);
+
   /// Checks permissions. If `false`, it cannot be used.
   Future<bool> checkPermission(
       {bool enableVideo = true, bool enableAudio = true});
