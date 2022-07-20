@@ -27,6 +27,9 @@ abstract class StreamingAdapter<TModel extends StreamingModel>
   /// URL for screen captures.
   String recordURL(String path);
 
+  /// Return True if recordURL is valid.
+  Future<bool> checkActiveRecordURL(String path);
+
   /// Checks permissions. If `false`, it cannot be used.
   Future<bool> checkPermission(
       {bool enableVideo = true, bool enableAudio = true});
@@ -130,6 +133,9 @@ abstract class StreamingModel<T> implements Model<T> {
 
   /// URL for screen captures.
   String get recordURL;
+
+  /// Return True if recordURL is valid.
+  Future<bool> checkActiveRecordURL();
 
   /// Gets the current local screen as a widget.
   Widget localScreen();

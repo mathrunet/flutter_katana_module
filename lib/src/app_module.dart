@@ -15,8 +15,6 @@ class AppModule extends Module implements ModuleHook {
     this.menus = const [],
     this.lightTheme,
     this.darkTheme,
-    this.widgetTheme,
-    this.imageTheme,
     this.themeMode = ThemeMode.system,
     this.initialPageTransition = PageTransition.fade,
     this.designType = DesignType.modern,
@@ -64,12 +62,6 @@ class AppModule extends Module implements ModuleHook {
 
   /// Theme Mode.
   final ThemeMode themeMode;
-
-  /// Widget theme.
-  final WidgetTheme? widgetTheme;
-
-  /// Image theme.
-  final ImageTheme? imageTheme;
 
   /// Initial page transition.
   final PageTransition initialPageTransition;
