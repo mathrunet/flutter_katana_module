@@ -136,7 +136,7 @@ abstract class PurchaseProductValueModel extends ValueModel<bool> {
   bool get enabled => value;
 
   /// Check if data is being loaded.
-  Future<void> get loading => Future.value();
+  Future<void>? get loading => Future.value();
 }
 
 final _purchaseProductValueModel =
