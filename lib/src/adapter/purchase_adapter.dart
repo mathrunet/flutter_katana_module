@@ -29,16 +29,17 @@ abstract class PurchaseAdapter<TProduct extends PurchaseProduct>
   /// Process the purchase.
   ///
   /// You specify the purchase product data in [product], the billing process will start.
-  Future<void> purchase(TProduct product);
+  ///
+  /// If [userId] is specified, the purchase will be made with that user ID.
+  Future<void> purchase(TProduct product, {String? userId});
 
   /// Get the [TProduct] list.
   List<TProduct> getRegisteredProducts();
 
-  /// Run it the first time the app is launched.
   @override
   @mustCallSuper
-  Future<void> onInit(BuildContext context) async {
-    await super.onInit(context);
+  Future<void> onAfterAuth(BuildContext context) async {
+    await super.onAfterAuth(context);
     await initialize(context);
   }
 }

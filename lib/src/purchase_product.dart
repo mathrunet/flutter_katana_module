@@ -47,11 +47,6 @@ class PurchaseProduct {
   /// Product price.
   final double price;
 
-  /// Check out if non-consumption items and subscriptions are valid.
-  ///
-  /// If true, billing is enabled.
-  bool get enabled => true;
-
   /// Product Id.
   String get productId => id;
 
@@ -63,6 +58,11 @@ class PurchaseProduct {
 
   /// The price of the item.
   String get productPrice => price.toString();
+
+  /// Get the model provider.
+  ProviderBase<PurchaseProductValueModel> get valueProvider {
+    return _purchaseProductValueModel(this);
+  }
 
   /// The equality operator.
   ///
@@ -116,4 +116,34 @@ class PurchaseProduct {
       name.hashCode ^
       text.hashCode ^
       price.hashCode;
+}
+
+/// A model of PurchaseProduct's real data.
+///
+/// By listening to this, the change in value can be read.
+abstract class PurchaseProductValueModel extends ValueModel<bool> {
+  PurchaseProductValueModel(
+    this.product, [
+    bool defaultValue = false,
+  ]) : super(defaultValue);
+
+  /// Tied products.
+  final PurchaseProduct product;
+
+  /// Check out if non-consumption items and subscriptions are valid.
+  ///
+  /// If true, billing is enabled.
+  bool get enabled => value;
+
+  /// Check if data is being loaded.
+  Future<void> get loading => Future.value();
+}
+
+final _purchaseProductValueModel =
+    ChangeNotifierProvider.family<_PurchaseProductValueModel, PurchaseProduct>(
+  (_, product) => _PurchaseProductValueModel(product),
+);
+
+class _PurchaseProductValueModel extends PurchaseProductValueModel {
+  _PurchaseProductValueModel(PurchaseProduct product) : super(product);
 }
