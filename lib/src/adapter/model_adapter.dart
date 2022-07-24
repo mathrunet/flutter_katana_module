@@ -134,7 +134,9 @@ abstract class ModelAdapter<
   Future<void> deleteDocument(TDocument document);
 
   /// Upload your media.
-  Future<String> uploadMedia(String path);
+  ///
+  /// Folder can be specified by specifying [folderPath].
+  Future<String> uploadMedia(String path, [String? folderPath]);
 
   /// Used to restore your login information.
   Future<void> tryRestoreAuth();
